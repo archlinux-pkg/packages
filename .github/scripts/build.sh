@@ -92,5 +92,5 @@ then
     --name $CONTAINER_NAME \
     --volume $(pwd):/home/archlinux-pkg \
     medzik/archlinux:latest \
-    bash "sudo chown -R build /home/archlinux-pkg && cd /home/archlinux-pkg && ./build-package.sh $(cat ./built_packages.txt)"
+    /home/archlinux-pkg/.github/scripts/entrypoint.sh
 fi
