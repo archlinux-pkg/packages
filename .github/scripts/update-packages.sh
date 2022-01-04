@@ -46,7 +46,7 @@ do
       )
 
       eval "$custom_vars"
-    do
+    fi
 
     if [ pkg_tag != latest_tag ]
     then
