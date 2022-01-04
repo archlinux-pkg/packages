@@ -90,12 +90,11 @@ if [ -f ./built_packages.txt ]
 then
   sudo docker run \
     --detach \
-    --tty \
     --name $CONTAINER_NAME \
     --volume $(pwd):/home/build/archlinux-pkg \
     medzik/archlinux:latest
 
-  sudo docker exec --tty $CONTAINER_NAME sudo chown -R build /home/build/archlinux-pkg
+  sudo docker exec $CONTAINER_NAME sudo chown -R build /home/build/archlinux-pkg
 
-  sudo docker exec --interactive --tty $CONTAINER_NAME ./build-package.sh $(cat ./built_packages.txt)
+  sudo docker exec --interactive $CONTAINER_NAME ./build-package.sh $(cat ./built_packages.txt)
 fi
