@@ -3,7 +3,7 @@
 _repo='wummel/patool'
 
 _pkgver() {
-  curl --location --silent "https://api.github.com/repos/$_repo/tags" | jq -r '.[0].name'
+  curl --location --silent -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/$_repo/tags" | jq -r '.[0].name'
 }
 
 _ver=$(_pkgver)
