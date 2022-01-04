@@ -89,7 +89,6 @@ cat ./built_packages.txt
 if [ -f ./built_packages.txt ]
 then
   sudo docker run \
-    --detach \
     --name $CONTAINER_NAME \
     --volume $(pwd):/home/build/archlinux-pkg \
     medzik/archlinux:latest \
