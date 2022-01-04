@@ -92,7 +92,8 @@ then
     --detach \
     --tty \
     --name $CONTAINER_NAME \
-    --volume $(pwd):/home/build/archlinux-pkg
+    --volume $(pwd):/home/build/archlinux-pkg \
+    medzik/archlinux:latest
 
   sudo docker exec --tty $CONTAINER_NAME sudo chown -R build /home/build/archlinux-pkg
 
