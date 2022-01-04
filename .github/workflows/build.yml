@@ -1,0 +1,33 @@
+name: Packages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/**'
+
+  pull_request:
+    paths:
+      - 'packages/**'
+
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: "A space-separated names of packages selected for rebuilding"
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1000
+
+      - name: Build
+        run: ./.github/scripts/build.sh
+        env:
+          github_event: ${{ github.event_name }}

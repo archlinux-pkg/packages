@@ -1,0 +1,4 @@
+Server = https://arch-repo.magicuser.cf
+
+# Hosted on Github Releases (Updated every ~1h)
+Server = https://github.com/MedzikUser/archlinux-repo/releases/download/latest

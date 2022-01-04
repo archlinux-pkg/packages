@@ -1,0 +1,21 @@
+# Maintainer: MedzikUser
+pkgname='medzikuser-mirrorlist'
+pkgver=2021.12.22
+pkgrel=1
+pkgdesc='MedzikUser repo mirrorlist to use with Pacman'
+arch=('any')
+url='https://arch-repo.magicuser.cf'
+license=('GPL2')
+backup=('etc/pacman.d/medzikuser-mirrorlist')
+source=('mirrorlist')
+sha256sums=('de6a0e2fdc2ed40d41f200315534d94fc469c193913ced7feef63679aa469d85')
+
+updatelist() {
+  rm -f mirrorlist
+  curl -o mirrorlist "$url/mirrorlist.txt"
+}
+
+package() {
+  mkdir -p "$pkgdir/etc/pacman.d"
+  install -m644 "$srcdir/mirrorlist" "$pkgdir/etc/pacman.d/medzikuser-mirrorlist"
+}
