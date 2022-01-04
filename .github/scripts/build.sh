@@ -84,6 +84,8 @@ sudo apt purge -yq $(dpkg -l | grep '^ii' | awk '{ print $2 }' | grep -P '(cabal
 sudo apt autoremove -yq
 sudo rm -rf /opt/hostedtoolcache /usr/local /usr/share/dotnet /usr/share/swift
 
+cat ./built_packages.txt
+
 if [ -f ./built_packages.txt ]
 then
   sudo docker run \
