@@ -61,7 +61,7 @@ then
     fi
   done<<<${CHANGED_FILES}
 else
-  for pkg in ${{ github.event.inputs.packages }}
+  for pkg in ${github_inputs_packages}
   do
     echo "$pkg" >> ./built_packages.txt
   done
@@ -79,10 +79,10 @@ then
 fi
 
 echo "Free additional disk space on host"
-sudo apt purge -yq $(dpkg -l | grep '^ii' | awk '{ print $2 }' | grep -P '(cabal-|dotnet-|ghc-|libmono|php)') \
-  liblldb-6.0 libllvm6.0:amd64 mono-runtime-common monodoc-manual powershell ruby
-sudo apt autoremove -yq
-sudo rm -rf /opt/hostedtoolcache /usr/local /usr/share/dotnet /usr/share/swift
+#sudo apt purge -yq $(dpkg -l | grep '^ii' | awk '{ print $2 }' | grep -P '(cabal-|dotnet-|ghc-|libmono|php)') \
+#  liblldb-6.0 libllvm6.0:amd64 mono-runtime-common monodoc-manual powershell ruby
+#sudo apt autoremove -yq
+#sudo rm -rf /opt/hostedtoolcache /usr/local /usr/share/dotnet /usr/share/swift
 
 cat ./built_packages.txt
 
@@ -96,6 +96,5 @@ then
 
   sudo docker exec --tty $CONTAINER_NAME sudo chown -R build /home/build/archlinux-pkg
 
-  sudo docker exec --interactive --tty $CONTAINER_NAME bash
   sudo docker exec --interactive --tty $CONTAINER_NAME ./build-package.sh $(cat ./built_packages.txt)
 fi

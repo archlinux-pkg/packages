@@ -31,3 +31,4 @@ jobs:
         run: ./.github/scripts/build.sh
         env:
           github_event: ${{ github.event_name }}
+          github_inputs_packages: ${{ github.event.inputs.packages }}
