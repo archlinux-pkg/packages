@@ -29,7 +29,7 @@ fi
 
 mkdir -p ./pkgs
 
-if [ "${{ github.event_name }}" != "workflow_dispatch" ]
+if [ "$github_event" != "workflow_dispatch" ]
 then
   # Process tag '%ci:no-build' that may be added as line to commit message.
   # Forces CI to cancel current build with status 'passed'.
