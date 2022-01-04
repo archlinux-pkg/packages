@@ -1,0 +1,35 @@
+# Maintainer: MedzikUser
+
+_repo='AdnanHodzic/auto-cpufreq'
+_ver=v1.9.0
+
+_pkgname='auto-cpufreq'
+pkgname="$_pkgname"
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+pkgver=1.9.0
+pkgrel=2
+pkgdesc='Automatic CPU speed & power optimizer'
+arch=('any')
+url="https://github.com/$_repo"
+license=('LGPL3')
+depends=('python' 'python-distro' 'python-psutil' 'python-click' 'dmidecode')
+optdepends=('cpufreqctl: CPU Power Manager')
+source=("$_pkgname::git+$url#tag=$_ver")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir/$_pkgname"
+  python setup.py build
+}
+
+package() {
+  cd "$srcdir/$_pkgname"
+
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README"
+  install -Dm755 scripts/cpufreqctl.sh -t "$pkgdir/usr/share/$pkgname/scripts"
+  install -Dm644 "scripts/$pkgname.service" -t "$pkgdir/usr/lib/systemd/system"
+}

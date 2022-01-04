@@ -1,0 +1,36 @@
+# Maintainer: MedzikUser
+
+_repo='wummel/patool'
+_ver=upstream/1.12
+
+_pkgname='patool'
+pkgname="$_pkgname"
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+pkgver=1.12
+pkgrel=2
+pkgdesc='patool is a portable command line archive file manager'
+arch=('any')
+url="https://github.com/$_repo"
+license=('GPL3')
+depends=('python')
+makedepends=('python-setuptools')
+optdepends=(
+  'tar: extracting TAR files'
+  'unrar: extracting RAR files'
+  'p7zip: extracting ZIP and 7z files'
+)
+source=("$_pkgname::git+$url#tag=$_ver")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir/$_pkgname"
+  python setup.py build
+}
+
+package() {
+  cd "$srcdir/$_pkgname"
+
+  python setup.py install --root="$pkgdir" --prefix=/usr --optimize=1 --skip-build
+  install -Dm 644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

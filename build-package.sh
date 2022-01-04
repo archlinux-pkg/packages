@@ -1,16 +1,16 @@
 #!/bin/bash
 
-set -e -o pipefail -u
-
 SRCDIR=/home/archlinux-pkg
 
 export PKGDEST="$SRCDIR/pkgs"
 
 declare -a PACKAGE_LIST=()
 
+declare -a BUILD_FAIL=()
+
 if [ "$#" -lt 1 ]
 then
-  printf "./build-package.sh: type package to build\n"
+  printf "./build-package.sh: type package name to build\n"
   exit 2
 fi
 
@@ -25,7 +25,7 @@ do
       PACKAGE_LIST+=("$1")
       ;;
   esac
-	shift 1
+  shift 1
 done
 
 for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
@@ -33,4 +33,23 @@ do
   cd ${SRCDIR}/packages/${PACKAGE_LIST[i]}
 
   time makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+
+  code=$?
+
+  if [ ${code} != 0 ]
+  then
+    BUILD_FAIL+=("${PACKAGE_LIST[i]} | exit code: ${code}")
+  fi
 done
+
+failed_pkg=${#BUILD_FAIL[@]}
+
+if [ failed_pkg -gt 0 ]
+then
+  echo "Failed to build: (${failed_pkg})"
+
+  for ((i=0; i<${#BUILD_FAIL[@]}; i++))
+  do
+    echo "${i}) ${BUILD_FAIL[i]} | exit code: ${code}"
+  done
+fi
