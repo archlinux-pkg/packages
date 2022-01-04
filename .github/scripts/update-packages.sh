@@ -65,5 +65,17 @@ do
       git pull --rebase
       git push
     fi
+  else
+    pkg_name=$(basename ${pkg_dir})
+
+    cd "${pkg_dir}"
+
+    git fetch > /dev/null
+    git reset --hard origin/master > /dev/null
+
+    git add ${pkg_dir}
+    git commit -m "update submodule '${pkg_name}'"
+    git pull --rebase
+    git push
   fi
 done

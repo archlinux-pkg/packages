@@ -1,0 +1,6 @@
+[submodule "packages/yay"]
+	path = packages/yay
+	url = https://aur.archlinux.org/yay.git
+[submodule "packages/mangohud"]
+	path = packages/mangohud
+	url = https://aur.archlinux.org/mangohud.git
