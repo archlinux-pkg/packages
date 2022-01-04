@@ -50,14 +50,16 @@ do
 
     if [ pkg_tag != latest_tag ]
     then
-      echo "Updating '${pkg_dir}' to '${latest_tag}'."
+      pkg_name=$(basename ${pkg_dir})
+
+      echo "Updating '${pkg_name}' to '${latest_tag}'."
 
       sed -i "s/^\(_ver=\)\(.*\)\$/\1${latest_tag}/g" "${pkg_dir}/PKGBUILD"
       sed -i "s/^\(pkgver=\)\(.*\)\$/\1${version}/g" "${pkg_dir}/PKGBUILD"
       sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "${pkg_dir}/PKGBUILD"
 
       git add ${pkg_dir}
-      git commit -m "update ${pkg_dir}"
+      git commit -m "update '${pkg_name}' to '${latest_tag}'"
       git pull --rebase
       git push
     fi
