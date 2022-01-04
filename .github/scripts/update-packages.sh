@@ -56,8 +56,8 @@ do
 
       echo "Updating '${pkg_name}' to '${latest_tag}'."
 
-      sed -i "s/^\(_ver=\)\(.*\)\$/\1${latest_tag}/g" "${pkg_dir}/PKGBUILD"
-      sed -i "s/^\(pkgver=\)\(.*\)\$/\1${version}/g" "${pkg_dir}/PKGBUILD"
+      sed -i "s|^\(_ver=\)\(.*\)\$|\1${latest_tag}|g" "${pkg_dir}/PKGBUILD"
+      sed -i "s|^\(pkgver=\)\(.*\)\$|\1${version}|g" "${pkg_dir}/PKGBUILD"
       git diff-index --quiet HEAD || sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "${pkg_dir}/PKGBUILD"
 
       git add ${pkg_dir}
