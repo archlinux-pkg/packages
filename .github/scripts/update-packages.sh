@@ -39,17 +39,15 @@ do
         . "${pkg_dir}/_version"
         echo "latest_tag=${_ver};"
         echo "version=\"${pkgver}\";"
-        echo "pkg_repo=\"${_repo}\";"
       )
 
       eval "$custom_vars"
     fi
 
-    if [ ! -z "$latest_tag" ] || [ "${latest_tag}" != "null" ]
+    if [ -z "$latest_tag" ] || [ "${latest_tag}" = "null" ]
     then
-      continue
-    else
       echo "Error: failed to get the latest version for '${pkg_dir}'. Version returned 'null'."
+      continue
     fi
 
     if [ "$pkg_tag" != "$latest_tag" ]
