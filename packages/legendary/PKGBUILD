@@ -2,6 +2,7 @@
 
 _repo='derrod/legendary'
 _ver=0.20.22
+_auto_update=true
 
 _pkgname='legendary'
 pkgname="$_pkgname"

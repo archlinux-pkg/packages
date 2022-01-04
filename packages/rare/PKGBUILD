@@ -2,6 +2,7 @@
 
 _repo='Dummerle/Rare'
 _ver=1.8.4
+_auto_update=true
 
 _pkgname='rare'
 pkgname="$_pkgname"

@@ -2,6 +2,7 @@
 
 _repo='AdnanHodzic/auto-cpufreq'
 _ver=v1.9.0
+_auto_update=true
 
 _pkgname='auto-cpufreq'
 pkgname="$_pkgname"

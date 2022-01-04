@@ -1,13 +1,14 @@
 # Maintainer: MedzikUser
 
 _repo='wummel/patool'
-_ver=upstream/1.12
+_ver=upstream/1.11
+_auto_update=true
 
 _pkgname='patool'
 pkgname="$_pkgname"
 provides=("$_pkgname")
 conflicts=("$_pkgname")
-pkgver=1.12
+pkgver=1.11
 pkgrel=2
 pkgdesc='patool is a portable command line archive file manager'
 arch=('any')

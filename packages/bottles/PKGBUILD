@@ -2,6 +2,7 @@
 
 _repo='bottlesdevs/Bottles'
 _ver=2021.12.28-treviso
+_auto_update=true
 
 _pkgname='bottles'
 pkgname="$_pkgname"

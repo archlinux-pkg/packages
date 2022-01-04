@@ -2,6 +2,7 @@
 
 _repo='sigma67/ytmusicapi'
 _ver=0.20.0
+_auto_update=true
 
 _pkgname='ytmusicapi'
 pkgname="python-$_pkgname"

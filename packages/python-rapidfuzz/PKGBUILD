@@ -2,6 +2,7 @@
 
 _repo='maxbachmann/rapidfuzz'
 _ver=v1.9.1
+_auto_update=true
 
 _pkgname='rapidfuzz'
 pkgname="python-$_pkgname"

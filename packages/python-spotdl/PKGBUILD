@@ -2,6 +2,7 @@
 
 _repo='spotDL/spotify-downloader'
 _ver=v3.9.2
+_auto_update=true
 
 _pkgname='spotdl'
 pkgname="python-$_pkgname"

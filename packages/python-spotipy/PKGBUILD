@@ -2,6 +2,7 @@
 
 _repo='plamere/spotipy'
 _ver=2.19.0
+_auto_update=true
 
 _pkgname='spotipy'
 pkgname="python-$_pkgname"
