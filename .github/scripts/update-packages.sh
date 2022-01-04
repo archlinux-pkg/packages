@@ -52,9 +52,9 @@ do
     then
       echo "Updating '${pkg_dir}' to '${latest_tag}'."
 
-      sed -i "s/^\(_ver=\)\(.*\)\$/\1${latest_tag}/g"
-      sed -i "s/^\(pkgver=\)\(.*\)\$/\1${version}/g"
-      sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g"
+      sed -i "s/^\(_ver=\)\(.*\)\$/\1${latest_tag}/g" "${pkg_dir}/PKGBUILD"
+      sed -i "s/^\(pkgver=\)\(.*\)\$/\1${version}/g" "${pkg_dir}/PKGBUILD"
+      sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "${pkg_dir}/PKGBUILD"
 
       git add ${pkg_dir}
       git commit -m "update ${pkg_dir}"
