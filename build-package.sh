@@ -2,7 +2,7 @@
 
 set -e -o pipefail -u
 
-SRCDIR=$HOME/archlinux-pkg
+SRCDIR=/home/archlinux-pkg
 
 export PKGDEST="$SRCDIR/pkgs"
 
