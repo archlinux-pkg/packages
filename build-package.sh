@@ -30,7 +30,7 @@ done
 
 for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
-  cd ${SRCDIR}/${PACKAGE_LIST[i]}
+  cd ${SRCDIR}/packages/${PACKAGE_LIST[i]}
 
   time makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 done
