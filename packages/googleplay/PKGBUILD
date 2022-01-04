@@ -1,0 +1,48 @@
+# Maintainer: MedzikUser
+
+_repo='89z/googleplay'
+_ver=v1.4.9
+_auto_update=true
+
+_pkgname='googleplay'
+pkgname="$_pkgname"
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+pkgver=1.4.9
+pkgrel=1
+pkgdesc='Download APK or send API requests'
+arch=('x86_64')
+url="https://github.com/$_repo"
+license=('OSL3')
+depends=('go')
+makedepends=('git' 'go')
+source=("$_pkgname::git+$url#tag=$_ver")
+sha256sums=('SKIP')
+
+build() {
+  cd "$_pkgname"
+
+  local _flags
+  _flags=(
+    -s -w
+  )
+
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
+  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -modcacherw"
+
+  go build \
+    -v \
+    -ldflags "${_flags[*]}" \
+    -o bin/$_pkgname \
+    ./cmd/$_pkgname
+}
+
+package() {
+  cd "$_pkgname"
+
+  install -Dm 755 bin/$_pkgname "$pkgdir/usr/bin/$_pkgname"
+  install -Dm 644 license.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

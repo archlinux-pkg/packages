@@ -1,0 +1,49 @@
+# Maintainer: MedzikUser
+
+_repo='cloudflare/cloudflared'
+_ver=2021.12.4
+_auto_update=true
+
+_pkgname='cloudflared'
+pkgname="$_pkgname"
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+pkgver=2021.12.4
+pkgrel=2
+pkgdesc='Cloudflare Tunnel client (formerly Argo Tunnel)'
+arch=('x86_64')
+url="https://github.com/$_repo"
+license=('custom')
+makedepends=('git' 'go')
+source=("$_pkgname::git+$url#tag=$_ver")
+sha256sums=('SKIP')
+
+build() {
+  cd "$_pkgname"
+
+  local _flags
+  _flags=(
+    -s -w
+    -X main.Version="$pkgver"
+    -X main.BuildTime="$(date +%Y.%m.%d-%H:%M:%S)"
+  )
+
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
+  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -modcacherw"
+
+  go build \
+    -v \
+    -ldflags "${_flags[*]}" \
+    -o bin/$_pkgname \
+    ./cmd/cloudflared
+}
+
+package() {
+  cd "$_pkgname"
+
+  install -Dm 755 bin/$_pkgname "$pkgdir/usr/bin/$_pkgname"
+  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

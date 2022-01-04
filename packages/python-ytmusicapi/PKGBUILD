@@ -15,7 +15,7 @@ arch=('any')
 url="https://github.com/$_repo"
 license=('MIT')
 depends=('python-requests')
-makedepends=('jq' 'git' 'python-setuptools')
+makedepends=('git' 'python-setuptools')
 source=("$_pkgname::git+$url#tag=$_ver")
 sha256sums=('SKIP')
 
