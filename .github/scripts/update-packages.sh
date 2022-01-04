@@ -45,8 +45,10 @@ do
       eval "$custom_vars"
     fi
 
-    if [ -z "$latest_tag" ] || [ "${latest_tag}" = "null" ]
+    if [ ! -z "$latest_tag" ] || [ "${latest_tag}" != "null" ]
     then
+      continue
+    else
       echo "Error: failed to get the latest version for '${pkg_dir}'. Version returned 'null'."
     fi
 
