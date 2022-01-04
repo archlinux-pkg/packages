@@ -2,7 +2,7 @@
 
 CONTAINER_NAME=archlinux-pkg-builder
 
-if [ "$github_event" != "workflow_dispatch" ]\
+if [ "$github_event" != "workflow_dispatch" ]
 then
   BASE_COMMIT=$(jq --raw-output .pull_request.base.sha "$GITHUB_EVENT_PATH")
   OLD_COMMIT=$(jq --raw-output .commits[0].id "$GITHUB_EVENT_PATH")
