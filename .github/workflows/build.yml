@@ -35,7 +35,7 @@ jobs:
 
       - name: Packages Size
         if: always()
-        run: xz -l *.xz
+        run: xz -l pkgs/*.xz
 
       - name: Upload to Repo
         if: always() && github.event_name != 'pull_request'

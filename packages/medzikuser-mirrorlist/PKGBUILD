@@ -1,7 +1,7 @@
 # Maintainer: MedzikUser
 
 pkgname='medzikuser-mirrorlist'
-pkgver=2021.12.22
+pkgver=2022.1.4
 pkgrel=1
 pkgdesc='MedzikUser repo mirrorlist to use with Pacman'
 arch=('any')
