@@ -31,3 +31,27 @@
 [submodule "packages/aic94xx-firmware"]
 	path = packages/aic94xx-firmware
 	url = https://aur.archlinux.org/aic94xx-firmware.git
+[submodule "packages/onlyoffice-bin"]
+	path = packages/onlyoffice-bin
+	url = https://aur.archlinux.org/onlyoffice-bin.git
+[submodule "packages/lib32-nvidia-470xx-utils"]
+	path = packages/lib32-nvidia-470xx-utils
+	url = https://aur.archlinux.org/lib32-nvidia-470xx-utils.git
+[submodule "packages/nvidia-470xx-settings"]
+	path = packages/nvidia-470xx-settings
+	url = https://aur.archlinux.org/nvidia-470xx-settings.git
+[submodule "packages/nvidia-470xx-utils"]
+	path = packages/nvidia-470xx-utils
+	url = https://aur.archlinux.org/nvidia-470xx-utils.git
+[submodule "packages/android-platform"]
+	path = packages/android-platform
+	url = https://aur.archlinux.org/android-platform.git
+[submodule "packages/android-sdk-build-tools"]
+	path = packages/android-sdk-build-tools
+	url = https://aur.archlinux.org/android-sdk-build-tools.git
+[submodule "packages/android-sdk-cmdline-tools-latest"]
+	path = packages/android-sdk-cmdline-tools-latest
+	url = https://aur.archlinux.org/android-sdk-cmdline-tools-latest.git
+[submodule "packages/android-sdk-platform-tools"]
+	path = packages/android-sdk-platform-tools
+	url = https://aur.archlinux.org/android-sdk-platform-tools.git
