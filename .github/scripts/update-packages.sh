@@ -27,7 +27,7 @@ do
       latest_tag=$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${pkg_repo}/releases/latest" | jq -r .tag_name)
 
       # If the github api returns error
-      if [ -z "$latest_tag" ] || [ "${latest_tag}" = "null" ]
+      if [ -z "${latest_tag}" ] || [ "${latest_tag}" = "null" ]
       then
         echo "Error: failed to get the latest release tag for '${pkg_dir}'. GitHub API returned 'null' which indicates that no releases available."
         continue
@@ -42,16 +42,16 @@ do
         echo "version=\"${pkgver}\";"
       )
 
-      eval "$custom_vars"
+      eval "${custom_vars}"
     fi
 
-    if [ -z "$latest_tag" ] || [ "${latest_tag}" = "null" ]
+    if [ -z "${latest_tag}" ] || [ "${latest_tag}" = "null" ]
     then
       echo "Error: failed to get the latest version for '${pkg_dir}'. Version returned 'null'."
       continue
     fi
 
-    if [ "$pkg_tag" != "$latest_tag" ]
+    if [ "${pkg_tag}" != "${latest_tag}" ]
     then
       pkg_name=$(basename ${pkg_dir})
 
@@ -73,6 +73,8 @@ do
 
     git fetch > /dev/null
     git reset --hard origin/master > /dev/null
+
+    cd "${BASEDIR}"
 
     git add ${pkg_dir}
     git commit -m "update submodule '${pkg_name}'"
