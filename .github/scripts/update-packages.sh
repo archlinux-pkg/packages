@@ -30,6 +30,7 @@ do
       if [ -z "$latest_tag" ] || [ "${latest_tag}" = "null" ]
       then
         echo "Error: failed to get the latest release tag for '${pkg_dir}'. GitHub API returned 'null' which indicates that no releases available."
+        continue
       fi
 
       ver_a=${latest_tag#[v,r]}

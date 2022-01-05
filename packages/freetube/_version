@@ -1,9 +1,10 @@
 #!/bin/bash
 
-_repo='wummel/patool'
+_repo='FreeTubeApp/FreeTube'
 _pkgver() {
   curl --location --silent -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/$_repo/tags" | jq -r '.[0].name'
 }
 
 _ver=$(_pkgver)
-pkgver=${_ver//upstream\//}
+_ver1=${_ver//-/_/}
+pkgver=${_ver1#[v,r]}
