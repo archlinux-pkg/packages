@@ -6,5 +6,5 @@ _pkgver() {
 }
 
 _ver=$(_pkgver)
-_ver1=${_ver//-/_/}
+_ver1=${_ver//-/_}
 pkgver=${_ver1#[v,r]}
