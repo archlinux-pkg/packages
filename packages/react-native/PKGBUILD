@@ -1,0 +1,34 @@
+# Maintainer: MedzikUser
+
+_npm='react-native'
+_ver=0.66.3
+_auto_update=true
+
+_pkgname="$_npm"
+pkgname="$_pkgname"
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+pkgver=0.66.3
+pkgrel=2
+pkgdesc='A framework for building native apps using React'
+arch=('any')
+url="https://www.npmjs.com/package/$_npm"
+license=('MIT')
+depends=('nodejs')
+makedepends=('npm')
+_file="$_npm-$pkgver.tgz"
+source=("https://registry.npmjs.org/$_npm/-/$_file")
+noextract=("$_file")
+sha256sums=('SKIP')
+
+package() {
+  npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
+
+  # Non-deterministic race in npm gives 777 permissions to random directories.
+  # See https://github.com/npm/npm/issues/9359 for details.
+  chmod -R u=rwX,go=rX "$pkgdir"
+
+  # npm installs package.json owned by build user
+  # https://bugs.archlinux.org/task/63396
+  chown -R root:root "$pkgdir"
+}
