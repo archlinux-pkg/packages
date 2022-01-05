@@ -55,3 +55,9 @@
 [submodule "packages/android-sdk-platform-tools"]
 	path = packages/android-sdk-platform-tools
 	url = https://aur.archlinux.org/android-sdk-platform-tools.git
+[submodule "packages/linux-xanmod"]
+	path = packages/linux-xanmod
+	url = https://aur.archlinux.org/linux-xanmod.git
+[submodule "packages/linux-xanmod-tt"]
+	path = packages/linux-xanmod-tt
+	url = https://aur.archlinux.org/linux-xanmod-tt.git
