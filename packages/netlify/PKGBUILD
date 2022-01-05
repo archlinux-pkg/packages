@@ -1,14 +1,14 @@
 # Maintainer: MedzikUser
 
 _npm='netlify'
-_ver=4.4.0
+_ver=10.1.1
 _auto_update=true
 
 _pkgname="$_npm"
 pkgname="$_pkgname"
 provides=("$_pkgname")
 conflicts=("$_pkgname")
-pkgver=4.4.0
+pkgver=10.1.1
 pkgrel=1
 pkgdesc='Netlify Node.js API client'
 arch=('any')
