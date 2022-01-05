@@ -1,15 +1,15 @@
 # Maintainer: MedzikUser
 
 _npm='react-native'
-_ver=0.66.3
+_ver=0.66.4
 _auto_update=true
 
 _pkgname="$_npm"
 pkgname="$_pkgname"
 provides=("$_pkgname")
 conflicts=("$_pkgname")
-pkgver=0.66.3
-pkgrel=2
+pkgver=0.66.4
+pkgrel=1
 pkgdesc='A framework for building native apps using React'
 arch=('any')
 url="https://www.npmjs.com/package/$_npm"
