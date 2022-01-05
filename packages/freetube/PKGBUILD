@@ -6,7 +6,7 @@ _auto_update=true
 
 pkgname='freetube'
 pkgdesc='An Open Source YouTube app for privacy'
-pkgver=0.15.1_/beta
+pkgver=0.15.1_beta
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/$_repo"
