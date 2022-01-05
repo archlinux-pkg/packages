@@ -42,14 +42,7 @@ do
   fi
 done
 
-failed_pkg=${#BUILD_FAIL[@]}
-
-if [ failed_pkg -gt 0 ]
-then
-  echo "Failed to build: (${failed_pkg})"
-
-  for ((i=0; i<${#BUILD_FAIL[@]}; i++))
-  do
-    echo "${i}) ${BUILD_FAIL[i]} | exit code: ${code}"
-  done
-fi
+for ((i=0; i<${#BUILD_FAIL[@]}; i++))
+do
+  echo "Failed to build: ${i}) ${BUILD_FAIL[i]} | exit code: ${code}"
+done
