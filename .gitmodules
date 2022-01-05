@@ -4,3 +4,12 @@
 [submodule "packages/mangohud"]
 	path = packages/mangohud
 	url = https://aur.archlinux.org/mangohud.git
+[submodule "packages/flutter"]
+	path = packages/flutter
+	url = https://aur.archlinux.org/flutter.git
+[submodule "packages/brave-bin"]
+	path = packages/brave-bin
+	url = https://aur.archlinux.org/brave-bin.git
+[submodule "packages/brave-nightly-bin"]
+	path = packages/brave-nightly-bin
+	url = https://aur.archlinux.org/brave-nightly-bin.git
