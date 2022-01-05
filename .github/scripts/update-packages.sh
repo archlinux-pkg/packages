@@ -77,7 +77,7 @@ do
     cd "${BASEDIR}"
 
     git add ${pkg_dir}
-    git commit -m "update submodule '${pkg_name}'"
+    git diff-index --quiet HEAD || git commit -m "update submodule '${pkg_name}'"
     git pull --rebase
     git push
   fi
