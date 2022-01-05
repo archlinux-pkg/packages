@@ -1,0 +1,21 @@
+# Maintainer: MedzikUser
+
+_repo='daniruiz/flat-remix-gtk'
+_ver=$(_pkgver)
+_auto_update=true
+
+pkgname='gtk-theme-flat-remix'
+pkgver=${_ver//v/}
+pkgrel=2
+pkgdesc='Flat Remix is a GTK application theme inspired by material design. It is mostly flat using a colorful palette with some shadows, highlights, and gradients for some depth.'
+arch=('any')
+url="https://github.com/${_repo}"
+license=('GPL3')
+makedepends=('jq' 'git')
+source=("${pkgname}::git+${url}.git#tag=${_ver}")
+sha256sums=('SKIP')
+
+package() {
+  cd "${pkgname}"
+  make DESTDIR="${pkgdir}" install
+}

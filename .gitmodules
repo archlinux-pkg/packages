@@ -13,3 +13,9 @@
 [submodule "packages/brave-nightly-bin"]
 	path = packages/brave-nightly-bin
 	url = https://aur.archlinux.org/brave-nightly-bin.git
+[submodule "packages/teams"]
+	path = packages/teams
+	url = https://aur.archlinux.org/teams.git
+[submodule "packages/discord_arch_electron"]
+	path = packages/discord_arch_electron
+	url = https://aur.archlinux.org/discord_arch_electron.git
