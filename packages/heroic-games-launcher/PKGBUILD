@@ -1,0 +1,39 @@
+# Maintainer: MedzikUser
+
+_repo='Heroic-Games-Launcher/HeroicGamesLauncher'
+_ver=$(_pkgver)
+_auto_update=true
+
+pkgname='heroic-games-launcher'
+pkgdesc='A Native GUI Epic Games Launcher for Linux, Windows and Mac'
+pkgver=${_ver//v/}
+pkgrel=1
+arch=('x86_64')
+url="https://github.com/$_repo"
+license=('GPL3')
+makedepends=('git' 'nodejs' 'yarn' 'npm' 'typescript')
+optdepends=('legendary')
+source=("$pkgname::git+$url#tag=$_ver")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir/$pkgname"
+
+  # Install depends
+  yarn --cache-folder "$srcdir/yarn-cache"
+
+  # Build
+  yarn dist pacman
+}
+
+package() {
+  cd "$srcdir/$pkgname/dist"
+
+  # Unpack package
+  mkdir "pacman_unpack"
+  tar xf heroic-*.pacman -C "pacman_unpack"
+
+  # Install
+  cd "pacman_unpack"
+  cp -r --no-preserve=ownership --preserve=mode "usr" "opt" "$pkgdir"
+}

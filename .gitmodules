@@ -22,3 +22,12 @@
 [submodule "packages/ventoy-bin"]
 	path = packages/ventoy-bin
 	url = https://aur.archlinux.org/ventoy-bin.git
+[submodule "packages/upd72020x-fw"]
+	path = packages/upd72020x-fw
+	url = https://aur.archlinux.org/upd72020x-fw.git
+[submodule "packages/wd719x-firmware"]
+	path = packages/wd719x-firmware
+	url = https://aur.archlinux.org/wd719x-firmware.git
+[submodule "packages/aic94xx-firmware"]
+	path = packages/aic94xx-firmware
+	url = https://aur.archlinux.org/aic94xx-firmware.git

@@ -1,0 +1,129 @@
+# Maintainer: MedzikUser
+
+_repo='VSCodium/vscodium'
+_auto_update=true
+_ver=0.0.0
+
+pkgname='codium'
+pkgdesc='Free/Libre Open Source Software Binaries of VSCode'
+pkgver=$(_pkgver)
+pkgrel=1
+arch=('x86_64')
+microsofturl='https://github.com/microsoft/vscode'
+url="https://github.com/$_repo"
+license=('MIT')
+_electron='electron13'
+depends=($_electron 'libsecret' 'libx11' 'libxkbfile' 'ripgrep')
+makedepends=(
+  'nodejs-lts-gallium'
+  'gulp'
+  'yarn'
+  'npm'
+  'libxdmcp'
+  'git'
+  'git-lfs'
+  'patch'
+  'python'
+  'pkg-config'
+)
+optdepends=(
+  'bash-completion: Bash completions'
+  'zsh-completions: ZSH completitons'
+  'x11-ssh-askpass: SSH authentication'
+  'org.freedesktop.secrets: Keyring password store support'
+  'codium-features: Unblock some features in VSCodium'
+  'codium-marketplace: Enable VS-Code marketplace in VSCodium'
+)
+provides=("codium=$pkgver" "vscodium=$pkgver")
+source=(
+  "vscodium::git+$url#tag=$_ver"
+  "vscode::git+$microsofturl#tag=$pkgver"
+  "$pkgname.desktop"
+  "$pkgname-uri-handler.desktop"
+  "$pkgname.js"
+  "$pkgname.sh"
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+)
+
+# Even though we don't officially support other archs, let's allow the
+# user to use this PKGBUILD to compile the package for their architecture.
+case "$CARCH" in
+  x86_64)
+    _vscode_arch=x64
+    ;;
+  aarch64)
+    _vscode_arch=arm64
+    ;;
+  armv7h)
+    _vscode_arch=arm
+    ;;
+  *)
+    # Needed for mksrcinfo
+    _vscode_arch=DUMMY
+    ;;
+esac
+
+prepare() {
+  # Change electron binary name to the target electron
+  sed -i "s|exec electron |exec $_electron |" $pkgname.sh
+  sed -i "s|#!/usr/bin/electron|#!/usr/bin/$_electron|" $pkgname.js
+
+  # Move vscode repo
+  cd "$srcdir/vscodium"
+
+  # Normally, we would execute get_repo.sh to clone the Microsoft repo here, but makepkg can't do this.
+  # So we rely on the clone that happened earlier, and move the git directory to the expected place.
+  rm -rf 'vscode'
+  mv '../vscode' 'vscode'
+}
+
+build() {
+  cd "$srcdir/vscodium"
+
+  # Export some environment variables that would normally be set by Travis CI.
+  export SHOULD_BUILD="yes"
+  export VSCODE_ARCH="${_vscode_arch}"
+  export OS_NAME="linux"
+  export LATEST_MS_COMMIT=$(git rev-list --tags --max-count=1)
+  export LATEST_MS_TAG=$(git describe --tags "${LATEST_MS_COMMIT}")
+
+  # Disable building rpm, deb, and AppImage packages which are not needed in an AUR build
+  export SKIP_LINUX_PACKAGES="True"
+
+  ./build.sh
+}
+
+package() {
+  cd "$srcdir/vscodium/VSCode-linux-${_vscode_arch}"
+
+  # Install resource files
+  install -d "$pkgdir/usr/lib/$pkgname"
+  cp -r --no-preserve=ownership --preserve=mode resources/app/* "$pkgdir/usr/lib/$pkgname/"
+
+  # Replace statically included binary with system copy
+  ln -sf "/usr/bin/rg" "$pkgdir/usr/lib/$pkgname/node_modules.asar.unpacked/vscode-ripgrep/bin/rg"
+
+  # Install bash and zsh completions
+  install -Dm 644 "resources/completions/bash/$pkgname" "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -Dm 644 "resources/completions/zsh/_$pkgname" "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
+
+  install -Dm 644 "resources/app/resources/linux/code.png" "$pkgdir/usr/share/pixmaps/$pkgname.png"
+
+  # Install start scripts
+  cd "$srcdir"
+
+  install -Dm 755 "$pkgname.sh" "$pkgdir/usr/bin/$pkgname"
+  install -Dm 755 "$pkgname.js" "$pkgdir/usr/lib/$pkgname/$pkgname.js"
+
+  # Install appdata and desktop files
+  install -d "$pkgdir/usr/share/{$pkgname,applications,pixmaps}"
+  install -Dm 644 "$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm 644 "$pkgname-uri-handler.desktop" "$pkgdir/usr/share/applications/$pkgname-uri-handler.desktop"
+}

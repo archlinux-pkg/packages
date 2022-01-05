@@ -1,0 +1,25 @@
+# Maintainer: MedzikUser
+
+pkgname='codium-features'
+
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Unblock some features in VSCodium"
+arch=('any')
+url="https://github.com/microsoft/vscode"
+license=('unknown')
+depends=('codium' 'sed')
+optdepends=('org.freedesktop.secrets: for settings sync feature')
+install="$pkgname.install"
+source=(
+  "$pkgname.hook"
+  "patch.sh")
+sha256sums=(
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  install -Dm 755 "$srcdir/patch.sh" "$pkgdir/usr/share/$pkgname/patch.sh"
+  install -Dm 644 "$srcdir/$pkgname.hook" "$pkgdir/usr/share/libalpm/hooks/$pkgname.hook"
+}
