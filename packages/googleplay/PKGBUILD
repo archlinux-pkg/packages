@@ -1,14 +1,14 @@
 # Maintainer: MedzikUser
 
 _repo='89z/googleplay'
-_ver=v1.4.9
+_ver=v1.5.0
 _auto_update=true
 
 _pkgname='googleplay'
 pkgname="$_pkgname"
 provides=("$_pkgname")
 conflicts=("$_pkgname")
-pkgver=1.4.9
+pkgver=1.5.0
 pkgrel=1
 pkgdesc='Download APK or send API requests'
 arch=('x86_64')
