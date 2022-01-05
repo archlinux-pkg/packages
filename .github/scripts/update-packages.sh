@@ -63,8 +63,8 @@ do
 
       git add ${pkg_dir}
       git commit -m "update '${pkg_name}' to '${latest_tag}'"
-      git pull --rebase
-      git push
+      git pull --rebase 2> /dev/null
+      git push 2> /dev/null
     fi
   else
     pkg_name=$(basename ${pkg_dir})
@@ -78,7 +78,7 @@ do
 
     git add ${pkg_dir}
     git diff-index --quiet HEAD || git commit -m "update submodule '${pkg_name}'"
-    git pull --rebase
-    git push
+    git pull --rebase 2> /dev/null
+    git push 2> /dev/null
   fi
 done
