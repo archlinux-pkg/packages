@@ -61,3 +61,9 @@
 [submodule "packages/linux-xanmod-tt"]
 	path = packages/linux-xanmod-tt
 	url = https://aur.archlinux.org/linux-xanmod-tt.git
+[submodule "packages/dxvk-mingw"]
+	path = packages/dxvk-mingw
+	url = https://aur.archlinux.org/dxvk-mingw.git
+[submodule "packages/proton-ge-custom-bin"]
+	path = packages/proton-ge-custom-bin
+	url = https://aur.archlinux.org/proton-ge-custom-bin.git
