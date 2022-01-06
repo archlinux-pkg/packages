@@ -1,15 +1,15 @@
 # Maintainer: MedzikUser
 
 _repo='cloudflare/cloudflared'
-_ver=2021.12.4
+_ver=2022.1.0
 _auto_update=true
 
 _pkgname='cloudflared'
 pkgname="$_pkgname"
 provides=("$_pkgname")
 conflicts=("$_pkgname")
-pkgver=2021.12.4
-pkgrel=2
+pkgver=2022.1.0
+pkgrel=1
 pkgdesc='Cloudflare Tunnel client (formerly Argo Tunnel)'
 arch=('x86_64')
 url="https://github.com/$_repo"
