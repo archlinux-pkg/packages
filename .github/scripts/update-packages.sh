@@ -78,7 +78,7 @@ do
 
     git add ${pkg_dir}
     git diff-index --quiet HEAD || git commit -m "update submodule '${pkg_name}'"
-    git pull --rebase 2> /dev/null
+    git pull --rebase > /dev/null
     git push 2> /dev/null
   fi
 done
