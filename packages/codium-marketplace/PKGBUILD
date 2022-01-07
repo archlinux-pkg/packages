@@ -8,9 +8,9 @@ arch=('any')
 url="https://marketplace.visualstudio.com/vscode"
 license=('unknown')
 depends=('codium' 'sed')
-install="$pkgname.install"
+install="${pkgname}.install"
 source=(
-  "$pkgname.hook"
+  "${pkgname}.hook"
   "patch.sh"
 )
 sha256sums=(
@@ -19,6 +19,6 @@ sha256sums=(
 )
 
 package() {
-  install -Dm 755 "$srcdir/patch.sh" "$pkgdir/usr/share/$pkgname/patch.sh"
-  install -Dm 644 "$srcdir/$pkgname.hook" "$pkgdir/usr/share/libalpm/hooks/$pkgname.hook"
+  install -Dm 755 "${srcdir}/patch.sh" "${pkgdir}/usr/share/${pkgname}/patch.sh"
+  install -Dm 644 "${srcdir}/${pkgname}.hook" "${pkgdir}/usr/share/libalpm/hooks/${pkgname}.hook"
 }

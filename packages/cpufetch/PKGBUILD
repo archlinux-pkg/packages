@@ -6,10 +6,8 @@ _auto_update=true
 
 _pkgname='cpufetch'
 pkgname="${_pkgname}"
-provides=("${_pkgname}")
-conflicts=("${_pkgname}")
 pkgver=1.00
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple yet fancy CPU architecture fetching tool'
 arch=('x86_64')
 url="https://github.com/${_repo}"
@@ -25,5 +23,7 @@ build() {
 
 package() {
   cd "$pkgname"
+
   make DESTDIR="$pkgdir" install
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

@@ -6,10 +6,8 @@ _auto_update=true
 
 _pkgname='cpu-x'
 pkgname="${_pkgname}"
-provides=("${_pkgname}")
-conflicts=("${_pkgname}")
 pkgver=4.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Free software that gathers information on CPU, motherboard and more'
 arch=('x86_64')
 url="https://github.com/${_repo}"
@@ -19,7 +17,7 @@ source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "$srcdir/$pkgname"
+  cd "${pkgname}"
 
   mkdir build
   cd build
@@ -27,12 +25,14 @@ build() {
   cmake .. \
     -B build \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_BUILD_TYPE="Release" \
+    -DCMAKE_INSTALL_PREFIX="/usr"
   cmake --build build
 }
 
 package() {
-  cd "$srcdir/$pkgname/build"
-  DESTDIR="$pkgdir" ninja -C build install
+  cd "${pkgname}/build"
+
+  DESTDIR="${pkgdir}" ninja -C build install
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

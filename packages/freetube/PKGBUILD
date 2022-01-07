@@ -9,13 +9,13 @@ pkgdesc='An Open Source YouTube app for privacy'
 pkgver=0.15.1_beta
 pkgrel=1
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('AGPL3')
 _electron='electron'
 depends=("$_electron" 'gtk3' 'nss')
 makedepends=('nodejs' 'npm' 'yarn')
 source=(
-  "$pkgname::git+$url#tag=$_ver"
+  "${pkgname}::git+${url}#tag=${_ver}"
   "package-only-necessary.diff"
   "freetube.desktop"
   "freetube.sh"
@@ -28,22 +28,25 @@ sha256sums=(
 )
 
 prepare() {
-  patch "$srcdir/$pkgname/_scripts/build.js" < package-only-necessary.diff
+  patch "${srcdir}/${pkgname}/_scripts/build.js" < package-only-necessary.diff
 }
 
 build() {
-  cd "$srcdir/$pkgname"
-  yarn --cache-folder "$srcdir/yarn-cache" install
-  npm --cache "$srcdir/npm-cache" run build
+  cd "${srcdir}/${pkgname}"
+
+  yarn --cache-folder "${srcdir}/yarn-cache" install
+  npm --cache "${srcdir}/npm-cache" run build
 }
 
 package() {
-  install -d "$pkgdir/usr/lib/$pkgname"
-  cp -R "./$pkgname/build/linux-unpacked/resources/app.asar" "$pkgdir/usr/lib/$pkgname"
-  install -Dm755 "./freetube.sh" "$pkgdir/usr/bin/$pkgname"
+  install -d "${pkgdir}/usr/lib/${pkgname}"
+  cp -R "./${pkgname}/build/linux-unpacked/resources/app.asar" "${pkgdir}/usr/lib/${pkgname}"
+  install -Dm 755 "./freetube.sh" "${pkgdir}/usr/bin/${pkgname}"
 
-  cd "$pkgname"
-  install -Dm644 "./_icons/icon.svg" "$pkgdir/usr/share/pixmaps/$pkgname.svg"
+  cd "${pkgname}"
+  install -Dm 644 "./_icons/icon.svg" "${pkgdir}/usr/share/pixmaps/${pkgname}.svg"
   cd ..
-  install -Dm644 "freetube.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm 644 "freetube.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

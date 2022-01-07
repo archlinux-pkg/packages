@@ -5,14 +5,12 @@ _ver=2021.12.28-treviso
 _auto_update=true
 
 _pkgname='bottles'
-pkgname="$_pkgname"
-provides=("$_pkgname")
-conflicts=("$_pkgname")
+pkgname="${_pkgname}"
 pkgver=2021.12.28_treviso
-pkgrel=2
+pkgrel=3
 pkgdesc='Easily manage wine prefixes in a new way. Run Windows software and games on Linux'
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('GPL3')
 depends=(
   'hicolor-icon-theme'
@@ -40,19 +38,19 @@ optdepends=(
   'vulkan-icd-loader'
   'gamemode'
 )
-source=("$_pkgname::git+$url#tag=$_ver")
+source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "$srcdir/$_pkgname"
+  cd "${_pkgname}"
 
   meson --prefix='/usr' build
   ninja -C build
 }
 
 package() {
-  cd "$srcdir/$_pkgname"
+  cd "${_pkgname}"
 
-  DESTDIR="$pkgdir" ninja -C build install
-  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  DESTDIR="${pkgdir}" ninja -C build install
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
