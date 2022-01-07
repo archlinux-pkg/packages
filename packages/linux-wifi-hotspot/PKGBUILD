@@ -1,14 +1,14 @@
 # Maintainer: MedzikUser
 
 _repo='lakinduakash/linux-wifi-hotspot'
-_ver=1.6.2
+_ver=v4.4.0
 _auto_update=true
 
 _pkgname='linux-wifi-hotspot'
 pkgname="$_pkgname"
 provides=('wihotspot' 'create_ap')
 conflicts=('wihotspot' 'create_ap')
-pkgver=1.6.2
+pkgver=4.4.0
 pkgrel=1
 pkgdesc='A wrapper that does winetricks things for Proton enabled games, requires Winetricks'
 arch=('any')
