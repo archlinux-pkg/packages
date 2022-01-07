@@ -1,0 +1,30 @@
+# Maintainer: MedzikUser
+
+_repo='ValvePython/vdf'
+_ver=1.6.2
+_auto_update=true
+
+_pkgname='python-vdf'
+pkgname="$_pkgname"
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+pkgver=1.6.2
+pkgrel=1
+pkgdesc="Library for working with Valve's VDF text format"
+arch=('any')
+url="https://github.com/$_repo"
+license=('MIT')
+depends=('python')
+makedepends=('git' 'python-setuptools')
+source=("$_pkgname::git+$url#tag=$_ver")
+sha256sums=('SKIP')
+
+build() {
+  cd "${srcdir}/${pkgname}"
+  python setup.py build
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+  python setup.py install --root="${pkgdir}" --optimize=1
+}
