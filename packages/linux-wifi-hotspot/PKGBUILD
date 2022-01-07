@@ -1,0 +1,36 @@
+# Maintainer: MedzikUser
+
+_repo='lakinduakash/linux-wifi-hotspot'
+_ver=1.6.2
+_auto_update=true
+
+_pkgname='linux-wifi-hotspot'
+pkgname="$_pkgname"
+provides=('wihotspot' 'create_ap')
+conflicts=('wihotspot' 'create_ap')
+pkgver=1.6.2
+pkgrel=1
+pkgdesc='A wrapper that does winetricks things for Proton enabled games, requires Winetricks'
+arch=('any')
+url="https://github.com/$_repo"
+license=('BSD')
+depends=('dnsmasq' 'gtk3' 'hostapd' 'iproute2' 'iw' 'procps-ng' 'qrencode')
+optdepends=(
+  'haveged: For random MAC generation'
+  'wireless_tools: if iw cannot recognize your adapter'
+  'bash-completion: for bash completions'
+)
+source=("$_pkgname::git+$url#tag=$_ver")
+sha256sums=('SKIP')
+
+build() {
+  cd "${srcdir}/${pkgname}"
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+  make DESTDIR="$pkgdir" install
+
+  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

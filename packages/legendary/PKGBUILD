@@ -5,28 +5,26 @@ _ver=0.20.22
 _auto_update=true
 
 _pkgname='legendary'
-pkgname="$_pkgname"
-provides=("$_pkgname")
-conflicts=("$_pkgname")
+pkgname="${_pkgname}"
 pkgver=0.20.22
-pkgrel=2
+pkgrel=3
 pkgdesc='Legendary - A free and open-source replacement for the Epic Games Launcher'
 arch=('any')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('GPL3')
 depends=('python' 'python-requests' 'python-wheel')
 makedepends=('python-setuptools')
-source=("$_pkgname::git+$url#tag=$_ver")
+source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "$srcdir/$_pkgname"
+  cd "${srcdir}/${_pkgname}"
   python setup.py build
 }
 
 package() {
-  cd "$srcdir/$_pkgname"
+  cd "${srcdir}/${_pkgname}"
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

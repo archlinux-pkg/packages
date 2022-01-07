@@ -5,41 +5,39 @@ _ver=v3.9.2
 _auto_update=true
 
 _pkgname='spotdl'
-pkgname="python-$_pkgname"
-provides=("$_pkgname")
-conflicts=("$_pkgname")
+pkgname="python-${_pkgname}"
 pkgver=3.9.2
 pkgrel=2
 pkgdesc='Download your Spotify playlists and songs along with album art and metadata (from YouTube if a match is found)'
 arch=('any')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('MIT')
 depends=(
   'ffmpeg'
+  'yt-dlp'
   'python-spotipy'
   'python-pytube'
   'python-rich'
   'python-rapidfuzz'
   'python-mutagen'
   'python-ytmusicapi'
-  'yt-dlp'
   'python-tqdm'
   'python-beautifulsoup4'
   'python-requests'
   'python-unidecode'
 )
 makedepends=('git' 'python-setuptools')
-source=("$_pkgname::git+$url#tag=$_ver")
+source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "$srcdir/$_pkgname"
+  cd "${srcdir}/${_pkgname}"
   python setup.py build
 }
 
 package() {
-  cd "$srcdir/$_pkgname"
+  cd "${srcdir}/${_pkgname}"
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

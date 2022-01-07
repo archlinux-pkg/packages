@@ -6,8 +6,6 @@ _auto_update=true
 
 _pkgname="$_npm"
 pkgname="$_pkgname"
-provides=("$_pkgname")
-conflicts=("$_pkgname")
 pkgver=10.1.1
 pkgrel=1
 pkgdesc='Netlify Node.js API client'

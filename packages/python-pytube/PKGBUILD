@@ -4,28 +4,26 @@ _ver=v11.0.1
 _auto_update=true
 
 _pkgname='pytube'
-pkgname="python-$_pkgname"
-provides=("$_pkgname")
-conflicts=("$_pkgname")
+pkgname="python-${_pkgname}"
 pkgver=11.0.1
 pkgrel=2
 pkgdesc='A lightweight, dependency-free Python library (and command-line utility) for downloading YouTube Videos'
 arch=('any')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('Unlicense')
 depends=('python')
 makedepends=('git' 'python-setuptools')
-source=("$_pkgname::git+$url#tag=$_ver")
+source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "$srcdir/$_pkgname"
+  cd "$srcdir/${_pkgname}"
   python setup.py build
 }
 
 package() {
-  cd "$srcdir/$_pkgname"
+  cd "$srcdir/${_pkgname}"
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

@@ -84,12 +84,13 @@ then
   mv ./deleted_packages.txt.tmp ./deleted_packages.txt
 fi
 
-#echo "Free additional disk space on host"
-#sudo apt autoremove -yq
-#sudo apt purge -yq $(dpkg -l | grep '^ii' | awk '{ print $2 }' | grep -P '(cabal-|dotnet-|ghc-|libmono|php)') \
-#  liblldb-6.0 libllvm6.0:amd64 mono-runtime-common monodoc-manual powershell ruby
-#sudo apt autoremove -yq
-#sudo rm -rf /opt/hostedtoolcache /usr/local /usr/share/dotnet /usr/share/swift
+echo "Free additional disk space on host..."
+sudo rm -rf \
+  /opt/hostedtoolcache \
+  /usr/share/dotnet \
+  /usr/share/swift \
+  /usr/local/lib/android
+echo "Done!"
 
 if [ -f ./built_packages.txt ]
 then

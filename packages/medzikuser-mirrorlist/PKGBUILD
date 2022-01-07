@@ -13,10 +13,10 @@ sha256sums=('de6a0e2fdc2ed40d41f200315534d94fc469c193913ced7feef63679aa469d85')
 
 updatelist() {
   rm -f mirrorlist
-  curl -o mirrorlist "$url/mirrorlist.txt"
+  curl -o mirrorlist "${url}/mirrorlist.txt"
 }
 
 package() {
-  mkdir -p "$pkgdir/etc/pacman.d"
-  install -m644 "$srcdir/mirrorlist" "$pkgdir/etc/pacman.d/medzikuser-mirrorlist"
+  mkdir -p "${pkgdir}/etc/pacman.d"
+  install -Dm 644 "${srcdir}/mirrorlist" "${pkgdir}/etc/pacman.d/medzikuser-mirrorlist"
 }

@@ -6,10 +6,8 @@ _auto_update=true
 
 _pkgname='rare'
 pkgname="$_pkgname"
-provides=("$_pkgname")
-conflicts=("$_pkgname")
 pkgver=1.8.5
-pkgrel=1
+pkgrel=2
 pkgdesc='A GUI for legendary, an open source replacement for Epic Games Launcher'
 arch=('any')
 url="https://github.com/$_repo"

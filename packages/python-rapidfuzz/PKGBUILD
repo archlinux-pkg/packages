@@ -5,28 +5,26 @@ _ver=v1.9.1
 _auto_update=true
 
 _pkgname='rapidfuzz'
-pkgname="python-$_pkgname"
-provides=("$_pkgname")
-conflicts=("$_pkgname")
+pkgname="python-${_pkgname}"
 pkgver=1.9.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Rapid fuzzy string matching in Python using various string metrics'
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('MIT')
 depends=('python')
 makedepends=('python-numpy' 'python-setuptools')
-source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/$_pkgname/$_pkgname-$pkgver.tar.gz")
+source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
 sha256sums=('SKIP')
 
 build() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd "${srcdir}/${_pkgname}-${pkgver}"
   python setup.py build
 }
 
 package() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd "${srcdir}/${_pkgname}-${pkgver}"
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
