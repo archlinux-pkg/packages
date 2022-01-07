@@ -67,3 +67,9 @@
 [submodule "packages/proton-ge-custom-bin"]
 	path = packages/proton-ge-custom-bin
 	url = https://aur.archlinux.org/proton-ge-custom-bin.git
+[submodule "packages/wine-valve"]
+	path = packages/wine-valve
+	url = https://aur.archlinux.org/wine-valve.git
+[submodule "packages/wine-ge-custom"]
+	path = packages/wine-ge-custom
+	url = https://aur.archlinux.org/wine-ge-custom.git
