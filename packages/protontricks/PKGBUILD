@@ -1,0 +1,34 @@
+# Maintainer: MedzikUser
+
+_repo='Matoking/protontricks'
+_ver=1.6.2
+_auto_update=true
+
+_pkgname='protontricks'
+pkgname="$_pkgname"
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+pkgver=1.6.2
+pkgrel=1
+pkgdesc='A wrapper that does winetricks things for Proton enabled games, requires Winetricks'
+arch=('any')
+url="https://github.com/$_repo"
+license=('GPL3')
+depends=('python' 'python-vdf' 'winetricks')
+optdepends=(
+  'yad: GUI for game selection',
+  'zenity: GUI for winetricks'
+)
+makedepends=('git' 'python-setuptools-scm')
+source=("$_pkgname::git+$url#tag=$_ver")
+sha256sums=('SKIP')
+
+build() {
+  cd "${srcdir}/${pkgname}"
+  python setup.py build
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+  python setup.py install --root="${pkgdir}" --optimize=1
+}

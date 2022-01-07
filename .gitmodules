@@ -87,3 +87,6 @@
 [submodule "packages/dxvk-mingw"]
 	path = packages/dxvk-mingw
 	url = https://aur.archlinux.org/dxvk-mingw.git
+[submodule "packages/proton-experimental"]
+	path = packages/proton-experimental
+	url = https://aur.archlinux.org/proton-experimental.git

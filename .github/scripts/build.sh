@@ -84,8 +84,8 @@ then
   mv ./deleted_packages.txt.tmp ./deleted_packages.txt
 fi
 
-echo "Free additional disk space on host"
-sudo apt autoremove -yq
+#echo "Free additional disk space on host"
+#sudo apt autoremove -yq
 #sudo apt purge -yq $(dpkg -l | grep '^ii' | awk '{ print $2 }' | grep -P '(cabal-|dotnet-|ghc-|libmono|php)') \
 #  liblldb-6.0 libllvm6.0:amd64 mono-runtime-common monodoc-manual powershell ruby
 #sudo apt autoremove -yq

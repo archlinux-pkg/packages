@@ -32,6 +32,8 @@ for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
   cd ${SRCDIR}/packages/${PACKAGE_LIST[i]}
 
+  sudo pacman -Sy
+
   time makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
   code=$?
