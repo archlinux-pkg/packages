@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='derrod/legendary'
-_ver=0.20.22
+_ver=0.20.23
 _auto_update=true
 
 _pkgname='legendary'
 pkgname="${_pkgname}"
-pkgver=0.20.22
-pkgrel=3
+pkgver=0.20.23
+pkgrel=1
 pkgdesc='Legendary - A free and open-source replacement for the Epic Games Launcher'
 arch=('any')
 url="https://github.com/${_repo}"
