@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='AdnanHodzic/auto-cpufreq'
-_ver=v1.9.0
+_ver=v1.9.1
 _auto_update=true
 
 _pkgname='auto-cpufreq'
 pkgname="${_pkgname}"
-pkgver=1.9.0
-pkgrel=3
+pkgver=1.9.1
+pkgrel=1
 pkgdesc='Automatic CPU speed & power optimizer'
 arch=('any')
 url="https://github.com/${_repo}"
