@@ -5,46 +5,44 @@ _ver=v4.1.2
 _auto_update=true
 
 _pkgname='gotop'
-pkgname="$_pkgname"
-provides=("$_pkgname")
-conflicts=("$_pkgname")
+pkgname="${_pkgname}"
 pkgver=4.1.2
-pkgrel=4
+pkgrel=5
 pkgdesc='A terminal based graphical activity monitor inspired by gtop and vtop'
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('MIT')
 depends=('noto-fonts-cjk')
 makedepends=('git' 'go')
-source=("$_pkgname::git+$url#tag=$_ver")
+source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "$_pkgname"
+  cd "${_pkgname}"
 
   local _flags
   _flags=(
     -s -w
-    -X main.Version="$_ver"
+    -X main.Version="${_ver}"
     -X main.BuildDate=$(date +%F+%T%z)
   )
 
-  export CGO_CPPFLAGS="$CPPFLAGS"
-  export CGO_CFLAGS="$CFLAGS"
-  export CGO_CXXFLAGS="$CXXFLAGS"
-  export CGO_LDFLAGS="$LDFLAGS"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -modcacherw"
 
   go build \
     -v \
     -ldflags "${_flags[*]}" \
-    -o bin/$_pkgname \
-    ./cmd/$_pkgname
+    -o bin/${_pkgname} \
+    ./cmd/${_pkgname}
 }
 
 package() {
-  cd "$_pkgname"
+  cd "${_pkgname}"
 
-  install -Dm 755 bin/$_pkgname "$pkgdir/usr/bin/$_pkgname"
+  install -Dm 755 bin/${_pkgname} "$pkgdir/usr/bin/${_pkgname}"
   install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

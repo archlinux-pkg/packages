@@ -14,7 +14,15 @@ pkgdesc='A wrapper that does winetricks things for Proton enabled games, require
 arch=('any')
 url="https://github.com/${_repo}"
 license=('BSD')
-depends=('dnsmasq' 'gtk3' 'hostapd' 'iproute2' 'iw' 'procps-ng' 'qrencode')
+depends=(
+  'dnsmasq'
+  'gtk3'
+  'hostapd'
+  'iproute2'
+  'iw'
+  'procps-ng'
+  'qrencode'
+)
 optdepends=(
   'haveged: For random MAC generation'
   'wireless_tools: if iw cannot recognize your adapter'
@@ -24,12 +32,12 @@ source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "${srcdir}/${pkgname}"
+  cd "${pkgname}"
   make
 }
 
 package() {
-  cd "${srcdir}/${pkgname}"
+  cd "${pkgname}"
   make DESTDIR="${pkgdir}" install
 
   install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"

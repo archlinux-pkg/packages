@@ -20,7 +20,7 @@ noextract=("${_file}")
 sha256sums=('SKIP')
 
 package() {
-  npm install -g --prefix "${pkgdir}/usr" "${srcdir}/${_file}"
+  npm install -g --prefix "${pkgdir}/usr" "${_file}"
 
   # Non-deterministic race in npm gives 777 permissions to random directories.
   # See https://github.com/npm/npm/issues/9359 for details.

@@ -17,13 +17,13 @@ source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "$pkgname"
+  cd "${pkgname}"
   make
 }
 
 package() {
-  cd "$pkgname"
+  cd "${pkgname}"
 
-  make DESTDIR="$pkgdir" install
+  make DESTDIR="${pkgdir}" install
   install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

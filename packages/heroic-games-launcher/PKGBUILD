@@ -9,25 +9,25 @@ pkgdesc='A Native GUI Epic Games Launcher for Linux, Windows and Mac'
 pkgver=2.0.2
 pkgrel=1
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('GPL3')
 makedepends=('git' 'nodejs' 'yarn' 'npm' 'typescript')
 optdepends=('legendary')
-source=("$pkgname::git+$url#tag=$_ver")
+source=("${pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "$srcdir/$pkgname"
+  cd "${pkgname}"
 
   # Install depends
-  yarn --cache-folder "$srcdir/yarn-cache"
+  yarn --cache-folder "yarn-cache"
 
   # Build
   yarn dist pacman
 }
 
 package() {
-  cd "$srcdir/$pkgname/dist"
+  cd "${pkgname}/dist"
 
   # Unpack package
   mkdir "pacman_unpack"
@@ -35,5 +35,5 @@ package() {
 
   # Install
   cd "pacman_unpack"
-  cp -r --no-preserve=ownership --preserve=mode "usr" "opt" "$pkgdir"
+  cp -r --no-preserve=ownership --preserve=mode "usr" "opt" "${pkgdir}"
 }

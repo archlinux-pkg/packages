@@ -7,11 +7,11 @@ _auto_update=true
 _pkgname='cpu-x'
 pkgname="${_pkgname}"
 pkgver=4.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A Free software that gathers information on CPU, motherboard and more'
 arch=('x86_64')
 url="https://github.com/${_repo}"
-license=('MIT')
+license=('GPL3')
 makedepends=('git')
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
@@ -34,5 +34,5 @@ package() {
   cd "${pkgname}/build"
 
   DESTDIR="${pkgdir}" ninja -C build install
-  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm 644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

@@ -15,7 +15,7 @@ license=('MIT')
 depends=('nodejs')
 makedepends=('npm')
 _file="${_npm}-${pkgver}.tgz"
-source=("https://registry.npmjs.org/$_npm/-/$_file")
+source=("https://registry.npmjs.org/$_npm/-/${_file}")
 noextract=("${_file}")
 sha256sums=('SKIP')
 

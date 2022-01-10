@@ -7,7 +7,7 @@ _ver=1.63.2
 pkgname='codium'
 pkgdesc='Free/Libre Open Source Software Binaries of VSCode'
 pkgver=1.63.2
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 microsofturl='https://github.com/microsoft/vscode'
 url="https://github.com/${_repo}"
@@ -75,7 +75,7 @@ prepare() {
   sed -i "s|#!/usr/bin/electron|#!/usr/bin/$_electron|" ${pkgname}.js
 
   # Move vscode repo
-  cd "${srcdir}/vscodium"
+  cd "vscodium"
 
   # Normally, we would execute get_repo.sh to clone the Microsoft repo here, but makepkg can't do this.
   # So we rely on the clone that happened earlier, and move the git directory to the expected place.
@@ -84,7 +84,7 @@ prepare() {
 }
 
 build() {
-  cd "${srcdir}/vscodium"
+  cd "vscodium"
 
   # Export some environment variables that would normally be set by Travis CI.
   export SHOULD_BUILD="yes"
@@ -100,7 +100,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/vscodium/VSCode-linux-${_vscode_arch}"
+  cd "vscodium/VSCode-linux-${_vscode_arch}"
 
   # Install resource files
   install -d "${pkgdir}/usr/lib/${pkgname}"
@@ -116,7 +116,7 @@ package() {
   install -Dm 644 "resources/app/resources/linux/code.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
 
   # Install start scripts
-  cd "$srcdir"
+  cd "${srcdir}"
 
   install -Dm 755 "${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
   install -Dm 755 "${pkgname}.js" "${pkgdir}/usr/lib/${pkgname}/${pkgname}.js"

@@ -7,13 +7,13 @@ _auto_update=true
 pkgname='freetube'
 pkgdesc='An Open Source YouTube app for privacy'
 pkgver=0.15.1_beta
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('AGPL3')
 _electron='electron'
-depends=("$_electron" 'gtk3' 'nss')
-makedepends=('nodejs' 'npm' 'yarn')
+depends=("${_electron}" 'gtk3' 'nss')
+makedepends=('git' 'nodejs' 'npm' 'yarn')
 source=(
   "${pkgname}::git+${url}#tag=${_ver}"
   "package-only-necessary.diff"
@@ -28,11 +28,11 @@ sha256sums=(
 )
 
 prepare() {
-  patch "${srcdir}/${pkgname}/_scripts/build.js" < package-only-necessary.diff
+  patch "${pkgname}/_scripts/build.js" < package-only-necessary.diff
 }
 
 build() {
-  cd "${srcdir}/${pkgname}"
+  cd "${pkgname}"
 
   yarn --cache-folder "${srcdir}/yarn-cache" install
   npm --cache "${srcdir}/npm-cache" run build
@@ -43,9 +43,8 @@ package() {
   cp -R "./${pkgname}/build/linux-unpacked/resources/app.asar" "${pkgdir}/usr/lib/${pkgname}"
   install -Dm 755 "./freetube.sh" "${pkgdir}/usr/bin/${pkgname}"
 
-  cd "${pkgname}"
-  install -Dm 644 "./_icons/icon.svg" "${pkgdir}/usr/share/pixmaps/${pkgname}.svg"
-  cd ..
+  install -Dm 644 "${pkgname}/_icons/icon.svg" "${pkgdir}/usr/share/pixmaps/${pkgname}.svg"
+
   install -Dm 644 "freetube.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
 
   install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"

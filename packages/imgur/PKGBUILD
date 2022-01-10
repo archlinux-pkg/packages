@@ -5,51 +5,49 @@ _ver=v0.8.0
 _auto_update=true
 
 _pkgname='imgur'
-pkgname="$_pkgname"
-provides=("$_pkgname")
-conflicts=("$_pkgname")
+pkgname="${_pkgname}"
 pkgver=0.8.0
 pkgrel=1
 pkgdesc='CLI for Imgur API'
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('BSD-3')
 depends=('libnotify')
 makedepends=('git' 'go')
-source=("$_pkgname::git+$url#tag=$_ver")
+source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "$srcdir/$_pkgname"
+  cd "${_pkgname}"
 
   local _flags
   _flags=(
     -s -w
-    -X main.version="$pkgver"
+    -X main.version="${pkgver}"
   )
 
-  export CGO_CPPFLAGS="$CPPFLAGS"
-  export CGO_CFLAGS="$CFLAGS"
-  export CGO_CXXFLAGS="$CXXFLAGS"
-  export CGO_LDFLAGS="$LDFLAGS"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -modcacherw"
 
   go build \
     -v \
     -ldflags "${_flags[*]}" \
-    -o bin/$_pkgname \
-    ./cmd/$_pkgname
+    -o bin/${_pkgname} \
+    ./cmd/${_pkgname}
 }
 
 package() {
-  cd "$srcdir/$_pkgname"
+  cd "${_pkgname}"
 
-  install -Dm 755 bin/$_pkgname "$pkgdir/usr/bin/$_pkgname"
-  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm 755 bin/${_pkgname} "${pkgdir}/usr/bin/${_pkgname}"
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 
-  mkdir -p "$pkgdir"/usr/share/{bash-completion/completions,zsh/site-functions,fish/vendor_completions.d}
+  mkdir -p "${pkgdir}"/usr/share/{bash-completion/completions,zsh/site-functions,fish/vendor_completions.d}
 
-  ./bin/$_pkgname completion bash > "$pkgdir/usr/share/bash-completion/completions/$_pkgname"
-  ./bin/$_pkgname completion fish > "$pkgdir/usr/share/fish/vendor_completions.d/$_pkgname.fish"
-  ./bin/$_pkgname completion zsh > "$pkgdir/usr/share/zsh/site-functions/_$_pkgname"
+  ./bin/${_pkgname} completion bash > "${pkgdir}/usr/share/bash-completion/completions/${_pkgname}"
+  ./bin/${_pkgname} completion fish > "${pkgdir}/usr/share/fish/vendor_completions.d/${_pkgname}.fish"
+  ./bin/${_pkgname} completion zsh > "${pkgdir}/usr/share/zsh/site-functions/_${_pkgname}"
 }
