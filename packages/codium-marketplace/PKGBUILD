@@ -2,7 +2,7 @@
 
 pkgname='codium-marketplace'
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Enable VSCode marketplace in VSCodium"
 arch=('any')
 url="https://marketplace.visualstudio.com/vscode"
@@ -19,6 +19,6 @@ sha256sums=(
 )
 
 package() {
-  install -Dm 755 "/patch.sh" "${pkgdir}/usr/share/${pkgname}/patch.sh"
+  install -Dm 755 "patch.sh" "${pkgdir}/usr/share/${pkgname}/patch.sh"
   install -Dm 644 "${pkgname}.hook" "${pkgdir}/usr/share/libalpm/hooks/${pkgname}.hook"
 }
