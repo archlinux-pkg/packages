@@ -41,11 +41,12 @@ build() {
 package() {
   install -d "${pkgdir}/usr/lib/${pkgname}"
   cp -R "./${pkgname}/build/linux-unpacked/resources/app.asar" "${pkgdir}/usr/lib/${pkgname}"
+
   install -Dm 755 "./freetube.sh" "${pkgdir}/usr/bin/${pkgname}"
 
   install -Dm 644 "${pkgname}/_icons/icon.svg" "${pkgdir}/usr/share/pixmaps/${pkgname}.svg"
 
   install -Dm 644 "freetube.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
 
-  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm 644 "${pkgname}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

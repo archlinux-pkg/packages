@@ -12,7 +12,8 @@ pkgdesc='A Free software that gathers information on CPU, motherboard and more'
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('GPL3')
-makedepends=('git')
+depends=('gtk3' 'ncurses' 'libcpuid' 'pciutils' 'glfw' 'procps-ng')
+makedepends=('git' 'cmake' 'ninja' 'nasm')
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
