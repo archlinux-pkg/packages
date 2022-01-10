@@ -2,14 +2,14 @@
 
 pkgname='update-grub'
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple wrapper around grub-mkconfig'
 arch=('any')
 url='http://packages.ubuntu.com/precise/grub2-common'
 license=('GPL2')
 depends=('grub')
 source=("$pkgname.sh")
-sha256sums=('d34caba6343ba89573b3fc21df22ca3d041432c3008b6dbdf5c15fabdd0c418d')
+sha256sums=('SKIP')
 
 package() {
   install -d "$pkgdir/usr/bin/"

@@ -34,9 +34,17 @@ jobs:
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
 
-      - name: Packages Size
+      - name: Packages
         if: always()
-        run: xz -l pkgs/*.xz
+        run: |
+          printf "Packages to build:\n"
+          cat --number built_packages.txt
+
+          printf "\n\nPackages:\n"
+          ls -lah pkgs/*.xz
+
+          printf "\n\nPackages Size:\n"
+          xz -l pkgs/*.xz
 
       - name: Upload to Repo
         if: always() && github.event_name != 'pull_request'
