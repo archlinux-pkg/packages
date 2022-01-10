@@ -35,5 +35,7 @@ package() {
   cd "${pkgname}/build"
 
   DESTDIR="${pkgdir}" ninja -C build install
+
+  cd ..
   install -Dm 644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
