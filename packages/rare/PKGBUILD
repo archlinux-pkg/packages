@@ -5,39 +5,47 @@ _ver=1.8.6
 _auto_update=true
 
 _pkgname='rare'
-pkgname="$_pkgname"
+pkgname="${_pkgname}"
 pkgver=1.8.6
-pkgrel=1
-pkgdesc='A GUI for legendary, an open source replacement for Epic Games Launcher'
+pkgrel=2
+pkgdesc='A GUI for legendary, an open source replacement for Epic Games Launcher (Written in Python with QT5)'
 arch=('any')
-url="https://github.com/$_repo"
+url="https://github.com/${_repo}"
 license=('GPL3')
-depends=('python-wheel' 'python-setuptools' 'python-pyqt5' 'python-qtawesome' 'python-requests' 'python-psutil' 'python-pypresence')
+depends=(
+  'python-wheel'
+  'python-setuptools'
+  'python-pyqt5'
+  'python-qtawesome'
+  'python-requests'
+  'python-psutil'
+  'python-pypresence'
+)
 makedepends=('git' 'python-setuptools')
-source=("$_pkgname::git+$url#tag=$_ver")
+source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 prepare() {
-  cd "$srcdir/$_pkgname"
+  cd "${_pkgname}"
 
   git submodule init
   git submodule update
 
-  cp "$_pkgname/resources/images/Rare.png" "$_pkgname.png"
+  cp "${_pkgname}/resources/images/Rare.png" "${_pkgname}.png"
 }
 
 build() {
-  cd "$srcdir/$_pkgname"
+  cd "${_pkgname}"
   python setup.py build
 }
 
 package() {
-  cd "$srcdir/$_pkgname"
+  cd "${_pkgname}"
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
 
-  install -Dm 644 "misc/$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
-  install -Dm 644 "$pkgname.png" "$pkgdir/usr/share/pixmaps/$pkgname.png"
+  install -Dm 644 "misc/${pkgname}.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+  install -Dm 644 "${pkgname}.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
 
-  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

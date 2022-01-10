@@ -44,7 +44,16 @@ do
   fi
 done
 
-for ((i=0; i<${#BUILD_FAIL[@]}; i++))
-do
-  echo "Failed to build: ${i}) ${BUILD_FAIL[i]} | exit code: ${code}"
-done
+length=${#BUILD_FAIL[@]}
+
+if [ ${length} -gt 0 ]
+then
+  printf "\n\nFailed to build:\n"
+
+  for ((i=0; i<${length}; i++))
+  do
+    echo "$((i+1))) ${BUILD_FAIL[i]}"
+  done
+
+  exit 1
+fi

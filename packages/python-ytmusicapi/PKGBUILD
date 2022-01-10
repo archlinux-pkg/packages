@@ -7,7 +7,7 @@ _auto_update=true
 _pkgname='ytmusicapi'
 pkgname="python-${_pkgname}"
 pkgver=0.20.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Unofficial API for YouTube Music'
 arch=('any')
 url="https://github.com/${_repo}"
@@ -18,12 +18,12 @@ source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "${srcdir}/${_pkgname}"
+  cd "${_pkgname}"
   python setup.py build
 }
 
 package() {
-  cd "${srcdir}/${_pkgname}"
+  cd "${_pkgname}"
 
   python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
   install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"

@@ -8,10 +8,10 @@ arch=('any')
 url='http://packages.ubuntu.com/precise/grub2-common'
 license=('GPL2')
 depends=('grub')
-source=("$pkgname.sh")
+source=("${pkgname}.sh")
 sha256sums=('SKIP')
 
 package() {
-  install -d "$pkgdir/usr/bin/"
-  install -Dm 755 $pkgname.sh "$pkgdir/usr/bin/$pkgname"
+  install -d "${pkgdir}/usr/bin/"
+  install -Dm 755 "${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
 }

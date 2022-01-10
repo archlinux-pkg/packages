@@ -26,7 +26,7 @@ build() {
   local _flags
   _flags=(
     -s -w
-    -X main.Version="$pkgver"
+    -X main.Version="${pkgver}"
     -X main.BuildTime="$(date +%Y.%m.%d-%H:%M:%S)"
   )
 

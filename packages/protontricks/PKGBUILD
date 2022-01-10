@@ -22,12 +22,12 @@ source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
-  cd "${srcdir}/${pkgname}"
+  cd "${pkgname}"
   python setup.py build
 }
 
 package() {
-  cd "${srcdir}/${pkgname}"
+  cd "${pkgname}"
 
   python setup.py install --root="${pkgdir}" --optimize=1
   install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
