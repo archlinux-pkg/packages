@@ -1,12 +1,12 @@
 #!/bin/bash
 
+ROOT_DIR=$(pwd)
+
 SRCDIR=/home/archlinux-pkg
 
 export PKGDEST="$SRCDIR/pkgs"
 
 declare -a PACKAGE_LIST=()
-
-declare -a BUILD_FAIL=()
 
 if [ "$#" -lt 1 ]
 then
@@ -40,20 +40,15 @@ do
 
   if [ ${code} != 0 ]
   then
-    BUILD_FAIL+=("${PACKAGE_LIST[i]} | exit code: ${code}")
+    echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> ${ROOT_DIR}/fail_built.txt
   fi
 done
 
-length=${#BUILD_FAIL[@]}
-
-if [ ${length} -gt 0 ]
+if [ -f ${ROOT_DIR}/fail_built.txt ]
 then
   printf "\n\nFailed to build:\n"
 
-  for ((i=0; i<${length}; i++))
-  do
-    echo "$((i+1))) ${BUILD_FAIL[i]}"
-  done
+  cat --number ${ROOT_DIR}/fail_built.txt.txt
 
   exit 1
 fi
