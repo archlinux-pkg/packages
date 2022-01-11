@@ -34,7 +34,7 @@ do
 
   sudo pacman -Sy
 
-  time makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+  makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
   code=$?
 
