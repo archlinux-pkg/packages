@@ -4,7 +4,7 @@ BASEDIR=$(pwd)
 
 for pkg_dir in "${BASEDIR}"/packages/*
 do
-  if [ ! -f "${pkg_dir}/.git" ]
+  if [ ! -f "${pkg_dir}/_clone" ]
   then
     build_vars=$(
       set +e +u
@@ -69,15 +69,28 @@ do
   else
     pkg_name=$(basename ${pkg_dir})
 
+    custom_vars=$(
+      . "${pkg_dir}/_clone"
+      echo "git_repo=${_git};"
+    )
+
+    eval "${custom_vars}"
+
+    mv "${pkg_dir}" "${pkg_dir}.old"
+
+    git clone "${git_repo}" "${pkg_dir}" --depth 10
+
     cd "${pkg_dir}"
 
-    git fetch > /dev/null
-    git reset --hard origin/master > /dev/null
+    _commit="$(git log -n 1 --pretty=format:"%H")"
 
-    cd "${BASEDIR}"
+    sed -i "s|^\(_commit=\)\(.*\)\$|\1${_commit}|g" "${pkg_dir}/_clone"
+
+    rm -rf "${pkg_dir}"
+    mv "${pkg_dir}.old" "${pkg_dir}"
 
     git add ${pkg_dir}
-    git diff-index --quiet HEAD || git commit -m "update submodule '${pkg_name}'"
+    git diff-index --quiet HEAD || git commit -m "update '${pkg_name}' to commit '${_commit}'"
     git pull --rebase > /dev/null
     git push 2> /dev/null
   fi

@@ -30,7 +30,24 @@ done
 
 for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
-  cd ${SRCDIR}/packages/${PACKAGE_LIST[i]}
+  if [ -f "${SRCDIR}/packages/${PACKAGE_LIST[i]}/_clone" ]
+  then
+    custom_vars=$(
+      . "${SRCDIR}/packages/${PACKAGE_LIST[i]}/_clone"
+      echo "git_repo=${_git};"
+      echo "commit=${_commit};"
+    )
+
+    eval "${custom_vars}"
+
+    mv "${SRCDIR}/packages/${PACKAGE_LIST[i]}/_clone" "${SRCDIR}/packages/${PACKAGE_LIST[i]}.old"
+
+    git clone "${git_repo}" "${SRCDIR}/packages/${PACKAGE_LIST[i]}/_clone"
+
+    git reset --hard ${commit}
+  fi
+
+  cd "${SRCDIR}/packages/${PACKAGE_LIST[i]}"
 
   sudo pacman -Sy
 
