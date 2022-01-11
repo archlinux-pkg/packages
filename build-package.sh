@@ -48,7 +48,7 @@ if [ -f ${ROOT_DIR}/fail_built.txt ]
 then
   printf "\n\nFailed to build:\n"
 
-  cat --number ${ROOT_DIR}/fail_built.txt.txt
+  cat --number ${ROOT_DIR}/fail_built.txt
 
   exit 1
 fi

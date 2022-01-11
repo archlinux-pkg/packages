@@ -13,7 +13,7 @@ arch=('any')
 url="https://github.com/${_repo}"
 license=('GPL3')
 depends=('gnome-shell>=3.38')
-source=("${pkgname}::git+${url}.git#tag=${pkgver}")
+source=("${pkgname}::git+${url}.git#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
