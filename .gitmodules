@@ -96,3 +96,6 @@
 [submodule "packages/gnome-shell-extension-dash-to-dock"]
 	path = packages/gnome-shell-extension-dash-to-dock
 	url = https://aur.archlinux.org/gnome-shell-extension-dash-to-dock.git
+[submodule "packages/mingw-w64-tools"]
+	path = packages/mingw-w64-tools
+	url = https://aur.archlinux.org/mingw-w64-tools.git
