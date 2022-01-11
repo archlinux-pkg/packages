@@ -7,12 +7,12 @@ _ver=1.63.2
 pkgname='codium'
 pkgdesc='Free/Libre Open Source Software Binaries of VSCode'
 pkgver=1.63.2
-pkgrel=3
+pkgrel=4
 arch=('x86_64')
 microsofturl='https://github.com/microsoft/vscode'
 url="https://github.com/${_repo}"
 license=('MIT')
-_electron='electron'
+_electron='electron13'
 depends=("${_electron}" 'libsecret' 'libx11' 'libxkbfile' 'ripgrep')
 makedepends=(
   'nodejs-lts-gallium'
@@ -72,7 +72,7 @@ esac
 prepare() {
   # Change electron binary name to the target electron
   sed -i "s|exec electron |exec ${_electron} |" ${pkgname}.sh
-  sed -i "s|#!/usr/bin/electron|#!/usr/bin/$_electron|" ${pkgname}.js
+  sed -i "s|#!/usr/bin/electron|#!/usr/bin/${_electron}|" ${pkgname}.js
 
   # Move vscode repo
   cd "vscodium"
