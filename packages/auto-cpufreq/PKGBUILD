@@ -13,6 +13,7 @@ arch=('any')
 url="https://github.com/${_repo}"
 license=('LGPL3')
 depends=('python' 'python-distro' 'python-psutil' 'python-click' 'dmidecode')
+makedepends=('python-setuptools' 'python-wheel')
 optdepends=('cpufreqctl: CPU Power Manager')
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
