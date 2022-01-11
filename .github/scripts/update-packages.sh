@@ -76,9 +76,7 @@ do
 
     eval "${custom_vars}"
 
-    mv "${pkg_dir}" "${pkg_dir}.old"
-
-    git clone "${git_repo}" "${pkg_dir}" --depth 10
+    git clone "${git_repo}" "${pkg_dir}.new" --depth 10
 
     cd "${pkg_dir}"
 
@@ -86,8 +84,7 @@ do
 
     sed -i "s|^\(_commit=\)\(.*\)\$|\1${_commit}|g" "${pkg_dir}/_clone"
 
-    rm -rf "${pkg_dir}"
-    mv "${pkg_dir}.old" "${pkg_dir}"
+    rm -rf "${pkg_dir}.new"
 
     git add ${pkg_dir}
     git diff-index --quiet HEAD || git commit -m "update '${pkg_name}' to commit '${_commit}'"
