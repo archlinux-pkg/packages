@@ -1,7 +1,5 @@
 #!/bin/bash
 
-CONTAINER_NAME=archlinux-pkg-builder
-
 if [ "$github_event" != "workflow_dispatch" ]
 then
   BASE_COMMIT=$(jq --raw-output .pull_request.base.sha "${GITHUB_EVENT_PATH}")
