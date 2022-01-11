@@ -1,4 +1,4 @@
-name: Packages
+name: Build
 
 on:
   push:
@@ -34,12 +34,12 @@ jobs:
 
           if [ -f ./built_packages.txt ]
           then
-            printf "\n\n\nPackages to build:\n"
+            printf "\nPackages to build:\n"
             cat --number built_packages.txt
           fi
           if [ -f ./deleted_packages.txt ]
           then
-            printf "\n\n\nPackages to delete:\n"
+            printf "\nPackages to delete:\n"
             cat --number deleted_packages.txt
           fi
         env:
@@ -47,23 +47,7 @@ jobs:
           github_inputs_packages: ${{ github.event.inputs.packages }}
 
       - name: Build
-        run: |
-          echo "Free additional disk space on host..."
-          sudo rm -rf \
-            /opt/hostedtoolcache \
-            /usr/share/dotnet \
-            /usr/share/swift \
-            /usr/local/lib/android
-          echo "Done!"
-
-          if [ -f ./built_packages.txt ]
-          then
-            sudo docker run \
-              --name $CONTAINER_NAME \
-              --volume $(pwd):/home/archlinux-pkg \
-              medzik/archlinux:latest \
-              /home/archlinux-pkg/.github/scripts/entrypoint.sh
-          fi
+        run: ./.github/scripts/build.sh
         env:
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
