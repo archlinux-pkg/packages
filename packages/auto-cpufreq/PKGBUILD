@@ -13,7 +13,7 @@ arch=('any')
 url="https://github.com/${_repo}"
 license=('LGPL3')
 depends=('python' 'python-distro' 'python-psutil' 'python-click' 'dmidecode')
-makedepends=('python-setuptools' 'python-wheel')
+makedepends=('python-setuptools' 'python-wheel' 'python-pip')
 optdepends=('cpufreqctl: CPU Power Manager')
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
@@ -28,8 +28,8 @@ package() {
 
   python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
 
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README"
-  install -Dm755 scripts/cpufreqctl.sh -t "${pkgdir}/usr/share/${pkgname}/scripts"
-  install -Dm644 "scripts/${pkgname}.service" -t "${pkgdir}/usr/lib/systemd/system"
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README"
+  install -Dm 755 scripts/cpufreqctl.sh -t "${pkgdir}/usr/share/${pkgname}/scripts"
+  install -Dm 644 "scripts/${pkgname}.service" -t "${pkgdir}/usr/lib/systemd/system"
 }
