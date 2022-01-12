@@ -1,8 +1,8 @@
 # Maintainer: MedzikUser
 
 pkgname='update-grub'
-pkgver=1.0.0
-pkgrel=2
+pkgver=1
+pkgrel=3
 pkgdesc='Simple wrapper around grub-mkconfig'
 arch=('any')
 url='http://packages.ubuntu.com/precise/grub2-common'

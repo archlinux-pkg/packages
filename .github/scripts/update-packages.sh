@@ -2,8 +2,10 @@
 
 BASEDIR=$(pwd)
 
-for pkg_dir in "${BASEDIR}"/packages/*
-do
+run() {
+  pkg_dir="${1}"
+  pkg_name=$(basename ${pkg_dir})
+
   if [ ! -f "${pkg_dir}/git.sh" ]
   then
     build_vars=$(
@@ -23,7 +25,17 @@ do
       continue
     fi
 
-    if [ ! -f "${pkg_dir}/_version" ]
+    if [ "${auto_update_git}" == true ]
+    then
+      git clone "https://github.com/${pkg_repo}.git" "${pkg_dir}/git" 2> /dev/null
+
+      cd "${pkg_dir}/git"
+      latest_tag=$(git log -1 --date=short --pretty=format:"%H")
+      version=$(git log -1 --date=short --pretty=format:%cd_%ct | sed -r 's/-/./g')
+      cd ${BASEDIR}
+
+      rm -rf "${pkg_dir}/git"
+    elif [ ! -f "${pkg_dir}/_version" ]
     then
       latest_tag=$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${pkg_repo}/releases/latest" | jq -r .tag_name)
 
@@ -36,15 +48,6 @@ do
 
       ver_a=${latest_tag#[v,r]}
       version=${ver_a//-/_}
-    elif [ "${auto_update_git}" == true ]
-    then
-      git clone "https://github.com/${pkg_repo}.git" "${pkg_dir}/git_repo"
-
-      cd "${pkg_dir}/git_repo"
-      latest_tag=$(git log -1 --date=short --pretty=format:"%H")
-      cd ..
-
-      rm -rf "${pkg_dir}/git_repo"
     else
       custom_vars=$(
         . "${pkg_dir}/_version"
@@ -63,8 +66,6 @@ do
 
     if [ "${pkg_tag}" != "${latest_tag}" ]
     then
-      pkg_name=$(basename ${pkg_dir})
-
       echo "Updating '${pkg_name}' to '${latest_tag}'."
 
       sed -i "s|^\(_ver=\)\(.*\)\$|\1${latest_tag}|g" "${pkg_dir}/PKGBUILD"
@@ -72,13 +73,11 @@ do
       git diff-index --quiet HEAD || sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "${pkg_dir}/PKGBUILD"
 
       git add ${pkg_dir}
-      git commit -m "update '${pkg_name}' to '${latest_tag}'"
+      git commit -m "update '${pkg_name}' to '${version}'"
       git pull --rebase 2> /dev/null
       git push 2> /dev/null
     fi
   else
-    pkg_name=$(basename ${pkg_dir})
-
     custom_vars=$(
       . "${pkg_dir}/git.sh"
       echo "git_repo=${_git};"
@@ -102,4 +101,16 @@ do
     git pull --rebase > /dev/null
     git push 2> /dev/null
   fi
-done
+}
+
+if [ ${#} -gt 0 ]
+then
+  run ${1}
+else
+  for pkg_dir in "${BASEDIR}"/packages/*
+  do
+    run ${pkg_dir}
+  done
+fi
+
+sleep 2
