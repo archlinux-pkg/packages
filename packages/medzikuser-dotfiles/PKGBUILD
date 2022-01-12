@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='MedzikUser/dotfiles'
-_ver=a
+_ver=a0c408d6a868854ee2778cd639bf478008327936
 _auto_update=true
 _auto_update_git=true
 
 pkgbase='medzikuser-dotfiles'
 pkgname=('medzikuser-lib' 'medzikuser-bin')
-pkgver=0.0.0
+pkgver=6.18.1
 pkgrel=1
 pkgdesc="MedzikUser's bin and tools"
 arch=('any')
