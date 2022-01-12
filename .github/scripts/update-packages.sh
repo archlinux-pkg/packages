@@ -4,7 +4,7 @@ BASEDIR=$(pwd)
 
 for pkg_dir in "${BASEDIR}"/packages/*
 do
-  if [ ! -f "${pkg_dir}/_clone" ]
+  if [ ! -f "${pkg_dir}/git.sh" ]
   then
     build_vars=$(
       set +e +u
