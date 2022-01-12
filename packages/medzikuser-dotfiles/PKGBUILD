@@ -1,0 +1,51 @@
+# Maintainer: MedzikUser
+
+_repo='MedzikUser/dotfiles'
+_ver=commit
+_auto_update=true
+
+pkgbase='medzikuser-dotfiles'
+pkgname=('medzikuser-lib' 'medzikuser-bin')
+pkgver=0.0.0
+pkgrel=1
+pkgdesc="MedzikUser's bin and tools"
+arch=('any')
+depends=()
+url="https://github.com/${_repo}"
+license=('BSD3')
+source=("${pkgbase}::git+${url}.git#commit=${_ver}")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${pkgbase}"
+  git log -1 --date=short --pretty=format:%cd_%ct | sed -r 's/-/./g'
+}
+
+build() {
+  cd "${pkgbase}"
+
+  make \
+    DEST_DIR="${srcdir}/out" \
+    BIN_DIR_NAME="bin" \
+    LIB_DIR_NAME="lib" \
+    BIN_DIR="/usr/bin" \
+    LIB_DIR="/usr/lib/${pkgbase}" \
+    GIT_COMMIT_OPTIONS="-S" # -S: sign commit
+}
+
+package_medzikuser-lib() {
+  cd "out"
+
+  # Install libs
+  install -d "${pkgdir}/usr/lib/${pkgbase}"
+  cp -r --no-preserve=ownership --preserve=mode lib/* "${pkgdir}/usr/lib/${pkgbase}"
+}
+
+package_medzikuser-bin() {
+  depends+=('medzikuser-lib')
+  cd "out"
+
+  # Install scripts
+  install -d "${pkgdir}/usr/bin"
+  cp -r --no-preserve=ownership --preserve=mode bin/* "${pkgdir}/usr/bin/"
+}
