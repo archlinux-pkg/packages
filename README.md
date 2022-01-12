@@ -17,6 +17,6 @@ $ sudo pacman -U 'https://arch-repo.magicuser.cf/packages/medzikuser-mirrorlist-
 **Append (adding to the end of the file) to `/etc/pacman.conf`:**
 
 ```toml
-[chaotic-aur]
+[medzikuser]
 Include = /etc/pacman.d/medzikuser-mirrorlist
 ```
