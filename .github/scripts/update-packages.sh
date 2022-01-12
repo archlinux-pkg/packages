@@ -36,7 +36,7 @@ do
 
       ver_a=${latest_tag#[v,r]}
       version=${ver_a//-/_}
-    elif [ "${auto_update_git}" = true ]
+    elif [ "${auto_update_git}" == true ]
     then
       git clone "https://github.com/${pkg_repo}.git" "${pkg_dir}/git_repo"
 
