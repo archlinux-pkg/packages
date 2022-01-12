@@ -2,8 +2,8 @@
 
 BASEDIR=$(pwd)
 
-run() {
-  pkg_dir="${1}"
+for pkg_dir in "${BASEDIR}"/packages/*
+do
   pkg_name=$(basename ${pkg_dir})
 
   if [ ! -f "${pkg_dir}/git.sh" ]
@@ -101,16 +101,4 @@ run() {
     git pull --rebase > /dev/null
     git push 2> /dev/null
   fi
-}
-
-if [ ${#} -gt 0 ]
-then
-  run ${1}
-else
-  for pkg_dir in "${BASEDIR}"/packages/*
-  do
-    run ${pkg_dir}
-  done
-fi
-
-sleep 2
+done
