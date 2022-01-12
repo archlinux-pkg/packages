@@ -78,9 +78,9 @@ do
 
     git clone "${git_repo}" "${pkg_dir}.new" --depth 10
 
-    cd "${pkg_dir}"
-
+    cd "${pkg_dir}.new"
     _commit="$(git log -n 1 --pretty=format:"%H")"
+    cd "${BASEDIR}"
 
     sed -i "s|^\(_commit=\)\(.*\)\$|\1${_commit}|g" "${pkg_dir}/_clone"
 
