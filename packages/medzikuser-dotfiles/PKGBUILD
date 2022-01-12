@@ -7,7 +7,7 @@ _auto_update_git=true
 
 pkgbase='medzikuser-dotfiles'
 pkgname=('medzikuser-lib' 'medzikuser-bin')
-pkgver=6.18.1
+pkgver=2022.01.04_1641294332
 pkgrel=1
 pkgdesc="MedzikUser's bin and tools"
 arch=('any')
@@ -16,11 +16,6 @@ url="https://github.com/${_repo}"
 license=('BSD3')
 source=("${pkgbase}::git+${url}.git#commit=${_ver}")
 sha256sums=('SKIP')
-
-pkgver() {
-  cd "${pkgbase}"
-  git log -1 --date=short --pretty=format:%cd_%ct | sed -r 's/-/./g'
-}
 
 build() {
   cd "${pkgbase}"
