@@ -10,11 +10,12 @@ do
       set +e +u
       . "${pkg_dir}/PKGBUILD"
       echo "auto_update=${_auto_update};"
+      echo "auto_update_git=${_auto_update_git};"
       echo "pkg_tag=\"${_ver}\";"
       echo "pkg_repo=\"${_repo}\";"
     )
 
-    eval "$build_vars"
+    eval "${build_vars}"
 
     # Ignore packages that have auto-update disabled.
     if [ "${auto_update}" != "true" ]
@@ -35,6 +36,15 @@ do
 
       ver_a=${latest_tag#[v,r]}
       version=${ver_a//-/_}
+    elif [ "${auto_update_git}" = true ]
+    then
+      git clone "https://github.com/${pkg_repo}.git" "${pkg_dir}/git_repo"
+
+      cd "${pkg_dir}/git_repo"
+      latest_tag=$(git log -1 --date=short --pretty=format:"%H")
+      cd ..
+
+      rm -rf "${pkg_dir}/git_repo"
     else
       custom_vars=$(
         . "${pkg_dir}/_version"
