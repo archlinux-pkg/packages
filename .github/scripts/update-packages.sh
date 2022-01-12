@@ -70,24 +70,25 @@ do
     pkg_name=$(basename ${pkg_dir})
 
     custom_vars=$(
-      . "${pkg_dir}/_clone"
+      . "${pkg_dir}/git.sh"
       echo "git_repo=${_git};"
     )
 
     eval "${custom_vars}"
 
-    git clone "${git_repo}" "${pkg_dir}.new" --depth 10
+    git clone "${git_repo}" "${pkg_dir}.new" --depth 10 2> /dev/null
 
     cd "${pkg_dir}.new"
-    _commit="$(git log -n 1 --pretty=format:"%H")"
+    _commit_long="$(git log -n 1 --pretty=format:"%H")"
+    _commit_short="$(git log -n 1 --pretty=format:"%h")"
     cd "${BASEDIR}"
 
-    sed -i "s|^\(_commit=\)\(.*\)\$|\1${_commit}|g" "${pkg_dir}/_clone"
+    sed -i "s|^\(_commit=\)\(.*\)\$|\1${_commit_long}|g" "${pkg_dir}/git.sh"
 
     rm -rf "${pkg_dir}.new"
 
     git add ${pkg_dir}
-    git diff-index --quiet HEAD || git commit -m "update '${pkg_name}' to commit '${_commit}'"
+    git diff-index --quiet HEAD || git commit -m "update '${pkg_name}' to commit '${_commit_short}'"
     git pull --rebase > /dev/null
     git push 2> /dev/null
   fi

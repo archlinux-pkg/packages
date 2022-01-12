@@ -32,10 +32,10 @@ for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
   pkgdir="${SRCDIR}/packages/${PACKAGE_LIST[i]}"
 
-  if [ -f "${pkgdir}/_clone" ]
+  if [ -f "${pkgdir}/git.sh" ]
   then
     custom_vars=$(
-      . "${pkgdir}/_clone"
+      . "${pkgdir}/git.sh"
       echo "git_repo=${_git};"
       echo "commit=${_commit};"
     )
