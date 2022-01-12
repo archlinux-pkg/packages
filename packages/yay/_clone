@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/yay.git'
-_commit=439dfc87bfdad8669454d4a209d6ac0f03983c66
+_commit=8d7b467a3d823eee958a7ee18f22eed5f8ff33d5
