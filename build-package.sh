@@ -30,7 +30,7 @@ done
 
 for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
-  pkgdir="${pkgdir}"
+  pkgdir="${SRCDIR}/packages/${PACKAGE_LIST[i]}"
 
   if [ -f "${pkgdir}/_clone" ]
   then
