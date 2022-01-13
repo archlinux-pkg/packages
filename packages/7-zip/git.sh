@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/7-zip.git'
-_commit=4ef2cf06f02aa0fdca01be1c33b8e01811d91438
+_commit=f1fe912e0f0626e2bc9042cd4fd9f0dd1e3af382
