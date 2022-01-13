@@ -49,6 +49,15 @@ do
     cd "${pkgdir}"
 
     git reset --hard ${commit}
+
+    code=$?
+
+    if [ ${code} != 0 ]
+    then
+      echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> ${ROOT_DIR}/fail_built.txt
+
+      continue
+    fi
   fi
 
   cd "${pkgdir}"
