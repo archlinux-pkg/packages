@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/uasm.git'
-_commit=4ef2cf06f02aa0fdca01be1c33b8e01811d91438
+_commit=a457b3b4d084aa82d00fb6281f2b1f2cb90df978
