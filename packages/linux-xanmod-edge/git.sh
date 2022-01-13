@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/linux-xanmod-edge.git'
-_commit=5a12eee9ed7bac9e1f86cc7ed43d69284eb2292e
+_commit=95ac1b3cb5df225cf7c2629304a1f6315a0c58cb
