@@ -1,0 +1,21 @@
+# Maintainer: MedzikUser
+
+_repo='martin31821/cpupower'
+_ver=v10.0.1
+_auto_update=true
+
+_pkgname='cpufreqctl'
+pkgname="${_pkgname}"
+pkgver=10.0.1
+pkgrel=1
+pkgdesc="A intel_pstate CPU freq controller for regular user (extracted from extension 'CPU Power Manager for Gnome"
+arch=('any')
+url="https://github.com/${_repo}"
+license=('GPL')
+source=("${_pkgname}::git+${url}#tag=${_ver}")
+sha256sums=('SKIP')
+
+package() {
+  cd "${_pkgname}"
+  make install PREFIX="${pkgdir}/usr"
+}
