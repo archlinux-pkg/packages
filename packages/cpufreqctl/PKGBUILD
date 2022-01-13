@@ -10,6 +10,8 @@ pkgver=10.0.1
 pkgrel=1
 pkgdesc="A intel_pstate CPU freq controller for regular user (extracted from extension 'CPU Power Manager for Gnome"
 arch=('any')
+depends=('gnome-shell')
+makedepends=('zip')
 url="https://github.com/${_repo}"
 license=('GPL')
 source=("${_pkgname}::git+${url}#tag=${_ver}")
