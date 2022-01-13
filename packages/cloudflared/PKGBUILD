@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser
 
 _repo='cloudflare/cloudflared'
-_ver=2022.1.0
+_ver=2022.1.2
 _auto_update=true
 
 _pkgname='cloudflared'
 pkgname="${_pkgname}"
-pkgver=2022.1.0
+pkgver=2022.1.2
 pkgrel=1
 pkgdesc='Cloudflare Tunnel client (formerly Argo Tunnel)'
 arch=('x86_64')
