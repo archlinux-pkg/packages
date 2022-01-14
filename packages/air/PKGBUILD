@@ -7,12 +7,13 @@ _auto_update=true
 _pkgname='air'
 pkgname="${_pkgname}"
 pkgver=1.27.8
-pkgrel=2
+pkgrel=3
 pkgdesc='Live reload for Go apps'
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('GPL3')
 
+depends=('glibc')
 makedepends=('git' 'go')
 optdepends=(
   'go: for development go apps'

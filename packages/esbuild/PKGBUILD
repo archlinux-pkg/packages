@@ -13,7 +13,7 @@ url="https://github.com/evanw/esbuild"
 license=('MIT')
 
 depends=('glibc')
-makedepends=('go')
+makedepends=('git' 'go')
 
 source=("${_pkgname}::git+${url}.git#tag=${_ver}")
 sha256sums=('SKIP')

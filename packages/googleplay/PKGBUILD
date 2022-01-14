@@ -7,13 +7,15 @@ _auto_update=true
 _pkgname='googleplay'
 pkgname="${_pkgname}"
 pkgver=1.5.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Download APK or send API requests'
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('OSL3')
-depends=('go')
+
+depends=('glibc')
 makedepends=('git' 'go')
+
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 

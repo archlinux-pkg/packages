@@ -7,13 +7,15 @@ _auto_update=true
 _pkgname='gotop'
 pkgname="${_pkgname}"
 pkgver=4.1.2
-pkgrel=5
+pkgrel=6
 pkgdesc='A terminal based graphical activity monitor inspired by gtop and vtop'
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('MIT')
-depends=('noto-fonts-cjk')
+
+depends=('glibc' 'noto-fonts-cjk')
 makedepends=('git' 'go')
+
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 

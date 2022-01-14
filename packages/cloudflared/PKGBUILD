@@ -7,12 +7,15 @@ _auto_update=true
 _pkgname='cloudflared'
 pkgname="${_pkgname}"
 pkgver=2022.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Cloudflare Tunnel client (formerly Argo Tunnel)'
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('custom')
+
+depends=('glibc')
 makedepends=('git' 'go')
+
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 

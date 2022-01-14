@@ -12,8 +12,10 @@ pkgdesc='CLI for Imgur API'
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('BSD-3')
-depends=('libnotify')
+
+depends=('glibc' 'libnotify')
 makedepends=('git' 'go')
+
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 
