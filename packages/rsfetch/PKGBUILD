@@ -1,0 +1,35 @@
+# Maintainer: MedzikUser
+
+_repo='Polluktus/rsfetch'
+_ver=v1.19.7
+_auto_update=true
+_auto_update_git=true
+
+_pkgname='rsfetch'
+pkgname="${_pkgname}"
+pkgver=1.19.7
+pkgrel=1
+pkgdesc='extremely fast, simple and lightweight fetch program'
+arch=('x86_64')
+url="https://github.com/${_repo}"
+license=('unknow')
+
+makedepends=('git' 'cargo')
+
+source=("${_pkgname}::git+${url}#tag=${_ver}")
+sha256sums=('SKIP')
+
+build() {
+  cd "${_pkgname}"
+
+  rm -rf .cargo/config.toml
+
+  cargo build --release
+}
+
+package() {
+  cd "${_pkgname}"
+
+  install -Dm 755 target/release/${_pkgname} "${pkgdir}/usr/bin/${pkgname}"
+  #install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
