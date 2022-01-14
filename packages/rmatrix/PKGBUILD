@@ -3,6 +3,7 @@
 _repo='Fierthraix/rmatrix'
 _ver=v1.19.7
 _auto_update=true
+_auto_update_git=true
 
 _pkgname='r-matrix'
 pkgname="rmatrix"
