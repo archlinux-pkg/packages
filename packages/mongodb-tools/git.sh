@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/mongodb-tools.git'
-_commit=4ef2cf06f02aa0fdca01be1c33b8e01811d91438
+_commit=ae5c29186fe238195f548c6f0d7be32f8d32fa53
