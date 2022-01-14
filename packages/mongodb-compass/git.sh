@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/mongodb-compass.git'
-_commit=a9e1ecf97ddcf0ba9ab2e0846f5fab32963bd8b0
+_commit=65cb49459220b0a7f91331ce284949e702ceb6ee
