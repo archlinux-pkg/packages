@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/polybar.git'
-_commit=4ef2cf06f02aa0fdca01be1c33b8e01811d91438
+_commit=b90c9f7763a406095b246d8933037560778a21df
