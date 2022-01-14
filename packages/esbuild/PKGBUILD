@@ -43,5 +43,5 @@ package() {
   cd "${_pkgname}"
 
   install -Dm 755 bin/${_pkgname} "${pkgdir}/usr/bin/${_pkgname}"
-  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm 644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
