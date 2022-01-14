@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser
 _repo='pytube/pytube'
-_ver=5.14.3
+_ver=v11.0.1
 _auto_update=true
 
 _pkgname='ulauncher'
 pkgname="${_pkgname}"
-pkgver=5.14.3
+pkgver=11.0.1
 pkgrel=1
 pkgdesc='Application launcher for Linux'
 arch=('any')
