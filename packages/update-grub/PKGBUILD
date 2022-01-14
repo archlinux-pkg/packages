@@ -7,7 +7,9 @@ pkgdesc='Simple wrapper around grub-mkconfig'
 arch=('any')
 url='http://packages.ubuntu.com/precise/grub2-common'
 license=('GPL2')
+
 depends=('grub')
+
 source=("${pkgname}.sh")
 sha256sums=('SKIP')
 

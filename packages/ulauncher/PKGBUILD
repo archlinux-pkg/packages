@@ -1,0 +1,37 @@
+# Maintainer: MedzikUser
+_repo='pytube/pytube'
+_ver=5.14.3
+_auto_update=true
+
+_pkgname='ulauncher'
+pkgname="${_pkgname}"
+pkgver=5.14.3
+pkgrel=1
+pkgdesc='Application launcher for Linux'
+arch=('any')
+url="https://github.com/${_repo}"
+license=('GPL3')
+
+depends=('gobject-introspection-runtime' 'libkeybinder3' 'gtk3' 'webkit2gtk' 'libnotify'
+         'gdk-pixbuf2' 'wmctrl' 'python-dbus' 'python-levenshtein' 'python-pyinotify'
+         'python-websocket-client' 'python-pyxdg' 'python-gobject' 'python-cairo')
+makedepends=('git' 'python-setuptools' 'python-distutils-extra')
+optdepends=('libappindicator-gtk3: tray icon')
+
+source=("${_pkgname}::git+${url}#tag=${_ver}")
+sha256sums=('SKIP')
+
+build() {
+  cd "${_pkgname}"
+  python setup.py build
+}
+
+package() {
+  cd "${_pkgname}"
+
+  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+  rm -rf "$pkgdir"/usr/share/ulauncher/preferences/{no*,src,bow*,gul*,pack*}
+  find "$pkgdir" -type d -name __pycache__ | xargs rm -rf
+}
