@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='Polluktus/rsfetch'
-_ver=v1.19.7
+_ver=511d8b51cabaa362cdd052c20986ab2dbeabe29c
 _auto_update=true
 _auto_update_git=true
 
 _pkgname='rsfetch'
 pkgname="${_pkgname}"
-pkgver=1.19.7
+pkgver=2021.11.19_1637337131
 pkgrel=1
 pkgdesc='extremely fast, simple and lightweight fetch program'
 arch=('x86_64')
