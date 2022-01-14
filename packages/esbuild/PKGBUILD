@@ -15,7 +15,7 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go')
 
-source=("${_pkgname}::git+${url}.git#tag=${pkgver}")
+source=("${_pkgname}::git+${url}.git#tag=${_ver}")
 sha256sums=('SKIP')
 
 build() {
