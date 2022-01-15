@@ -97,7 +97,7 @@ do
     rm -rf "${pkg_dir}.new"
 
     git add ${pkg_dir}
-    git diff-index --quiet HEAD || git commit -m "update '${pkg_name}' to commit '${_commit_short}'"
+    git diff-index --quiet HEAD || git commit -m "update '${pkg_name}' to AUR commit '${_commit_short}'"
     git pull --rebase > /dev/null
     git push 2> /dev/null
   fi

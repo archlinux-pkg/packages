@@ -2,9 +2,9 @@
 
 ROOT_DIR=$(pwd)
 
-SRCDIR=/home/archlinux-pkg
+SRCDIR="/home/archlinux-pkg"
 
-export PKGDEST="$SRCDIR/pkgs"
+mkdir -p "${SRCDIR}/pkgfiles"
 
 declare -a PACKAGE_LIST=()
 
@@ -30,7 +30,8 @@ done
 
 for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
-  pkgdir="${SRCDIR}/packages/${PACKAGE_LIST[i]}"
+  pkgname="${PACKAGE_LIST[i]}"
+  pkgdir="${SRCDIR}/packages/${pkgname}"
 
   if [ -f "${pkgdir}/git.sh" ]
   then
@@ -54,8 +55,7 @@ do
 
     if [ ${code} != 0 ]
     then
-      echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> ${ROOT_DIR}/fail_built.txt
-
+      echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> "${ROOT_DIR}/fail_built.txt"
       continue
     fi
   fi
@@ -64,21 +64,28 @@ do
 
   sudo pacman -Sy
 
-  makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+  mkdir -p "${SRCDIR}/pkgdest/${pkgname}"
+
+  PKGDEST="${SRCDIR}/pkgdest/${pkgname}" makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
   code=$?
 
   if [ ${code} != 0 ]
   then
-    echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> ${ROOT_DIR}/fail_built.txt
+    echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> "${ROOT_DIR}/fail_built.txt"
+  else
+    for f in "${SRCDIR}/pkgdest/${pkgname}"
+    do
+      echo "${f}" >> "${SRCDIR}/pkgfiles/${pkgname}.txt"
+    done
   fi
 done
 
-if [ -f ${ROOT_DIR}/fail_built.txt ]
+if [ -f "${ROOT_DIR}/fail_built.txt" ]
 then
   printf "\n\nFailed to build:\n"
 
-  cat --number ${ROOT_DIR}/fail_built.txt
+  cat --number "${ROOT_DIR}/fail_built.txt"
 
   exit 1
 fi
