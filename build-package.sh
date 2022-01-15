@@ -3,6 +3,7 @@
 ROOT_DIR=$(pwd)
 
 SRCDIR="/home/archlinux-pkg"
+BUILD_DATE=$(date +%F-%T)
 
 mkdir -p "${SRCDIR}/pkgfiles"
 
@@ -76,7 +77,7 @@ do
   else
     for f in "${SRCDIR}"/pkgdest/"${pkgname}"/*
     do
-      echo "$(basename ${f})" >> "${SRCDIR}/pkgfiles/${pkgname}.txt"
+      echo "$(basename ${f})" >> "${SRCDIR}/pkgfiles/${pkgname}-${BUILD_DATE}.txt"
     done
   fi
 done
