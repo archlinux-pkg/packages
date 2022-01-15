@@ -12,7 +12,7 @@ upload() {
       --retry-delay 3 \
       --user "${HTTP_USER}:${HTTP_PASSWORD}" \
       -F "path=@${file}" \
-      "${HTTP_URL}/${action}/upload?path=/"
+      "${HTTP_URL}/upload?path=/${action}/"
 
     exit_code=${?}
     echo "${file} | exit code = ${exit_code}"
