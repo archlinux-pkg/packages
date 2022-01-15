@@ -54,11 +54,8 @@ jobs:
       - name: Packages
         if: always()
         run: |
-          printf "Packages:\n"
-          ls -lah pkgs/*.xz
-
           printf "\n\nPackages Size:\n"
-          xz -l pkgs/*.xz
+          xz -l ./pkgdest/*//*.xz
 
       - name: Upload to Repo
         if: always() && github.event_name != 'pull_request'
