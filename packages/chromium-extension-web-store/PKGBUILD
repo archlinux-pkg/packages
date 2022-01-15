@@ -15,7 +15,7 @@ url="https://github.com/${_repo}"
 license=('MIT')
 
 install='chromium-extension-web-store.install'
-source=("${pkgname}-${pkgver}.crx::${url}/releases/download/v${_ver}/Chromium.Web.Store.crx")
+source=("${pkgname}-${pkgver}.crx::${url}/releases/download/${_ver}/Chromium.Web.Store.crx")
 noextract=("${pkgname}-${pkgver}.crx")
 sha256sums=('SKIP')
 
