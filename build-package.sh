@@ -74,9 +74,9 @@ do
   then
     echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> "${ROOT_DIR}/fail_built.txt"
   else
-    for f in "${SRCDIR}/pkgdest/${pkgname}"
+    for f in "${SRCDIR}"/pkgdest/"${pkgname}"/*
     do
-      echo "${f}" >> "${SRCDIR}/pkgfiles/${pkgname}.txt"
+      echo "$(basename ${f})" >> "${SRCDIR}/pkgfiles/${pkgname}.txt"
     done
   fi
 done
