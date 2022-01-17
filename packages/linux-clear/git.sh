@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/linux-clear.git'
-_commit=1b39e0ed019802a1123aa436620f88a57ecd4288
+_commit=447d5fdb38283c76b0bc7c337285f820e9c51186
