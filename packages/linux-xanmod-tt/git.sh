@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/linux-xanmod-tt.git'
-_commit=ec7c3bbdf6a64e0bd15a38761d2cba22a4c46ebd
+_commit=55d4575105fd5ea9c8899638350b6511b51790f8
