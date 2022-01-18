@@ -1,17 +1,18 @@
 # Maintainer: MedzikUser
 _repo='ungoogled-software/ungoogled-chromium-archlinux'
-_pkgver() {
-  curl --location --silent "https://api.github.com/repos/$_repo/releases/latest" | jq -r '.tag_name'
-}
 _ver=$(_pkgver)
+_auto_update=true
 
 pkgname='ungoogled-chromium'
+provides=('chromium')
+conflicts=('chromium')
 pkgver=${_ver//-/_}
 pkgrel=1
 pkgdesc='A lightweight approach to removing Google web service dependency'
 arch=('x86_64')
 url="https://github.com/Eloston/ungoogled-chromium"
 license=('BSD')
+
 depends=(
   'gtk3'
   'nss'
@@ -33,15 +34,14 @@ optdepends=(
   'kdialog: support for native dialogs in Plasma'
   'org.freedesktop.secrets: password storage backend on GNOME / Xfce'
   'kwallet: support for storing passwords in KWallet on Plasma')
-provides=('chromium')
-conflicts=('chromium')
-source=("https://github.com/$_repo/releases/download/$_ver/ungoogled-chromium-$_ver-x86_64.pkg.tar.zst")
+
+source=("https://github.com/${_repo}/releases/download/${_ver}/ungoogled-chromium-${_ver}-x86_64.pkg.tar.zst")
 sha256sums=('SKIP')
 
 prepare() {
-  bsdtar -xf "$srcdir/ungoogled-chromium-$_ver-x86_64.pkg.tar.zst"
+  bsdtar -xf "${srcdir}/ungoogled-chromium-${_ver}-x86_64.pkg.tar.zst"
 }
 
 package() {
-  cp -r "$srcdir/usr" "$pkgdir/"
+  cp -r "${srcdir}/usr" "${pkgdir}/"
 }

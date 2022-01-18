@@ -12,8 +12,10 @@ pkgdesc='A light weight Python library for the Spotify Web API'
 arch=('any')
 url="https://github.com/${_repo}"
 license=('MIT')
+
 depends=('python-requests' 'python-six')
 makedepends=('git' 'python-setuptools')
+
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 

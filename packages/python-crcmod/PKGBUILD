@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser
-
 pkgname=python-crcmod
 pkgver=1.7
 pkgrel=1
 pkgdesc='Cyclic Redundancy Check (CRC) implementation in Python.'
 arch=('x86_64')
-url=https://pypi.python.org/pypi/crcmod/
+url="https://pypi.python.org/pypi/crcmod/"
 license=('MIT')
+
 depends=('python')
 
 source=("https://pypi.python.org/packages/source/c/crcmod/crcmod-${pkgver}.tar.gz")
@@ -22,4 +22,3 @@ package() {
   python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
   install -Dm 644 -t "${pkgdir}"/usr/share/licenses/${pkgname} LICENSE
 }
-

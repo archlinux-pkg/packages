@@ -12,8 +12,10 @@ pkgdesc="Library for working with Valve's VDF text format"
 arch=('any')
 url="https://github.com/${_repo}"
 license=('MIT')
+
 depends=('python')
 makedepends=('git' 'python-setuptools')
+
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 

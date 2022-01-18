@@ -2,7 +2,7 @@
 
 DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-source ${DIR}/PKGBUILD
+source "${DIR}/PKGBUILD"
 
 _pkgver() {
   curl --location --silent -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${_repo}/tags" | jq -r '.[0].name'

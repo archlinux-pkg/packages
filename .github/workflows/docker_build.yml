@@ -1,0 +1,32 @@
+name: Docker image
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - '.github/scripts/docker/**'
+  schedule:
+    - cron:  '0 2 * * 0'
+
+  workflow_dispatch:
+
+jobs:
+  update-packages:
+    if: github.repository == 'archlinux-pkg/packages'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build
+        run: |
+          cd .github/scripts/docker
+          docker build --tag "ghcr.io/${{ github.repository_owner }}/packages:latest" .
+
+      - name: Push image
+        run: docker push "ghcr.io/${{ github.repository_owner }}/packages:latest"

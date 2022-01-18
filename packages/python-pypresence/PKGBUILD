@@ -1,5 +1,4 @@
 # Maintainer: MedzikUser
-
 _repo='qwertyquerty/pypresence'
 _ver=4.2.1
 _auto_update=true
@@ -12,8 +11,10 @@ pkgdesc='Discord RPC and Rich Presence wrapper library'
 arch=('any')
 url="https://github.com/${_repo}"
 license=('BSD')
+
 depends=('python')
 makedepends=('git' 'python-setuptools')
+
 source=("${_pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
 

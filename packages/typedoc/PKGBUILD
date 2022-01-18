@@ -12,8 +12,10 @@ pkgdesc='Create api documentation for TypeScript projects'
 arch=('any')
 url="https://www.npmjs.com/package/${_npm}"
 license=('MIT')
+
 depends=('nodejs')
 makedepends=('npm')
+
 _file="${_npm}-${pkgver}.tgz"
 source=("https://registry.npmjs.org/${_npm}/-/${_file}")
 noextract=("${_file}")
