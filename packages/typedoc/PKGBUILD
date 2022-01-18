@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _npm='typedoc'
-_ver=0.22.10
+_ver=0.22.11
 _auto_update=true
 
 _pkgname="${_npm}"
 pkgname="${_pkgname}"
-pkgver=0.22.10
-pkgrel=2
+pkgver=0.22.11
+pkgrel=1
 pkgdesc='Create api documentation for TypeScript projects'
 arch=('any')
 url="https://www.npmjs.com/package/${_npm}"
