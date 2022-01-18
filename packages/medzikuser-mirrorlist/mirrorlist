@@ -1,4 +1,5 @@
 Server = https://arch-repo.magicuser.cf/packages
+Server = http://5.135.168.176/packages
 
 # Hosted on Github Releases (Updated every ~1h)
 Server = https://github.com/MedzikUser/archlinux-repo/releases/download/latest
