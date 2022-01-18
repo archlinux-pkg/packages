@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='Dummerle/Rare'
-_ver=1.8.6
+_ver=1.8.7
 _auto_update=true
 
 _pkgname='rare'
 pkgname="${_pkgname}"
-pkgver=1.8.6
-pkgrel=2
+pkgver=1.8.7
+pkgrel=1
 pkgdesc='A GUI for legendary, an open source replacement for Epic Games Launcher (Written in Python with QT5)'
 arch=('any')
 url="https://github.com/${_repo}"
