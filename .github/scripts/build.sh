@@ -15,6 +15,6 @@ then
   sudo docker run \
     --name ${CONTAINER_NAME} \
     --volume $(pwd):/home/archlinux-pkg \
-    medzik/archlinux:latest \
+    ghcr.io/archlinux-pkg/packages:latest \
     /home/archlinux-pkg/.github/scripts/entrypoint.sh
 fi
