@@ -1,0 +1,40 @@
+# Maintainer: MedzikUser
+_repo='cosmtrek/air'
+_ver=v1.27.8
+_auto_update=true
+
+_pkgname='j4-dmenu-desktop'
+pkgname="${_pkgname}"
+pkgver=1.27.8
+pkgrel=1
+pkgdesc='A much faster replacement for i3-dmenu-desktop. Its purpose is to find .desktop files and offer you a menu to start an application using dmenu'
+arch=('x86_64')
+url="https://github.com/${_repo}"
+license=('GPL3')
+
+optdepends=(
+  'dmenu: install for the default backend'
+  'bemenu: an alternative backend'
+)
+makedepends=('git' 'cmake')
+
+source=("${_pkgname}::git+${url}#tag=${_ver}")
+sha256sums=('SKIP')
+
+build() {
+  mkdir "${_pkgname}/build"
+  cd "${_pkgname}/build"
+
+  cmake \
+    -DCMAKE_INSTALL_PREFIX='/usr' \
+    ..
+
+  make
+}
+
+package() {
+  cd "${_pkgname}/build"
+
+  make DESTDIR="${pkgdir}/" install
+  ln -sf "/usr/bin/dmenu-desktop" "${pkgdir}/usr/bin/${_pkgname}"
+}
