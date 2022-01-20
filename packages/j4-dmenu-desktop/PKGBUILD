@@ -6,7 +6,7 @@ _auto_update=true
 _pkgname='j4-dmenu-desktop'
 pkgname="${_pkgname}"
 pkgver=2.18
-pkgrel=1
+pkgrel=2
 pkgdesc='A much faster replacement for i3-dmenu-desktop. Its purpose is to find .desktop files and offer you a menu to start an application using dmenu'
 arch=('x86_64')
 url="https://github.com/${_repo}"
@@ -34,7 +34,5 @@ build() {
 
 package() {
   cd "${_pkgname}/build"
-
   make DESTDIR="${pkgdir}/" install
-  ln -sf "/usr/bin/dmenu-desktop" "${pkgdir}/usr/bin/${_pkgname}"
 }
