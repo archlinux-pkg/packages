@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='cosmtrek/air'
-_ver=v1.27.8
+_ver=v1.27.9
 _auto_update=true
 
 _pkgname='air'
 pkgname="${_pkgname}"
-pkgver=1.27.8
-pkgrel=3
+pkgver=1.27.9
+pkgrel=1
 pkgdesc='Live reload for Go apps'
 arch=('x86_64')
 url="https://github.com/${_repo}"
