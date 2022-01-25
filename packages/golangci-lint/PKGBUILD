@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='golangci/golangci-lint'
-_ver=v1.43.0
+_ver=v1.44.0
 _auto_update=true
 
 _pkgname='golangci-lint'
 pkgname="${_pkgname}"
-pkgver=1.43.0
-pkgrel=4
+pkgver=1.44.0
+pkgrel=1
 pkgdesc='Linters Runner for Go. 5x faster than gometalinter'
 arch=('x86_64')
 url="https://github.com/${_repo}"
