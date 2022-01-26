@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser
 
 _npm='aws-cdk'
-_ver=2.8.0
+_ver=2.9.0
 _auto_update=true
 
 _pkgname="${_npm}"
 pkgname="${_pkgname}"
-pkgver=2.8.0
+pkgver=2.9.0
 pkgrel=1
 pkgdesc='CDK Toolkit, the command line tool for CDK apps'
 arch=('any')
