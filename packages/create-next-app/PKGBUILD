@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser
 
 _npm='create-next-app'
-_ver=12.0.8
+_ver=12.0.9
 _auto_update=true
 
 _pkgname="${_npm}"
 pkgname="${_pkgname}"
-pkgver=12.0.8
+pkgver=12.0.9
 pkgrel=1
 pkgdesc='Create Next.js-powered React apps with one command'
 arch=('any')
