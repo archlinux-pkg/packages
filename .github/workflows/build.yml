@@ -42,11 +42,14 @@ jobs:
           # This either includes local or downloads files using an url
           cd packages/rare
           su -c "makepkg --allsource" makepkg
+          echo 1
           cd $home_dir
+          echo 2
           echo "::endgroup::"
+          echo 3
           CHROMIUM_VERSION="$(compgen -G "*.src.tar.gz" | grep -Po '([\d\.]+-\d*)')"
           REGISTRY="ghcr.io/${{ github.repository_owner }}"
-          NAME="ungoogled-chromium-archlinux"
+          NAME="packages"
           ID="$(echo $REGISTRY/$NAME | tr '[A-Z]' '[a-z]')"
           REF="$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')"
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && REF=$(echo $REF | sed -e 's/^v//')
@@ -62,6 +65,7 @@ jobs:
           echo "LATEST_TAG=$LATEST_TAG"
           echo "::group::Building container image..."
           # Build container from source files
+          e
           docker build . \
             --file .github/workflows/container/Dockerfile \
             --tag "$VERSION_TAG" \
