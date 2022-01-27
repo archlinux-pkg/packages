@@ -8,8 +8,8 @@ on:
     #  - 'packages/**'
 
   pull_request:
-    #paths:
-    #  - 'packages/**'
+    paths:
+      - 'packages/**'
 
   workflow_dispatch:
     inputs:
@@ -20,7 +20,7 @@ on:
 jobs:
   build-container:
     runs-on: ubuntu-latest
-    container: archlinux
+    container: medzik/archlinux
     steps:
       - name: Checkout latest commit
         uses: actions/checkout@v2
