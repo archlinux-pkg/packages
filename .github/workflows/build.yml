@@ -61,7 +61,6 @@ jobs:
           echo "LATEST_TAG=$LATEST_TAG"
           echo "::group::Building container image..."
           # Build container from source files
-          e
           docker build . \
             --file .github/workflows/container/Dockerfile \
             --tag "$VERSION_TAG" \
