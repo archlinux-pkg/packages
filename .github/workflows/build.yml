@@ -40,13 +40,9 @@ jobs:
           echo "::group::Generating source archive..."
           # Generate archive with all required sources for the build
           # This either includes local or downloads files using an url
-          cd packages/rare
+          cp packages/rare/* .
           su -c "makepkg --allsource" makepkg
-          echo 1
-          cd $home_dir
-          echo 2
           echo "::endgroup::"
-          echo 3
           CHROMIUM_VERSION="$(compgen -G "*.src.tar.gz" | grep -Po '([\d\.]+-\d*)')"
           REGISTRY="ghcr.io/${{ github.repository_owner }}"
           NAME="packages"
