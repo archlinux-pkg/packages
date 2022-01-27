@@ -46,7 +46,7 @@ const shell = async (commandLine: string, args?: Array<string>, options?: ExecOp
   // Taken from https://github.com/easimon/maximize-build-space/blob/master/action.yml
   await core.group<void>('Stage: Free space on GitHub Runner...', async () => {
     await shell('sudo rm -rf /usr/share/dotnet');
-    await shell('sudo rm -rf /usr/local/lib/android');
+    //await shell('sudo rm -rf /usr/local/lib/android');
     await shell('sudo rm -rf /opt/ghc');
   });
 
