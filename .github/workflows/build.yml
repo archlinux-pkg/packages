@@ -39,6 +39,7 @@ jobs:
           echo "::group::Generating source archive..."
           # Generate archive with all required sources for the build
           # This either includes local or downloads files using an url
+          cd packages/rare
           su -c "makepkg --allsource" makepkg
           echo "::endgroup::"
           CHROMIUM_VERSION="$(compgen -G "*.src.tar.gz" | grep -Po '([\d\.]+-\d*)')"
@@ -74,7 +75,7 @@ jobs:
           docker push "${{ steps.build.outputs.version-tag }}"
           docker push "${{ steps.build.outputs.latest-tag }}"
     outputs:
-      chromium-version: "${{ steps.build.outputs.chromium-version }}"
+      name: "${{ steps.build.outputs.chromium-version }}"
       image-tag: "${{ steps.build.outputs.version-tag }}"
 
   build-1:
