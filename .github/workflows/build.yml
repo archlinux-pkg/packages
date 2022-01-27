@@ -20,14 +20,14 @@ on:
 jobs:
   build-container:
     runs-on: ubuntu-latest
-    container: medzik/archlinux
+    container: archlinux
     steps:
       - name: Checkout latest commit
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
-        run: pacman -Syu --needed --noconfirm docker base-devel
+        run: pacman -Syu --needed --noconfirm docker base-devel git
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build container
