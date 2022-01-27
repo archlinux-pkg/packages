@@ -33,6 +33,7 @@ jobs:
       - name: Build container
         id: build
         run: |
+          home_dir=$(pwd)
           # Add non root user to run makepkg with
           useradd makepkg --no-create-home
           chown -R makepkg .
@@ -41,6 +42,7 @@ jobs:
           # This either includes local or downloads files using an url
           cd packages/rare
           su -c "makepkg --allsource" makepkg
+          cd $home_dir
           echo "::endgroup::"
           CHROMIUM_VERSION="$(compgen -G "*.src.tar.gz" | grep -Po '([\d\.]+-\d*)')"
           REGISTRY="ghcr.io/${{ github.repository_owner }}"
