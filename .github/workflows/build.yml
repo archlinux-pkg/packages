@@ -2,14 +2,14 @@ name: Build
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'packages/**'
+    #branches:
+    #  - main
+    #paths:
+    #  - 'packages/**'
 
   pull_request:
-    paths:
-      - 'packages/**'
+    #paths:
+    #  - 'packages/**'
 
   workflow_dispatch:
     inputs:
