@@ -9,7 +9,7 @@ url='https://github.com/archlinux-pkg/packages/tree/main/packages/mkinitcpio-fir
 license=("unknow")
 depends=(
   'linux-firmware'
-  'linux-firmware-qlogi'  # bfa qed qla2xxx qla1280
+  'linux-firmware-qlogic'  # bfa qed qla2xxx qla1280
   'aic94xx-firmware'      # aic94xx
   'wd719x-firmware'       # wd719x
   'upd72020x-fw'          # xhc_pic
