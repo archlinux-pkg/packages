@@ -1,17 +1,19 @@
 # Maintainer: MedzikUser
 
 pkgname='mkinitcpio-firmware'
-pkgver=1.0.0
-pkgrel=2
+pkgver=2
+pkgrel=1
 pkgdesc="Optional firmware for the default linux kernel to get rid of the annoying 'WARNING: Possibly missing firmware for module:' messages"
 arch=('any')
 url='https://github.com/archlinux-pkg/packages/tree/main/packages/mkinitcpio-firmware'
 license=("unknow")
 depends=(
-  'aic94xx-firmware' # aic94xx
-  'wd719x-firmware'  # wd719x
-  'upd72020x-fw'     # xhc_pic
-  'mkinitcpio'
+  'linux-firmware'
+  'linux-firmware-qlogi'  # bfa qed qla2xxx qla1280
+  'aic94xx-firmware'      # aic94xx
+  'wd719x-firmware'       # wd719x
+  'upd72020x-fw'          # xhc_pic
+
 )
 source=("${pkgname}.hook")
 sha256sums=('SKIP')
