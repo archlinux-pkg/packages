@@ -46,5 +46,5 @@ jobs:
           if [[ -d "queue" ]]
           then
             echo "Uploading..."
-            gh release upload --repo archlinux-pkg/packages packages ./packages/*.pkg.tar*
+            gh release upload --repo archlinux-pkg/packages packages ./packages/* --clobber
           fi
