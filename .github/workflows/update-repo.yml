@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: medzik/archlinux:latest
+    container: archlinux
 
     steps:
       - name: Clone repository
@@ -20,12 +20,18 @@ jobs:
 
       - name: Install dependencied
         run: |
-          sudo pacman -Sy github-cli
+          pacman -Sy github-cli
 
       - name: Download packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./.github/scripts/download-packages.sh
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          gpg_private_key: ${{ secrets.GPG_SECRET }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: repo-add
         run: ./.github/scripts/repo-add.sh
