@@ -1,2 +1,2 @@
-# Hosted on Github Releases (Updated every ~1h)
-Server = https://github.com/archlinux-pkg/packages/releases/download/latest
+# Hosted on Github Releases
+Server = https://github.com/archlinux-pkg/packages/releases/download/packages

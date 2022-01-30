@@ -2,7 +2,7 @@
 
 pkgname='medzikuser-mirrorlist'
 pkgver=2022.1.30
-pkgrel=1
+pkgrel=2
 pkgdesc='MedzikUser repo mirrorlist to use with Pacman'
 arch=('any')
 url='https://arch-repo.magicuser.cf'
