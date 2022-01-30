@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencied
         run: |
-          pacman -Sy github-cli
+          pacman -Sy github-cli --noconfirm
 
       - name: Download packages
         env:
