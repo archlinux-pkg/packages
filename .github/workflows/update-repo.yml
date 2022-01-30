@@ -25,7 +25,6 @@ jobs:
       - name: repo-add
         run: |
           sudo docker run \
-            --name ${CONTAINER_NAME} \
             --volume $(pwd):/home/archlinux-pkg \
             ghcr.io/archlinux-pkg/packages:latest \
               /home/archlinux-pkg/.github/scripts/repo-add.sh
