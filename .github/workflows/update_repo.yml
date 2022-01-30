@@ -1,9 +1,6 @@
 name: Update repo
 
 on:
-  # delete this line
-  push:
-
   schedule:
     - cron:  '*/30 * * * *'
 
