@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gh release download --repo archlinux-pkg/packages --pattern 'medzikuser.*' --dir packages
+gh release download --repo archlinux-pkg/packages --pattern 'medzikuser.*' --dir pkgs
 
 gh release download --repo archlinux-pkg/packages queue --pattern '*' --dir queue
 gh release delete --repo archlinux-pkg/packages queue --yes
