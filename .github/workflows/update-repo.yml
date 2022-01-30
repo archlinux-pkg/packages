@@ -22,7 +22,8 @@ jobs:
         run: |
           pacman -Sy --noconfirm \
             github-cli \
-            base-devel
+            base-devel \
+            git
 
       - name: Download packages
         env:
