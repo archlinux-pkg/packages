@@ -67,10 +67,16 @@ jobs:
         run: |
           for file in ./pkgdest/*/*.pkg.tar*
           do
-            mv "$file" "${file//:/_}" --force
+            new_filename="${file//:/_}"
+
+            if [ "$file" != "$new_filename" ]
+            then
+              mv "$file" "$new_filename"
+            fi
           done
 
       - name: Sign packages
+        if: always() && github.event_name != 'pull_request'
         run: |
           for file in ./pkgdest/*/*.pkg.tar*
           do
@@ -80,6 +86,6 @@ jobs:
       - name: Upload packages
         if: always() && github.event_name != 'pull_request'
         run: |
-          gh release upload queue ./pkgdest/*/*.pkg.tar*
+          gh release upload queue ./pkgdest/*/*.pkg.tar* --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
