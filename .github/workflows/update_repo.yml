@@ -45,5 +45,5 @@ jobs:
         run: |
           if [[ -d "queue" ]]
           then
-            gh release upload --repo archlinux-pkg/packages latest ./packages/*.pkg.tar*
+            gh release upload --repo archlinux-pkg/packages packages ./packages/*.pkg.tar*
           fi
