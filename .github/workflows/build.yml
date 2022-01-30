@@ -51,6 +51,11 @@ jobs:
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
 
+      - name: Fix folder owner
+        run: |
+          user=$(whoami)
+          sudo chown -R "$user" ./pkgdest
+
       - name: Packages
         if: always()
         run: |
