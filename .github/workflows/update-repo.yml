@@ -18,8 +18,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Download packages
-        run: |
-          ./.github/scripts/download-packages.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./.github/scripts/download-packages.sh
 
       - name: repo-add
         run: |
@@ -30,7 +31,6 @@ jobs:
           /home/archlinux-pkg/.github/scripts/repo-add.sh
 
       - name: Upload packages
-        run: |
-          gh release upload latest ./packages/*.pkg.tar* --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload latest ./packages/*.pkg.tar* --clobber
