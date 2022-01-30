@@ -42,4 +42,4 @@ jobs:
       - name: Upload packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload latest ./packages/*.pkg.tar* --clobber
+        run: gh release upload --repo archlinux-pkg/packages latest ./packages/*.pkg.tar* --clobber
