@@ -2,7 +2,7 @@
 
 cd /home/archlinux-pkg
 
-mv queue/* packages/*
+mv queue/* packages/
 
 cd packages
 

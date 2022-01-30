@@ -12,10 +12,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: medzik/archlinux:latest
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
+
+      - name: Install dependencied
+        run: |
+          sudo pacman -Sy github-cli
 
       - name: Download packages
         env:
@@ -23,11 +28,7 @@ jobs:
         run: ./.github/scripts/download-packages.sh
 
       - name: repo-add
-        run: |
-          sudo docker run \
-            --volume $(pwd):/home/archlinux-pkg \
-            ghcr.io/archlinux-pkg/packages:latest \
-              /home/archlinux-pkg/.github/scripts/repo-add.sh
+        run: ./.github/scripts/repo-add.sh
 
       - name: Upload packages
         env:
