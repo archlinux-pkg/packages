@@ -67,7 +67,7 @@ jobs:
         run: |
           for file in ./pkgdest/*/*.pkg.tar*
           do
-            mv "$file" "${file//:/_}"
+            mv "$file" "${file//:/_}" --force
           done
 
       - name: Sign packages
