@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  schedule:
+    - cron:  '*/30 * * * *'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download packages
+        run: |
+          ./.github/scripts/download-packages.sh
+
+      - name: repo-add
+        run: |
+          sudo docker run \
+          --name ${CONTAINER_NAME} \
+          --volume $(pwd):/home/archlinux-pkg \
+          ghcr.io/archlinux-pkg/packages:latest \
+          /home/archlinux-pkg/.github/scripts/repo-add.sh
+
+      - name: Upload packages
+        run: |
+          gh release upload latest ./packages/*.pkg.tar* --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
