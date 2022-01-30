@@ -51,17 +51,46 @@ jobs:
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
 
+      - name: Fix folder owner
+        run: |
+          user=$(whoami)
+          sudo chown -R "$user" ./pkgdest
+
       - name: Packages
         if: always()
         run: |
           printf "\n\nPackages Size:\n"
           xz -l ./pkgdest/*//*.xz
 
-      - name: Upload to Repo
-        if: always() && github.event_name != 'pull_request'
-        env:
-          HTTP_PASSWORD: ${{ secrets.HTTP_PASSWORD }}
-          HTTP_USER: ${{ secrets.HTTP_USER }}
-          HTTP_URL: ${{ secrets.HTTP_URL }}
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          gpg_private_key: ${{ secrets.GPG_SECRET }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Update file names
         run: |
-          ./.github/scripts/upload.sh
+          for file in ./pkgdest/*/*.pkg.tar*
+          do
+            new_filename="${file//:/_}"
+
+            if [ "$file" != "$new_filename" ]
+            then
+              mv "$file" "$new_filename"
+            fi
+          done
+
+      - name: Sign packages
+        if: always() && github.event_name != 'pull_request'
+        run: |
+          for file in ./pkgdest/*/*.pkg.tar*
+          do
+            gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
+          done
+
+      - name: Upload packages
+        if: always() && github.event_name != 'pull_request'
+        run: |
+          gh release upload queue ./pkgdest/*/*.pkg.tar* --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
