@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/brave-nightly-bin.git'
-_commit=c3a5e63e895b3bfffe0412056366535f6619e141
+_commit=a5541433bfefa8d1458cdcc5632270d6dd184521
