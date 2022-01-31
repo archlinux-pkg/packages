@@ -20,7 +20,8 @@ jobs:
           pacman -Sy --noconfirm \
             github-cli \
             base-devel \
-            git
+            git \
+            github-release-cli
 
       - name: Download packages
         env:
@@ -39,9 +40,4 @@ jobs:
       - name: Upload packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if [[ -d "queue" ]]
-          then
-            echo "Uploading..."
-            gh release upload --repo archlinux-pkg/packages packages ./pkgs/* --clobber
-          fi
+        run: ./.github/scripts/upload.sh
