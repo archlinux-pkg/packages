@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/rustdesk.git'
-_commit=4ef2cf06f02aa0fdca01be1c33b8e01811d91438
+_commit=9096addff972aeda6e05a87c42191aa8b1e163a7
