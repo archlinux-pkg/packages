@@ -28,6 +28,7 @@ then
   for FILE in ./pkgs/*
   do
     upload "${FILE}" &
+    wait
   done
 fi
 
