@@ -21,7 +21,8 @@ jobs:
             github-cli \
             base-devel \
             git \
-            github-release-cli
+            npm
+          npm i -g github-release-cli
 
       - name: Download packages
         env:
