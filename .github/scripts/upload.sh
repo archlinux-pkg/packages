@@ -27,7 +27,7 @@ if [[ -d "queue" ]]
 then
   for FILE in ./pkgs/*
   do
-    upload &
+    upload "${FILE}" &
   done
 fi
 
