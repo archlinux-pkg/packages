@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/nerd-fonts-fira-code.git'
-_commit=4ef2cf06f02aa0fdca01be1c33b8e01811d91438
+_commit=1cb9f55f9a21ca0c49967f41ad2cfb1af2b52771
