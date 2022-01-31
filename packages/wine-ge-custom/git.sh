@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/wine-ge-custom.git'
-_commit=d7bc2318ebc305642acdb13c00dbcc851315559b
+_commit=63a57a5cfc3901bbd4110fe3bed77c74d58eb49a
