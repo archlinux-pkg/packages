@@ -1,13 +1,15 @@
 #!/bin/bash
 
 ROOT_DIR=$(pwd)
+SRCDIR=$(pwd)
 
-SRCDIR="/home/archlinux-pkg"
 BUILD_DATE=$(date +%F-%T)
 
 mkdir -p "${SRCDIR}/pkgfiles"
 
 declare -a PACKAGE_LIST=()
+
+export BUILDDIR="${SRCDIR}/build_dir"
 
 if [ "$#" -lt 1 ]
 then
