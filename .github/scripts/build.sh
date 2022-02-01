@@ -14,5 +14,5 @@ then
     --name ${CONTAINER_NAME} \
     --volume $(pwd):/home/archlinux-pkg \
     ghcr.io/archlinux-pkg/packages:latest \
-    /home/archlinux-pkg/.github/scripts/entrypoint.sh
+    su -c '/home/archlinux-pkg/.github/scripts/entrypoint.sh' build
 fi
