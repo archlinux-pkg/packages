@@ -91,7 +91,9 @@ jobs:
       - name: Upload packages
         if: always() && github.event_name != 'pull_request'
         run: |
-          sudo pacman -Sy github-cli
-          gh release upload queue ./pkgdest/*/*.pkg.tar* --clobber
+          pacman -Sy github-release
+          mkdir pkgs
+          mv ./pkgdest/*/*.pkg.tar* pkgs/
+          ./.github/scripts/upload.sh queue ./pkgdest/*/*.pkg.tar*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
