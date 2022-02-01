@@ -20,6 +20,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: ghcr.io/archlinux-pkg/packages:latest
 
     steps:
       - name: Clone repository
@@ -46,16 +47,10 @@ jobs:
           github_inputs_packages: ${{ github.event.inputs.packages }}
 
       - name: Build
-        run: ./.github/scripts/build.sh
+        run: su -c '/home/archlinux-pkg/.github/scripts/entrypoint.sh' build
         env:
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
-
-      - name: Fix folder owner
-        if: always()
-        run: |
-          user=$(whoami)
-          sudo chown -R "$user" ./pkgdest
 
       - name: Packages
         if: always()
@@ -94,6 +89,7 @@ jobs:
       - name: Upload packages
         if: always() && github.event_name != 'pull_request'
         run: |
+          sudo pacman -Sy github-cli
           gh release upload queue ./pkgdest/*/*.pkg.tar* --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
