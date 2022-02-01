@@ -47,7 +47,7 @@ jobs:
           github_inputs_packages: ${{ github.event.inputs.packages }}
 
       - name: Build
-        run: su -c '/home/archlinux-pkg/.github/scripts/entrypoint.sh' build
+        run: su -c '.github/scripts/entrypoint.sh' build
         env:
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
