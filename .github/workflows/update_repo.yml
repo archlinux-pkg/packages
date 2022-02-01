@@ -41,4 +41,8 @@ jobs:
       - name: Upload packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./.github/scripts/upload.sh
+        run: |
+          if [[ -d "queue" ]]
+          then
+            ./.github/scripts/upload.sh packages
+          fi
