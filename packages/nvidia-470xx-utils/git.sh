@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/nvidia-470xx-utils.git'
-_commit=0eacff0017388b2fdd942488c51a4187d4fe2635
+_commit=718702e0aea6661371d91a364e22d4a4006ad7be
