@@ -42,6 +42,9 @@ jobs:
             printf "\nPackages to delete:\n"
             cat --number deleted_packages.txt
           fi
+
+          mkdir build_dir
+          sudo chown -R build build_dir
         env:
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
