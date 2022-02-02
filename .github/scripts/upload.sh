@@ -5,6 +5,7 @@ upload() {
 
   for (( i=0; i<10; i++ ))
   do
+    gh release upload --repo 'archlinux-pkg/packages' "${TAG}" "${FILE}"
     github-release upload --owner 'archlinux-pkg' --repo 'packages' --tag "${TAG}" "${FILE}"
 
     EXIT_STATUS=$?
@@ -16,10 +17,8 @@ upload() {
     else
       github-release delete --owner 'archlinux-pkg' --repo 'packages' --tag "${TAG}" "${FILE}"
 
-      sleep $(( 10 * (i + 1)))
+      sleep $(( 8 * (i + 1)))
     fi
-
-    github-release delete --owner 'archlinux-pkg' --repo 'packages' --tag "${TAG}" "${FILE}"
   done
 }
 
