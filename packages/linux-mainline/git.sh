@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/linux-mainline.git'
-_commit=202029993eaa0c5f9ba13ad50c5d31325f171164
+_commit=fd62ef5d9d23b974a3ed174e74893556d773674e
