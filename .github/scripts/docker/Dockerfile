@@ -11,4 +11,5 @@ RUN pacman -Syu --noconfirm \
       ccache \
       python \
       pacman-contrib \
+      jq \
  && yes | pacman -Scc
