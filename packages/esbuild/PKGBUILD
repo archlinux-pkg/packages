@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser
 
 _repo=evanw/esbuild
-_ver=v0.14.17
+_ver=v0.14.18
 _auto_update=true
 
 _pkgname="esbuild"
 pkgname="${_pkgname}"
-pkgver=0.14.17
+pkgver=0.14.18
 pkgrel=1
 pkgdesc='An extremely fast JavaScript and CSS bundler and minifier'
 arch=('x86_64')
