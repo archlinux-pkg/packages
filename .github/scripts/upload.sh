@@ -6,7 +6,6 @@ upload() {
   for (( i=0; i<10; i++ ))
   do
     gh release upload --repo 'archlinux-pkg/packages' "${TAG}" "${FILE}"
-    github-release upload --owner 'archlinux-pkg' --repo 'packages' --tag "${TAG}" "${FILE}"
 
     EXIT_STATUS=$?
     echo "exit: $EXIT_STATUS"
