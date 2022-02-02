@@ -91,7 +91,7 @@ jobs:
       - name: Upload packages
         if: always() && github.event_name != 'pull_request'
         run: |
-          pacman -Sy github-release-cli --noconfirm
+          pacman -Sy github-release-cli github-cli --noconfirm
           rm -rf pkgs
           mkdir pkgs
           mv ./pkgdest/*/*.pkg.tar* pkgs/
