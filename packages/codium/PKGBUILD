@@ -2,12 +2,12 @@
 
 _repo='VSCodium/vscodium'
 _auto_update=true
-_ver=1.63.2
+_ver=1.64.0
 
 pkgname='codium'
 pkgdesc='Free/Libre Open Source Software Binaries of VSCode'
-pkgver=1.63.2
-pkgrel=4
+pkgver=1.64.0
+pkgrel=1
 arch=('x86_64')
 microsofturl='https://github.com/microsoft/vscode'
 url="https://github.com/${_repo}"
