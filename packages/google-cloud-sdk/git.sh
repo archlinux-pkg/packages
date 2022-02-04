@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/google-cloud-sdk.git'
-_commit=0b2494e8fdd8db4c76e6f869406652708ed836f6
+_commit=a1dba8c590a53880875f70904c4c29bd8f01a557
