@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/ventoy-bin.git'
-_commit=dfbd84f08a80db72d2b1ddd45eb9a6066527f55b
+_commit=b51d1304402e83d8d720d2ec1b644ebfab0f044c
