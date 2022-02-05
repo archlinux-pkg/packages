@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/android-emulator.git'
-_commit=f9ae760d897cbfb4f8b48696a8f5ec1e8894e730
+_commit=e459222a24c381b49b2630250f880c01c4dcb5df
