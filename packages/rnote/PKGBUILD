@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser
 
 _repo='flxzt/rnote'
-_ver=v0.3.2-hotfix-1
+_ver=v0.3.3
 _auto_update=true
 
 _pkgname='rnote'
 pkgname="${_pkgname}"
-pkgver=0.3.2_hotfix_1
+pkgver=0.3.3
 pkgrel=1
 pkgdesc="A simple note taking application written in Rust and GTK4"
 arch=('x86_64')
