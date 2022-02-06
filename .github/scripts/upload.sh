@@ -7,7 +7,6 @@ upload() {
   for (( i=0; i<10; i++ ))
   do
     curl \
-      --silent \
       -u "${FTP1_USER}:${FTP1_PASSWORD}" \
       -T "${file}" \
       "${FTP1_URI}"
