@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/proton-experimental.git'
-_commit=9fd2226a590dd5621e996631430f07b9cd04543c
+_commit=9bcdbf8f06b9f2321abdee0a2e30cc9c818dff55
