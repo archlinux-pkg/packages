@@ -2,6 +2,8 @@
 upload() {
   local file="$1"
 
+  echo "::group::Uploading '${file}'"
+
   for (( i=0; i<10; i++ ))
   do
     curl "${FTP1_URI}" -u "${FTP1_USER}:${FTP1_PASSWORD}" -T "${file}"
@@ -16,6 +18,8 @@ upload() {
       sleep $(( 8 * (i + 1)))
     fi
   done
+
+  echo "::endgroup::"
 }
 
 for file in ./pkgs/*
