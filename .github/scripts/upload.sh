@@ -6,7 +6,11 @@ upload() {
 
   for (( i=0; i<10; i++ ))
   do
-    curl "${FTP1_URI}" -u "${FTP1_USER}:${FTP1_PASSWORD}" -T "${file}"
+    curl \
+      --silent \
+      -u "${FTP1_USER}:${FTP1_PASSWORD}" \
+      -T "${file}" \
+      "${FTP1_URI}"
 
     EXIT_STATUS=$?
     echo "exit: $EXIT_STATUS"
