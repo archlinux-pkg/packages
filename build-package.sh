@@ -36,6 +36,8 @@ do
   pkgname="${PACKAGE_LIST[i]}"
   pkgdir="${SRCDIR}/packages/${pkgname}"
 
+  echo "::group::Building '${pkgname}'"
+
   if [ -f "${pkgdir}/git.sh" ]
   then
     custom_vars=$(
@@ -82,6 +84,8 @@ do
       echo "$(basename ${f})" >> "${SRCDIR}/pkgfiles/${pkgname}-${BUILD_DATE}.txt"
     done
   fi
+
+  echo "::endgroup::"
 done
 
 if [ -f "${ROOT_DIR}/fail_built.txt" ]
