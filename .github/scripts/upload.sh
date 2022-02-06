@@ -1,11 +1,10 @@
 #!/bin/bash
 upload() {
-  local FILE="$1"
-  local TAG="$2"
+  local file="$1"
 
   for (( i=0; i<10; i++ ))
   do
-    gh release upload --repo 'archlinux-pkg/packages' "${TAG}" "${FILE}"
+    curl "${FTP1_URI}" -u "${FTP1_USER}:${FTP1_PASSWORD}" -T "${file}"
 
     EXIT_STATUS=$?
     echo "exit: $EXIT_STATUS"
@@ -14,15 +13,21 @@ upload() {
     then
       break
     else
-      github-release delete --owner 'archlinux-pkg' --repo 'packages' --tag "${TAG}" "${FILE}"
-
       sleep $(( 8 * (i + 1)))
     fi
   done
 }
 
-for FILE in ./pkgs/*
+for file in ./pkgs/*
 do
-  upload "${FILE}" "$1" &
+  #maxfilesize=94371840
+  #filesize=$(stat -c%s "$file")
+  #if [[ $filesize -gt $maxfilesize ]]; then
+  #    printf "File %s is larger than %d bytes.\n" "$file" $maxfilesize
+  #else
+  #
+  #fi
+
+  upload "${FILE}" &
   wait
 done
