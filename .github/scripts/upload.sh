@@ -28,6 +28,6 @@ do
   #
   #fi
 
-  upload "${FILE}" &
+  upload "${file}" &
   wait
 done
