@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='FreeTubeApp/FreeTube'
-_ver=v0.15.1-beta
+_ver=v0.16.0-beta
 _auto_update=true
 
 pkgname='freetube'
 pkgdesc='An Open Source YouTube app for privacy'
-pkgver=0.15.1_beta
-pkgrel=2
+pkgver=0.16.0_beta
+pkgrel=1
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('AGPL3')
