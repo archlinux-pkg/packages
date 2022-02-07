@@ -1,9 +1,15 @@
 #!/bin/bash
 
-gh release download --repo archlinux-pkg/packages --pattern 'medzikuser.*' --dir pkgs
+mkdir queue
 
-gh release download --repo archlinux-pkg/packages queue --pattern '*' --dir queue
-gh release delete --repo archlinux-pkg/packages queue --yes
-gh release create --repo archlinux-pkg/packages queue --notes "packages queue" --prerelease
+conenctsfttp() {
+  export SSHPASS="${FTP_PASSWORD}"
+  sshpass -e sftp -oBatchMode=no -b - "${FTP_USER}@${FTP_URI}"
+}
 
-echo
+
+conenctsfttp << EOF
+  cd ${FTP_CWD}/queue
+  get * queue
+  rm *
+EOF

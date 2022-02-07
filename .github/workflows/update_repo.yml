@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: archlinux
+    container: medzik/archlinux
 
     steps:
       - name: Clone repository
@@ -18,15 +18,15 @@ jobs:
       - name: Install dependencied
         run: |
           pacman -Sy --noconfirm \
-            github-cli \
             base-devel \
-            git \
-            npm
-          npm i -g github-release-cli
+            git
 
       - name: Download packages
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FTP_URI: ${{ secrets.FTP_URI }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_CWD: ${{ secrets.FTP_CWD }}
         run: ./.github/scripts/download-packages.sh
 
       - name: Import GPG key
@@ -40,9 +40,12 @@ jobs:
 
       - name: Upload packages
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FTP_URI: ${{ secrets.FTP_URI }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_CWD: ${{ secrets.FTP_CWD }}
         run: |
           if [[ -d "queue" ]]
           then
-            ./.github/scripts/upload.sh packages
+            ./.github/scripts/upload.sh repo
           fi

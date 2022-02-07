@@ -90,12 +90,13 @@ jobs:
 
       - name: Upload packages
         if: always() && github.event_name != 'pull_request'
+        env:
+          FTP_URI: ${{ secrets.FTP_URI }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_CWD: ${{ secrets.FTP_CWD }}
         run: |
           rm -rf pkgs
           mkdir pkgs
           mv ./pkgdest/*/*.pkg.tar* pkgs/
-          ./.github/scripts/upload.sh queue ./pkgdest/*/*.pkg.tar*
-        env:
-          FTP1_URI: ${{ secrets.FTP1_URI }}
-          FTP1_USER: ${{ secrets.FTP1_USER }}
-          FTP1_PASSWORD: ${{ secrets.FTP1_PASSWORD }}
+          ./.github/scripts/upload.sh queue
