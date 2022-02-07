@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='cloudflare/wrangler'
-_ver=v1.19.7
+_ver=v1.19.8
 _auto_update=true
 
 _pkgname='wrangler'
 pkgname="cloudflare-${_pkgname}"
-pkgver=1.19.7
-pkgrel=2
+pkgver=1.19.8
+pkgrel=1
 pkgdesc='Command-line tool for working with Cloudflare Workers'
 arch=('x86_64')
 url="https://github.com/${_repo}"
