@@ -19,7 +19,8 @@ jobs:
         run: |
           pacman -Sy --noconfirm \
             base-devel \
-            git
+            git \
+            sshpass
 
       - name: Download packages
         env:

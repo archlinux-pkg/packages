@@ -12,4 +12,5 @@ RUN pacman -Syu --noconfirm \
       python \
       pacman-contrib \
       jq \
+      sshpass \
  && yes | pacman -Scc
