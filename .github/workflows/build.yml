@@ -96,7 +96,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
         run: |
-          rm -rf pkgs
-          mkdir pkgs
-          mv ./pkgdest/*/*.pkg.tar* pkgs/
           su -c './.github/scripts/upload.sh queue' build

@@ -69,20 +69,15 @@ do
 
   sudo pacman -Sy
 
-  mkdir -p "${SRCDIR}/pkgdest/${pkgname}"
+  mkdir -p "${SRCDIR}/pkgs"
 
-  PKGDEST="${SRCDIR}/pkgdest/${pkgname}" makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+  PKGDEST="${SRCDIR}/pkgs" makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
   code=$?
 
   if [ ${code} != 0 ]
   then
     echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> "${ROOT_DIR}/fail_built.txt"
-  else
-    for f in "${SRCDIR}"/pkgdest/"${pkgname}"/*
-    do
-      echo "$(basename ${f})" >> "${SRCDIR}/pkgfiles/${pkgname}-${BUILD_DATE}.txt"
-    done
   fi
 
   echo "::endgroup::"
