@@ -58,7 +58,7 @@ jobs:
         if: always()
         run: |
           printf "\n\nPackages Size:\n"
-          xz -l ./pkgdest/*//*.xz
+          xz -l ./pkgs/*.xz
 
       - name: Import GPG key
         if: always() && github.event_name != 'pull_request'
@@ -83,7 +83,7 @@ jobs:
       - name: Sign packages
         if: always() && github.event_name != 'pull_request'
         run: |
-          for file in ./pkgdest/*/*.pkg.tar*
+          for file in ./pkgs/*.pkg.tar*
           do
             gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
           done
