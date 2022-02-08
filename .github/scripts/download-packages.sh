@@ -19,5 +19,7 @@ conenctsfttp << EOF
   get * pkgs
   rm *
   cd ${FTP_CWD}/repo
-  get medzikuser.*
+  get medzikuser.* pkgs
 EOF
+
+ls -lah pkgs
