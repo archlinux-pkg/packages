@@ -2,19 +2,14 @@
 
 pkgname='medzikuser-mirrorlist'
 pkgver=2022.2.8
-pkgrel=3
+pkgrel=4
 pkgdesc='MedzikUser repo mirrorlist to use with Pacman'
 arch=('any')
 url='https://arch-repo.magicuser.cf'
-license=('GPL2')
+license=('unknow')
 backup=('etc/pacman.d/medzikuser-mirrorlist')
 source=('mirrorlist')
 sha256sums=('SKIP')
-
-updatelist() {
-  rm -f mirrorlist
-  curl -o mirrorlist "${url}/mirrorlist.txt"
-}
 
 package() {
   mkdir -p "${pkgdir}/etc/pacman.d"
