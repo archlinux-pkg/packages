@@ -1,2 +1,2 @@
-# Hosted on Github Releases
-Server = https://github.com/archlinux-pkg/packages/releases/download/packages
+# Hosted on SourceForge
+Server = https://sourceforge.net/projects/medzik-arch/files/repo

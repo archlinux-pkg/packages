@@ -1,6 +1,12 @@
 #!/bin/bash
 
-mkdir queue
+mkdir -p ~/.ssh
+touch ~/.ssh/known_hosts
+ssh-keyscan -H frs.sourceforge.net >> ~/.ssh/known_hosts
+
+sudo chown build .
+
+mkdir pkgs
 
 conenctsfttp() {
   export SSHPASS="${FTP_PASSWORD}"
@@ -10,6 +16,6 @@ conenctsfttp() {
 
 conenctsfttp << EOF
   cd ${FTP_CWD}/queue
-  get * queue
+  get * pkgs
   rm *
 EOF

@@ -28,7 +28,7 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
-        run: ./.github/scripts/download-packages.sh
+        run: su -c './.github/scripts/download-packages.sh' build
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
@@ -46,7 +46,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
         run: |
-          if [[ -d "queue" ]]
-          then
-            ./.github/scripts/upload.sh repo
-          fi
+          su -c './.github/scripts/upload.sh repo' build

@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser
 
 _npm='gatsby-cli'
-_ver=4.6.1
+_ver=4.7.0
 _auto_update=true
 
 _pkgname="${_npm}"
 pkgname="${_pkgname}"
-pkgver=4.6.1
+pkgver=4.7.0
 pkgrel=1
 pkgdesc='Gatsby command-line interface for creating new sites and running Gatsby commands'
 arch=('any')

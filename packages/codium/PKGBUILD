@@ -107,7 +107,7 @@ package() {
   cp -r --no-preserve=ownership --preserve=mode resources/app/* "${pkgdir}/usr/lib/${pkgname}/"
 
   # Replace statically included binary with system copy
-  ln -sf "/usr/bin/rg" "${pkgdir}/usr/lib/${pkgname}/node_modules.asar.unpacked/vscode-ripgrep/bin/rg"
+  #ln -sf "/usr/bin/rg" "${pkgdir}/usr/lib/${pkgname}/node_modules.asar.unpacked/vscode-ripgrep/bin/rg"
 
   # Install bash and zsh completions
   install -Dm 644 "resources/completions/bash/${pkgname}" "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
