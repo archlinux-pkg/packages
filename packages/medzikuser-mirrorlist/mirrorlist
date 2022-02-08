@@ -1,2 +1,2 @@
-# Hosted on SourceForge
-Server = https://sourceforge.net/projects/medzik-arch/files/repo
+# Hosted on SourceForge via PROXY
+Server = http://arch-repo.magicuser.cf
