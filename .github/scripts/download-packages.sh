@@ -15,7 +15,7 @@ conenctsfttp() {
 
 
 conenctsfttp << EOF
-  cd ${FTP_CWD}/repo
+  cd ${FTP_CWD}
   get * pkgs
 EOF
 
