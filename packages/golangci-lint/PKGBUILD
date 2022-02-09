@@ -1,5 +1,4 @@
-# Maintainer: MedzikUser
-
+# Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='golangci/golangci-lint'
 _ver=v1.44.0
 _auto_update=true
