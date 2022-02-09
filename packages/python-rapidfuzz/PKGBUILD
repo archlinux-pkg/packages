@@ -1,13 +1,13 @@
 # Maintainer: MedzikUser
 
 _repo='maxbachmann/rapidfuzz'
-_ver=v1.9.1
+_ver=v2.0.0
 _auto_update=true
 
 _pkgname='rapidfuzz'
 pkgname="python-${_pkgname}"
-pkgver=1.9.1
-pkgrel=3
+pkgver=2.0.0
+pkgrel=1
 pkgdesc='Rapid fuzzy string matching in Python using various string metrics'
 arch=('x86_64')
 url="https://github.com/${_repo}"
