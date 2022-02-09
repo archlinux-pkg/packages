@@ -21,6 +21,8 @@ cd ..
 
 delete=$(diff -r tmp pkgs | grep 'Only in' | grep tmp | awk '{print $4}')
 
+echo ${delete}
+
 connectsftp << EOF
   cd ${FTP_CWD}
   rm ${delete}
