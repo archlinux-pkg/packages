@@ -1,9 +1,4 @@
 #!/bin/bash
-
-mkdir -p ~/.ssh
-touch ~/.ssh/known_hosts
-ssh-keyscan -H frs.sourceforge.net >> ~/.ssh/known_hosts
-
 DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source ${DIR}/connectsftp.sh
 

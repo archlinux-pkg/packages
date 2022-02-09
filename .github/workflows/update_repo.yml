@@ -30,6 +30,11 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Repo Add
+        env:
+          FTP_URI: ${{ secrets.FTP_URI }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_CWD: ${{ secrets.FTP_CWD }}
         run: ./.github/scripts/repo-add.sh
 
       - name: Upload packages
