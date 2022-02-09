@@ -19,7 +19,7 @@ mv tmp ..
 
 cd ..
 
-diff -r tmp pkgs | grep 'Only in' | grep pkgs | awk '{print $4}' > delete_files.txt
+diff -r tmp pkgs | grep 'Only in' | grep tmp | awk '{print $4}' > delete_files.txt
 
 while IFS= read -r line; do
   connectsftp << EOF
