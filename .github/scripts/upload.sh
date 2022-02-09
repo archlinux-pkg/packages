@@ -24,5 +24,5 @@ EOF
 
 for file in ./pkgs/*
 do
-  upload "${file}" "$1"
+  upload "${file}" "$1" &
 done
