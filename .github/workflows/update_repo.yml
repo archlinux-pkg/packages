@@ -46,4 +46,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
         run: |
-          su -c './.github/scripts/upload.sh repo' build
+          su -c './.github/scripts/upload.sh' build

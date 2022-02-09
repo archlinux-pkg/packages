@@ -12,17 +12,30 @@ conenctsfttp() {
 upload() {
   local file="$1"
 
-  echo "::group::Uploading '${file}'"
+#  echo "::group::Uploading '${file}'"
 
-  conenctsfttp << EOF
-    cd $FTP_CWD/$2
-    put ${file}
+  for (( i=0; i<10; i++ ))
+  do
+    conenctsfttp << EOF
+      cd ${FTP_CWD}
+      put ${file}
 EOF
 
-  echo "::endgroup::"
+    EXIT_STATUS=$?
+    echo "exit: $EXIT_STATUS"
+
+    if ! (( $EXIT_STATUS ))
+    then
+      break
+    else
+      sleep $(( 5 * (i + 1)))
+    fi
+  done
+
+#  echo "::endgroup::"
 }
 
 for file in ./pkgs/*
 do
-  upload "${file}" "$1" &
+  upload "${file}" &
 done
