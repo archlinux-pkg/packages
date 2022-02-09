@@ -19,11 +19,11 @@ mv tmp ..
 
 cd ..
 
-delete=$(diff -r tmp pkgs | grep 'Only in' | grep tmp | awk '{print $4}')
+diff -r tmp pkgs | grep 'Only in' | grep tmp | awk '{print $4}' > diff.txt
 
-echo ${delete}
+cat diff.txt
 
-connectsftp << EOF
-  cd ${FTP_CWD}
-  rm ${delete}
-EOF
+#connectsftp << EOF
+#  cd ${FTP_CWD}
+#  rm ${delete}
+#EOF
