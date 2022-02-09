@@ -1,5 +1,4 @@
-# Maintainer: MedzikUser
-
+# Maintainer: MedzikUser <nivua1fn@duck.com>
 _npm='create-next-app'
 _ver=12.0.10
 _auto_update=true
