@@ -1,5 +1,4 @@
-# Maintainer: MedzikUser
-
+# Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='mkinitcpio-firmware'
 pkgver=2
 pkgrel=1
