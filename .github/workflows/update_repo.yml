@@ -9,18 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: medzik/archlinux
+    container: ghcr.io/archlinux-pkg/packages:latest
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
-
-      - name: Install dependencied
-        run: |
-          pacman -Sy --noconfirm \
-            base-devel \
-            git \
-            sshpass
 
       - name: Download packages
         env:
