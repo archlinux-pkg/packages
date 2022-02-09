@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/android-sdk-cmdline-tools-latest.git'
-_commit=03c71b0d48373b905aef443060312f875b1c88e7
+_commit=989e60afd3652bbd8e3adead69cfd1f40cd53f25
