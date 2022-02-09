@@ -8,13 +8,10 @@ sudo chown build .
 
 mkdir pkgs
 
-conenctsfttp() {
-  export SSHPASS="${FTP_PASSWORD}"
-  sshpass -e sftp -oBatchMode=no -b - "${FTP_USER}@${FTP_URI}"
-}
+DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+source ${DIR}/connectsftp.sh
 
-
-conenctsfttp << EOF
+connectsftp << EOF
   cd ${FTP_CWD}
   get * pkgs
 EOF

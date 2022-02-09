@@ -4,10 +4,8 @@ mkdir -p ~/.ssh
 touch ~/.ssh/known_hosts
 ssh-keyscan -H frs.sourceforge.net >> ~/.ssh/known_hosts
 
-conenctsfttp() {
-  export SSHPASS="$FTP_PASSWORD"
-  sshpass -e sftp -oBatchMode=no -b - "$FTP_USER@$FTP_URI"
-}
+DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+source ${DIR}/connectsftp.sh
 
 upload() {
   local file="$1"
@@ -16,7 +14,7 @@ upload() {
 
   for (( i=0; i<10; i++ ))
   do
-    conenctsfttp << EOF
+    connectsftp << EOF
       cd ${FTP_CWD}
       put ${file}
 EOF
