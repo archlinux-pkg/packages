@@ -1,5 +1,4 @@
-# Maintainer: MedzikUser
-
+# Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='plamere/spotipy'
 _ver=2.19.0
 _auto_update=true
