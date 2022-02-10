@@ -1,0 +1,29 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_repo='quantumsheep/sshs'
+_ver=v1.27.10
+_auto_update=true
+
+_pkgname='sshs'
+pkgname="${_pkgname}"
+pkgver=1.27.10
+pkgrel=1
+pkgdesc='Terminal user interface for SSH'
+arch=('x86_64')
+url="https://github.com/${_repo}"
+license=('MIT')
+
+depends=('glibc' 'openssh')
+makedepends=('git' 'go')
+
+source=("${_pkgname}::git+${url}#tag=${_ver}")
+sha256sums=('SKIP')
+
+build() {
+  cd "${_pkgname}"
+  make VERSION="$pkgver"
+}
+
+package() {
+  cd "${_pkgname}"
+  make DESTDIR="$pkgdir" install
+}
