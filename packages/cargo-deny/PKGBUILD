@@ -1,0 +1,34 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_repo='EmbarkStudios/cargo-deny'
+_ver=0.11.2
+_auto_update=true
+
+_pkgname='cargo-deny'
+pkgname="${_pkgname}"
+pkgver=0.11.2
+pkgrel=1
+pkgdesc='Cargo plugin for linting your dependencies'
+arch=('x86_64')
+url="https://github.com/${_repo}"
+license=('Apache' 'MIT')
+
+depends=('gcc-libs' 'zlib')
+makedepends=('cargo')
+options=(!lto)
+
+source=("${_pkgname}-${_ver}.tar.gz::${url}/archive/${_ver}/${_pkgname}-${_ver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "${_pkgname}-${_ver}"
+  cargo build --release --locked
+}
+
+package() {
+  cd "${_pkgname}-${_ver}"
+
+  install -Dm 755 target/release/${_pkgname} "${pkgdir}/usr/bin/${pkgname}"
+
+  install -Dm 644 LICENSE-APACHE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-APACHE"
+  install -Dm 644 LICENSE-MIT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-MIT"
+}
