@@ -28,7 +28,8 @@ EOF
 #  echo "::endgroup::"
 }
 
-for file in $@
+while IFS= read -r line
 do
-  delete "${file}"
-done
+  delete "${file}" &
+done < diff.txt
+wait

@@ -30,12 +30,15 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Repo Add
+        run: ./.github/scripts/repo-add.sh
+
+      - name: Delete old packages
         env:
           FTP_URI: ${{ secrets.FTP_URI }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
-        run: ./.github/scripts/repo-add.sh
+        run: su -c './.github/scripts/delete.sh' build
 
       - name: Upload packages
         env:
@@ -43,5 +46,4 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
-        run: |
-          su -c './.github/scripts/upload.sh' build
+        run: su -c './.github/scripts/upload.sh' build

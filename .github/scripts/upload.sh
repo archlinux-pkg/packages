@@ -31,5 +31,5 @@ EOF
 for file in ./pkgs/*
 do
   upload "${file}" &
-  wait
 done
+wait
