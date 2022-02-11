@@ -1,6 +1,6 @@
 #!/bin/bash
 DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-source ${DIR}/connectsftp.sh
+source ${DIR}/delete.sh
 
 mkdir pkgs_all
 
@@ -19,9 +19,6 @@ cd ..
 
 deleted=$(diff -q pkgs pkgs_all | grep 'Only in' | grep pkgs_all | awk '{print $4}')
 
-connectsftp << EOF
-  cd ${FTP_CWD}
-  rm ${deleted}
-EOF
+su -c '${DIR}/delete.sh ${deleted}' build
 
 find pkgs -type f -not -name 'medzikuser.*' -delete
