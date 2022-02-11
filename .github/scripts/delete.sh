@@ -30,6 +30,6 @@ EOF
 
 while IFS= read -r line
 do
-  delete "${file}" &
+  delete "${line}" &
 done < diff.txt
 wait
