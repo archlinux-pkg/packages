@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='VSCodium/vscodium'
 _auto_update=true
-_ver=1.64.1
+_ver=1.64.2
 
 pkgname='codium'
 pkgdesc='Free/Libre Open Source Software Binaries of VSCode'
-pkgver=1.64.1
+pkgver=1.64.2
 pkgrel=1
 arch=('x86_64')
 microsofturl='https://github.com/microsoft/vscode'
