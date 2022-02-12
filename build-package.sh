@@ -1,4 +1,5 @@
 #!/bin/bash
+#? This file is a modified version of: https://github.com/termux/termux-packages/blob/715ce90c53eb9e44c12a5378df907a94522f7df2/build-package.sh
 ROOT_DIR=$(pwd)
 SRCDIR=$(pwd)
 
