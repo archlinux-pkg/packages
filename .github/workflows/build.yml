@@ -63,12 +63,14 @@ jobs:
       - name: Update file names
         if: always() && github.event_name != 'pull_request'
         run: |
+          cd pkgs
+
           if [ -f medzikuser-mirrorlist-*.pkg.tar.xz ]
           then
             mv medzikuser-mirrorlist-*.pkg.tar.xz medzikuser-mirrorlist.pkg.tar.xz
           fi
 
-          for file in ./pkgdest/*/*.pkg.tar*
+          for file in *.pkg.tar*
           do
             new_filename="${file//:/_}"
 
