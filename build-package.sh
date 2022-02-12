@@ -1,9 +1,6 @@
 #!/bin/bash
-
 ROOT_DIR=$(pwd)
 SRCDIR=$(pwd)
-
-BUILD_DATE=$(date +%F-%T)
 
 mkdir -p "${SRCDIR}/pkgfiles"
 

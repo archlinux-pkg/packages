@@ -29,8 +29,11 @@ jobs:
           fetch-depth: 1000
 
       - name: Prepare Build
+        env:
+          github_event: ${{ github.event_name }}
+          github_inputs_packages: ${{ github.event.inputs.packages }}
         run: |
-          ./.github/scripts/prepare.sh
+          ./.github/scripts/build/prepare.sh
 
           if [ -f ./built_packages.txt ]
           then
@@ -44,15 +47,12 @@ jobs:
           fi
 
           sudo chown -R build .
-        env:
-          github_event: ${{ github.event_name }}
-          github_inputs_packages: ${{ github.event.inputs.packages }}
 
       - name: Build
-        run: su -c '.github/scripts/entrypoint.sh' build
         env:
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
+        run: su -c '.github/scripts/build/build.sh' build
 
       - name: Packages
         if: always()

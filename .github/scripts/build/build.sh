@@ -1,3 +1,4 @@
 #!/bin/bash
-sudo pacman -Syy
+sudo pacman -Sy
+
 ./build-package.sh $(cat ./built_packages.txt)
