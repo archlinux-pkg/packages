@@ -1,0 +1,9 @@
+[Unit]
+Description=StartX service
+
+[Service]
+ExecStart=/usr/bin/startx
+Restart=on-abort
+
+[Install]
+Alias=display-manager.service
