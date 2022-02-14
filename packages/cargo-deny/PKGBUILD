@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='EmbarkStudios/cargo-deny'
-_ver=0.11.2
+_ver=0.11.3
 _auto_update=true
 
 _pkgname='cargo-deny'
 pkgname="${_pkgname}"
-pkgver=0.11.2
+pkgver=0.11.3
 pkgrel=1
 pkgdesc='Cargo plugin for linting your dependencies'
 arch=('x86_64')
