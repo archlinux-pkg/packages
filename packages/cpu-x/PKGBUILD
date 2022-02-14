@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='X0rg/CPU-X'
-_ver=v4.1.0
+_ver=v4.2.0
 _auto_update=true
 
 _pkgname='cpu-x'
 pkgname="${_pkgname}"
-pkgver=4.1.0
+pkgver=4.2.0
 pkgrel=1
 pkgdesc='A Free software that gathers information on CPU, motherboard and more'
 arch=('x86_64')
