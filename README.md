@@ -7,7 +7,7 @@
 ```bash
 $ sudo pacman-key --recv-key 7A6646A6C14690C0
 $ sudo pacman-key --lsign-key 7A6646A6C14690C0
-$ sudo pacman -U 'https://arch-repo.magicuser.cf/packages/medzikuser-mirrorlist-latest-any.pkg.tar.xz'
+$ sudo pacman -U 'https://arch-repo.magicuser.cf/medzikuser-mirrorlist.pkg.tar.xz'
 ```
 
 **Append (adding to the end of the file) to `/etc/pacman.conf`:**
