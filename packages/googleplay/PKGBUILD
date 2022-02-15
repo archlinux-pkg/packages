@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='89z/googleplay'
-_ver=v1.6.5
+_ver=v1.7.0
 _auto_update=true
 
 _pkgname='googleplay'
 pkgname="${_pkgname}"
-pkgver=1.6.5
+pkgver=1.7.0
 pkgrel=1
 pkgdesc='Download APK or send API requests'
 arch=('x86_64')
