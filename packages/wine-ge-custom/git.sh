@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/wine-ge-custom.git'
-_commit=c05c220e1fcf902b129f78418e4a818e438c37ba
+_commit=959d80fbf5334782ff2480af78d4f1b4eac2da31
