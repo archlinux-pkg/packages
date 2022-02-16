@@ -117,4 +117,7 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
         run: |
-          su -c './.github/scripts/upload.sh' build
+          if [ -f ./built_packages.txt ]
+          then
+            su -c './.github/scripts/upload.sh' build
+          fi

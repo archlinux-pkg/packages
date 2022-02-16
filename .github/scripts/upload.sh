@@ -30,6 +30,9 @@ EOF
 
 for file in ./pkgs/*
 do
-  upload "${file}" &
+  if [ -f "${file}" ]
+  then
+    upload "${file}" &
+  fi
 done
 wait

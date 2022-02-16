@@ -3,7 +3,10 @@ mkdir pkgs_all
 
 for file in pkgs/*
 do
-  touch "pkgs_all/$(basename ${file})"
+  if [ "$file" != medzikuser.* ]
+  then
+    touch "pkgs_all/$(basename ${file})"
+  fi
 done
 
 cd pkgs
