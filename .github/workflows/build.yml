@@ -49,6 +49,7 @@ jobs:
           sudo chown -R build .
 
       - name: Delete packages
+        if: always() && github.event_name != 'pull_request'
         run: su -c '.github/scripts/build/delete-packages.sh $(cat ./deleted_packages.txt)' build
 
       - name: Build
