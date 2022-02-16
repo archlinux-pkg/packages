@@ -48,6 +48,9 @@ jobs:
 
           sudo chown -R build .
 
+      - name: Delete packages
+        run: su -c '.github/scripts/build/delete-packages.sh $(cat ./deleted_packages.txt)' build
+
       - name: Build
         env:
           github_event: ${{ github.event_name }}

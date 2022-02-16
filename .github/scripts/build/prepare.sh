@@ -76,6 +76,7 @@ then
   uniq ./built_packages.txt > ./built_packages.txt.tmp
   mv ./built_packages.txt.tmp ./built_packages.txt
 fi
+
 if [ -f ./deleted_packages.txt ]
 then
   uniq ./deleted_packages.txt > ./deleted_packages.txt.tmp

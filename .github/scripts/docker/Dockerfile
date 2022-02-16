@@ -2,15 +2,15 @@ FROM medzik/archlinux:latest
 
 COPY makepkg.conf /etc/makepkg.conf
 
-RUN pacman -Syyu --noconfirm \
-      base-devel \
-      multilib-devel \
+RUN pacman -Syu --noconfirm \
+      jq \
       git \
       wget \
       curl \
       ccache \
       python \
-      pacman-contrib \
-      jq \
       sshpass \
+      base-devel \
+      multilib-devel \
+      pacman-contrib \
  && yes | pacman -Scc

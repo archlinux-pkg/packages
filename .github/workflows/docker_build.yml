@@ -2,10 +2,13 @@ name: Docker image
 
 on:
   push:
-    branches:
-    - main
     paths:
     - '.github/scripts/docker/**'
+
+  pull_request:
+    paths:
+    - '.github/scripts/docker/**'
+
   schedule:
     - cron:  '0 2 * * *'
 
@@ -17,16 +20,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone repository
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Log into registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Login to GitHub Container Registry
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && github.repository == 'archlinux-pkg/packages'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: |
           cd .github/scripts/docker
-          docker build --tag "ghcr.io/${{ github.repository_owner }}/packages:latest" .
+          docker build --tag "ghcr.io/${{ github.repository_owner }}/packages:latest" ./.github/scripts/docker
 
       - name: Push image
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && github.repository == 'archlinux-pkg/packages'
         run: docker push "ghcr.io/${{ github.repository_owner }}/packages:latest"
