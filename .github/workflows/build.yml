@@ -40,6 +40,7 @@ jobs:
             printf "\nPackages to build:\n"
             cat --number built_packages.txt
           fi
+
           if [ -f ./deleted_packages.txt ]
           then
             printf "\nPackages to delete:\n"
@@ -50,13 +51,22 @@ jobs:
 
       - name: Delete packages
         if: always() && github.event_name != 'pull_request'
-        run: su -c '.github/scripts/build/delete-packages.sh $(cat ./deleted_packages.txt)' build
+        run: |
+          if [ -f ./deleted_packages.txt ]
+          then
+            su -c '.github/scripts/build/delete-packages.sh $(cat ./deleted_packages.txt)' build
+          fi
 
       - name: Build
+        if: always()
         env:
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
-        run: su -c '.github/scripts/build/build.sh' build
+        run: |
+          if [ -f ./built_packages.txt ]
+          then
+            su -c '.github/scripts/build/build.sh' build
+          fi
 
       - name: Packages
         if: always()
