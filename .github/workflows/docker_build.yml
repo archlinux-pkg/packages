@@ -32,9 +32,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
-        run: |
-          cd .github/scripts/docker
-          docker build --tag "ghcr.io/${{ github.repository_owner }}/packages:latest" ./.github/scripts/docker
+        run: docker build --tag "ghcr.io/${{ github.repository_owner }}/packages:latest" ./.github/scripts/docker
 
       - name: Push image
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && github.repository == 'archlinux-pkg/packages'
