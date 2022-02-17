@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='ungoogled-software/ungoogled-chromium-archlinux'
-_ver=98.0.4758.80-1
+_ver=98.0.4758.102-1
 _auto_update=true
 
 pkgname='ungoogled-chromium'
 provides=('chromium')
 conflicts=('chromium')
-pkgver=98.0.4758.80_1
+pkgver=98.0.4758.102.1
 pkgrel=1
 pkgdesc='A lightweight approach to removing Google web service dependency'
 arch=('x86_64')
