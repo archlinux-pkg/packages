@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/proton.git'
-_commit=90afc17fa6e58ae0ab06a693640cf55e4232953d
+_commit=f6e684b2058ecc7ee3b91d5eb2a8442622547c64
