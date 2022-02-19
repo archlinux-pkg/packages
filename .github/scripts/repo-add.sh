@@ -13,10 +13,7 @@ cd pkgs
 
 rm -f medzikuser.*
 
-for file in *.pkg.tar.xz
-do
-  repo-add --new --remove --sign --key 7A6646A6C14690C0 medzikuser.db.tar.xz "${file}"
-done
+repo-add --new --remove --sign --key 7A6646A6C14690C0 medzikuser.db.tar.xz *.pkg.tar.xz
 
 cd ..
 
