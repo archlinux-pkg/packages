@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/discord_arch_electron.git'
-_commit=bf1312ebf8efc3bbaf62c6ee89e50824cfce98e0
+_commit=85d288b7d7890c6905c1847ea4e129cf685fb14c
