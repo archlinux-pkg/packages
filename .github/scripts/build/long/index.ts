@@ -1,17 +1,17 @@
-import artifactHost from '@actions/artifact'
-import { ArtifactClient, DownloadResponse, UploadResponse } from '@actions/artifact'
-import core from '@actions/core'
-import exec from '@actions/exec'
-import { ExecOptions } from '@actions/exec'
-import github from '@actions/github'
-import { readdirSync } from 'fs'
+import * as artifactHost from '@actions/artifact';
+import { ArtifactClient, DownloadResponse, UploadResponse } from '@actions/artifact';
+import * as core from '@actions/core';
+import * as exec from '@actions/exec';
+import { ExecOptions } from '@actions/exec';
+import * as github from '@actions/github';
+import { readdirSync } from 'fs';
 
 const shell = async (commandLine: string, args?: Array<string>, options?: ExecOptions): Promise<void> => {
-  const code: number = await exec.exec(commandLine, args, options)
+  const code: number = await exec.exec(commandLine, args, options);
 
   if (code !== 0)
-    throw new Error(`Stage: A ${commandLine} command errored with code ${code}`)
-}
+    throw new Error(`Stage: A ${commandLine} command errored with code ${code}`);
+};
 
 (async () => {
   const output = () => {
@@ -20,12 +20,13 @@ const shell = async (commandLine: string, args?: Array<string>, options?: ExecOp
       'package': input.package,
       'use-registry': input.useRegistry,
       'image-tag': input.imageTag
-    })
+    });
 
-    core.setOutput('finished', input.finished)
-    core.setOutput('use-registry', input.useRegistry)
-    core.setOutput('image-tag', input.imageTag)
-  }
+    core.setOutput('finished', input.finished);
+    core.setOutput('package', input.package);
+    core.setOutput('use-registry', input.useRegistry);
+    core.setOutput('image-tag', input.imageTag);
+  };
 
   const artifact: ArtifactClient = artifactHost.create();
   const input = {
@@ -39,7 +40,8 @@ const shell = async (commandLine: string, args?: Array<string>, options?: ExecOp
 
   console.log('Stage: Got input', input);
 
-  if (input.finished) return output()
+  if (input.finished)
+    return output();
 
   // Taken from https://github.com/easimon/maximize-build-space/blob/master/action.yml
   await core.group<void>('Stage: Free space on GitHub Runner...', async () => {
@@ -73,7 +75,7 @@ const shell = async (commandLine: string, args?: Array<string>, options?: ExecOp
       artifact.downloadArtifact(input.progressName));
 
     await core.group<void>('Stage: Moving progress archive into input directory...', () =>
-      shell('mv progress.tar.zst input'));
+      shell('mv progress.tar.zst progress.tar.zst.sum input'));
   }
 
   const mount = (directory: string): Array<string> => ['--mount', `type=bind,source=${process.cwd()}/${directory},target=/mnt/${directory}`];
