@@ -9,7 +9,7 @@ PACKAGE="$(cat $ROOT_DIR/built_packages.txt)"
 
 pkgdir="$ROOT_DIR/long-build/$PACKAGE"
 
-if [ -f "git.sh" ]
+if [ -f "$pkgdir/git.sh" ]
 then
   custom_vars=$(
     . "${pkgdir}/git.sh"
@@ -36,12 +36,14 @@ then
   fi
 fi
 
+cd "$pkgdir"
+
 sudo chown build -R .
 
 # Generate archive with all required sources for the build
 # This either includes local or downloads files using an url
 su -c "makepkg --allsource" build
-mv ./*.src.tar.gz ../..
+mv ./*.src.tar.gz $ROOT_DIR
 cd $ROOT_DIR
 
 echo "::endgroup::"
