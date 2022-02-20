@@ -9,8 +9,6 @@ PACKAGE="$(cat $ROOT_DIR/built_packages.txt)"
 
 pkgdir="$ROOT_DIR/long-build/$PACKAGE"
 
-cd "$pkgdir"
-
 if [ -f "git.sh" ]
 then
   custom_vars=$(
@@ -37,6 +35,8 @@ then
     exit $code
   fi
 fi
+
+sudo chown build -R .
 
 # Generate archive with all required sources for the build
 # This either includes local or downloads files using an url
