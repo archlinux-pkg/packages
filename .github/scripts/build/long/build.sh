@@ -38,16 +38,12 @@ download_stage() {
 free_space() {
 	echo "::group::Free space on GitHub Runner..."
 
-	df -h
-
 	echo "==> Deleting /usr/share/dotnet.."
 	sudo rm -rf /usr/share/dotnet
 	echo "==> Deleting /usr/local/lib/android.."
 	sudo rm -rf /usr/local/lib/android
 	echo "==> Deleting /opt/ghc.."
 	sudo rm -rf /opt/ghc
-
-	df -h
 
 	echo "::endgroup::"
 }
@@ -59,6 +55,21 @@ build_stage() {
 	echo "==> Building package..."
 	timeout -k 10m -s SIGTERM "$BUILD_TIMEOUT" makepkg $BUILD_ARGUMENTS
 
+	EXIT_CODE=$?
+
+	if [[ $EXIT_CODE == 0 ]]
+	then
+		echo "==> Build successful"
+	elif [[ $EXIT_CODE == 124 ]] # https://www.gnu.org/software/coreutils/manual/html_node/timeout-invocation.html#timeout-invocation
+	then
+		echo "==> Build timed out"
+	else
+		echo "==> Build failed with $EXIT_CODE"
+
+		exit $EXIT_CODE
+	fi
+
+
 	echo "::endgroup::"
 }
 
@@ -68,7 +79,7 @@ pack_stage() {
 
 	echo "==> Compressing stage..."
 
-	tar caf stage.tar.zst src/ --remove-file -H posix --atime-preserve
+	tar caf /home/build/stage.tar.zst src/ --remove-file -H posix --atime-preserve
 
 	echo "::endgroup::"
 }
