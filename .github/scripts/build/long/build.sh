@@ -2,7 +2,7 @@
 # * Environmental variables
 # * STAGE = Current stage that builds
 # * STAGE_ARCHIVE = Stage archive name
-# * BUILD_TIMEOUT = Build time timeout
+# * TIMEOUT = Build time timeout
 # * FINISHED = Compilation been completed?
 
 # * GitHub Runner Outputs
@@ -46,7 +46,7 @@ build_stage() {
 	echo "::group::Building stage..."
 
 	echo "==> Building package..."
-	timeout -k 10m -s SIGTERM "$BUILD_TIMEOUT" makepkg $BUILD_ARGUMENTS
+	timeout -k 10m -s SIGTERM "${TIMEOUT}m" makepkg $BUILD_ARGUMENTS
 
 	EXIT_CODE=$?
 
