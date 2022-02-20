@@ -17,36 +17,28 @@ export HOME="/home/build"
 # ? makepkg arguments
 BUILD_ARGUMENTS="--skippgpcheck"
 
-# ? if the compilation has been completed in previous stages
-if [ "$FINISHED" = "yes" ]
-then
-	#  ? github actions set output FINISHED to `yes`
-	echo '::set-output name=FINISHED::yes'
-
-	exit 0
-fi
-
 # ? unpack compilation files from previous stage
 unpack_stage() {
-	sudo tar xf "$STAGE_ARCHIVE" -C "$ROOT_DIR"
-	sudo rm -rf "$STAGE_ARCHIVE"
+	echo "==> Extracting source archive..."
+	sudo tar -xf /mnt/input/progress.tar.zst -C "$ROOT_DIR"
 
-	 echo "==> Added --noextract --nodeps to build arguments"
+	echo "==> Deleting source archive..."
+	sudo rm /mnt/input/*
+
+	echo "==> Deleting unused archive files..."
+	sudo rm *.tar.*
+
+	echo "==> Adjusting ownership of build directory..."
+	sudo chown -R build .
+
+	echo "==> Build directory content"
+	ls -lah .
+
+	echo "==> Build subdirectory sizes"
+	du -h -d 1
+
+	echo "==> Added --noextract --nodeps to build arguments"
 	BUILD_ARGUMENTS="--noextract --nodeps"
-}
-
-# ? free space on GitHub Runner
-free_space() {
-	echo "::group::Free space on GitHub Runner..."
-
-	echo "==> Deleting /usr/share/dotnet.."
-	sudo rm -rf /usr/share/dotnet
-	echo "==> Deleting /usr/local/lib/android.."
-	sudo rm -rf /usr/local/lib/android
-	echo "==> Deleting /opt/ghc.."
-	sudo rm -rf /opt/ghc
-
-	echo "::endgroup::"
 }
 
 # ? build stage with timeout
@@ -70,23 +62,17 @@ build_stage() {
 		exit $EXIT_CODE
 	fi
 
+	echo "==> Build directory content"
+	ls -lah /home/build
 
-	echo "::endgroup::"
-}
-
-# ? pack the stage files
-pack_stage() {
-	echo "::group::Packing stage..."
-
-	echo "==> Compressing stage..."
-
-	tar caf /home/build/stage.tar.zst src/ --remove-file -H posix --atime-preserve
+	echo "==> Build subdirectory sizes"
+	sudo du -hd 1
 
 	echo "::endgroup::"
 }
 
 # ? download files from previous stage
-if [ "$STAGE" -gt 1 ]
+if [ -d "/mnt/input" && -f "/mnt/input/progress.tar.zst" ]
 then
 	unpack_stage
 fi
@@ -102,11 +88,25 @@ if compgen -G "*.pkg.tar.xz" > /dev/null
 then
 	echo "==> Successfully built package"
 
-	# ? github actions set output FINISHED to `yes`
-	echo '::set-output name=FINISHED::yes'
-else
-	pack_stage
+	mkdir output -p
 
-	# ? github actions set output FINISHED to `no`
-	echo '::set-output name=FINISHED::no'
+	if [[ -d "/mnt/output" ]]; then
+			echo "==> Moving package to output directory..."
+			sudo mv *.pkg.tar.zst sum.txt /mnt/output
+	else
+			echo "==> Output directory does not exist"
+	fi
+fi
+
+# ? pack the stage files
+if [[ -d "/mnt/progress" ]]; then
+	echo "==> Found progress directory, compressing current build progress"
+
+	echo "==> Creating archive of progress..."
+	tar caf progress.tar.zst src/ --remove-file -H posix --atime-preserve
+
+	echo "==> Moving archive to progress directory..."
+	sudo mv progress.tar.zst progress.tar.zst.sum /mnt/progress
+else
+	echo "==> Progress directory does not exist, exiting"
 fi

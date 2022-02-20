@@ -22,7 +22,7 @@ ID="$(echo "$REGISTRY"/$NAME | tr '[A-Z]' '[a-z]')"
 REF="$(echo "$GH_REF" | sed -e 's,.*/\(.*\),\1,')"
 [[ "$GH_REF" == "refs/tags/"* ]] && REF=$(echo $REF | sed -e 's/^v//')
 [ "$REF" == "master" ] && REF=latest
-VERSION_TAG="$ID:ungoogled-chromium-$VERSION-$(date +%s)"
+VERSION_TAG="$ID:$PACKAGE-$VERSION-$(date +%s)"
 
 echo "VERSION=$VERSION"
 echo "REGISTRY=$REGISTRY"
