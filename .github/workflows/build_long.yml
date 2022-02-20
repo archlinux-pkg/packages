@@ -60,7 +60,7 @@ jobs:
         id: stage
         uses: ./.github/scripts/build/long
         with:
-          package: "${{ join(needs.*.outputs.chromium-version) }}"
+          package: "update-grub"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -85,7 +85,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-1
-          package: "${{ join(needs.*.outputs.chromium-version) }}"
+          package: "update-grub"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -110,7 +110,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-2
-          package: "${{ join(needs.*.outputs.chromium-version) }}"
+          package: "update-grub"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -135,7 +135,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-3
-          package: "${{ join(needs.*.outputs.chromium-version) }}"
+          package: "update-grub"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -160,7 +160,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-4
-          package: "${{ join(needs.*.outputs.chromium-version) }}"
+          package: "update-grub"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -185,7 +185,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-5
-          package: "${{ join(needs.*.outputs.chromium-version) }}"
+          package: "update-grub"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
