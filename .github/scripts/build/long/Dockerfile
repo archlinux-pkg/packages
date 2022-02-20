@@ -6,7 +6,7 @@ ENV PACKAGE=$PACKAGE
 
 COPY packages/$PACKAGE/PKGBUILD /home/build
 
-RUN pacman -Syu --noconfirm && \
+RUN pacman -Sy && \
     su -c 'cd && makepkg --nobuild --noextract --syncdeps --noconfirm' build
 
 COPY .github/scripts/build/long/build.sh /home/build/build.sh

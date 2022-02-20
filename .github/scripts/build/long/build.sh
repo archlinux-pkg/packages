@@ -15,7 +15,7 @@ ROOT_DIR=$(pwd)
 export HOME="/home/build"
 
 # ? makepkg arguments
-BUILD_ARGUMENTS="--syncdeps --skippgpcheck"
+BUILD_ARGUMENTS="--syncdeps --skippgpcheck --noconfirm"
 
 # ? unpack compilation files from previous stage
 unpack_stage() {
