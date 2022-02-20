@@ -5,14 +5,11 @@
 # * BUILD_TIMEOUT = Build time timeout
 # * FINISHED = Compilation been completed?
 
-ls
-pwd
 cd /home/build
-ls
-pwd
 
 # ? variables
 ROOT_DIR=$(pwd)
+export HOME="/home/build"
 
 # ? makepkg arguments
 BUILD_ARGUMENTS="--skippgpcheck"
