@@ -198,7 +198,6 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     needs: build-6
-    if: github.event_name != 'pull_request'
 
     steps:
       - name: Checkout
@@ -211,16 +210,12 @@ jobs:
         with:
           name: ${{ join(needs.*.outputs.package) }}
 
-      - name: Files
-        run: ls -lah
-
       - name: Update file names
         run: |
           mkdir pkgs
           mv *.pkg.tar* pkgs/
 
           cd pkgs
-          ls
 
           for file in *.pkg.tar*
           do
@@ -231,8 +226,6 @@ jobs:
               mv "$file" "$new_filename"
             fi
           done
-
-          ls
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
@@ -248,7 +241,7 @@ jobs:
           done
 
       - name: Upload package
-        run: su -c './.github/scripts/upload.sh' build
+        run: ./.github/scripts/upload.sh
         env:
           FTP_URI: ${{ secrets.FTP_URI }}
           FTP_USER: ${{ secrets.FTP_USER }}
