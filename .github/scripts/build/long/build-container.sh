@@ -4,7 +4,9 @@ echo "::group::Generating source archive..."
 
 sudo chown build -R .
 
-cd long-build/ungoogled-chromium
+PACKAGE="update-grub"
+
+cd "packages/$PACKAGE"
 
 # Generate archive with all required sources for the build
 # This either includes local or downloads files using an url
@@ -34,7 +36,7 @@ echo "::group::Building container image..."
 # Build container from source files
 docker build . \
   --file .github/scripts/build/long/Dockerfile \
-  --build-arg PACKAGE=ungoogled-chromium \
+  --build-arg PACKAGE="$PACKAGE" \
   --tag "$VERSION_TAG" \
 
 # Reduce worker space used

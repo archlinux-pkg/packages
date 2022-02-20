@@ -7,10 +7,6 @@ on:
     # paths:
     #   - 'long-build/**'
 
-  pull_request:
-    paths:
-      - 'long-build/**'
-
   workflow_dispatch:
     inputs:
       packages:
@@ -31,7 +27,6 @@ jobs:
         run: pacman -Syu --needed --noconfirm docker
 
       - name: Login to GitHub Container Registry
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
@@ -291,7 +286,6 @@ jobs:
           name: package
 
       - name: Update file names
-        if: always() && github.event_name != 'pull_request'
         run: |
           mkdir pkgs
           mv *.pkg.tar* pkgs/
@@ -315,12 +309,10 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Sign packages
-        run: |
-          gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
+        run: gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
 
       - name: Upload package
-        run: |
-          su -c './.github/scripts/upload.sh' build
+        run: su -c './.github/scripts/upload.sh' build
         env:
           FTP_URI: ${{ secrets.FTP_URI }}
           FTP_USER: ${{ secrets.FTP_USER }}

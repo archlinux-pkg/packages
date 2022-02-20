@@ -5,6 +5,9 @@
 # * BUILD_TIMEOUT = Build time timeout
 # * FINISHED = Compilation been completed?
 
+# * GitHub Runner Outputs
+# * FINISHED = Compilation been completed?
+
 cd /home/build
 
 # ? variables
@@ -23,10 +26,8 @@ then
 	exit 0
 fi
 
-# ? download and unpack compilation files from previous stage
-download_stage() {
-	# TODO: download
-
+# ? unpack compilation files from previous stage
+unpack_stage() {
 	sudo tar xf "$STAGE_ARCHIVE" -C "$ROOT_DIR"
 	sudo rm -rf "$STAGE_ARCHIVE"
 
@@ -84,18 +85,10 @@ pack_stage() {
 	echo "::endgroup::"
 }
 
-upload_stage() {
-	echo "::group::Uploading stage..."
-
-	# TODO: upload
-
-	echo "::endgroup::"
-}
-
 # ? download files from previous stage
 if [ "$STAGE" -gt 1 ]
 then
-	download_stage
+	unpack_stage
 fi
 
 # ? fix permissions
@@ -113,8 +106,6 @@ then
 	echo '::set-output name=FINISHED::yes'
 else
 	pack_stage
-
-	upload_stage
 
 	# ? github actions set output FINISHED to `no`
 	echo '::set-output name=FINISHED::no'
