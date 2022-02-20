@@ -1,5 +1,7 @@
 FROM ghcr.io/archlinux-pkg/packages:latest
 
+ARG PACKAGE
+
 ENV PACKAGE=$PACKAGE
 
 COPY long-build/$PACKAGE/PKGBUILD /home/build
