@@ -75,7 +75,7 @@ const shell = async (commandLine: string, args?: Array<string>, options?: ExecOp
       artifact.downloadArtifact(input.progressName));
 
     await core.group<void>('Stage: Moving progress archive into input directory...', () =>
-      shell('mv progress.tar.zst progress.tar.zst.sum input'));
+      shell('mv progress.tar.zst input'));
   }
 
   const mount = (directory: string): Array<string> => ['--mount', `type=bind,source=${process.cwd()}/${directory},target=/mnt/${directory}`];

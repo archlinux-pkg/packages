@@ -92,7 +92,7 @@ then
 
 	if [[ -d "/mnt/output" ]]; then
 			echo "==> Moving package to output directory..."
-			sudo mv *.pkg.tar.zst sum.txt /mnt/output
+			sudo mv *.pkg.tar.zst /mnt/output
 	else
 			echo "==> Output directory does not exist"
 	fi
@@ -106,7 +106,7 @@ if [[ -d "/mnt/progress" ]]; then
 	tar caf progress.tar.zst src/ --remove-file -H posix --atime-preserve
 
 	echo "==> Moving archive to progress directory..."
-	sudo mv progress.tar.zst progress.tar.zst.sum /mnt/progress
+	sudo mv progress.tar.zst /mnt/progress
 else
 	echo "==> Progress directory does not exist, exiting"
 fi
