@@ -15,7 +15,7 @@ ROOT_DIR=$(pwd)
 export HOME="/home/build"
 
 # ? makepkg arguments
-BUILD_ARGUMENTS="--skippgpcheck"
+BUILD_ARGUMENTS="--syncdeps --skippgpcheck"
 
 # ? unpack compilation files from previous stage
 unpack_stage() {
@@ -37,8 +37,8 @@ unpack_stage() {
 	echo "==> Build subdirectory sizes"
 	du -h -d 1
 
-	echo "==> Added --noextract --nodeps to build arguments"
-	BUILD_ARGUMENTS="--noextract --nodeps"
+	echo "==> Added --noextract to build arguments"
+	BUILD_ARGUMENTS="--noextract"
 }
 
 # ? build stage with timeout
