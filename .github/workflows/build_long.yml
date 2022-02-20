@@ -55,10 +55,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Stage
-        run: npm run setup --prefix ./.github/actions/stage
+        run: npm run setup --prefix ./.github/scripts/build/long
       - name: Run Stage
         id: stage
-        uses: ./.github/actions/stage
+        uses: ./.github/scripts/build/long
         with:
           package: "${{ join(needs.*.outputs.chromium-version) }}"
           use-registry: true
@@ -78,10 +78,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Stage
-        run: npm run setup --prefix ./.github/actions/stage
+        run: npm run setup --prefix ./.github/scripts/build/long
       - name: Run Stage
         id: stage
-        uses: ./.github/actions/stage
+        uses: ./.github/scripts/build/long
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-1
@@ -103,10 +103,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Stage
-        run: npm run setup --prefix ./.github/actions/stage
+        run: npm run setup --prefix ./.github/scripts/build/long
       - name: Run Stage
         id: stage
-        uses: ./.github/actions/stage
+        uses: ./.github/scripts/build/long
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-2
@@ -128,10 +128,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Stage
-        run: npm run setup --prefix ./.github/actions/stage
+        run: npm run setup --prefix ./.github/scripts/build/long
       - name: Run Stage
         id: stage
-        uses: ./.github/actions/stage
+        uses: ./.github/scripts/build/long
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-3
@@ -153,10 +153,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Stage
-        run: npm run setup --prefix ./.github/actions/stage
+        run: npm run setup --prefix ./.github/scripts/build/long
       - name: Run Stage
         id: stage
-        uses: ./.github/actions/stage
+        uses: ./.github/scripts/build/long
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-4
@@ -178,10 +178,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Stage
-        run: npm run setup --prefix ./.github/actions/stage
+        run: npm run setup --prefix ./.github/scripts/build/long
       - name: Run Stage
         id: stage
-        uses: ./.github/actions/stage
+        uses: ./.github/scripts/build/long
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: build-5
