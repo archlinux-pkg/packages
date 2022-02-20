@@ -84,6 +84,9 @@ then
 	download_stage
 fi
 
+# ? fix permissions
+sudo chown -R build .
+
 free_space
 
 build_stage
@@ -95,6 +98,8 @@ then
 	# ? github actions set output FINISHED to `yes`
 	echo '::set-output name=FINISHED::yes'
 else
+	pack_stage
+
 	upload_stage
 
 	# ? github actions set output FINISHED to `no`
