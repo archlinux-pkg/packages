@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "::group::Generating source archive..."
           sudo chown build -R .
-          cd test/ungoogled-chromium
+          cd long-build/ungoogled-chromium
           # Generate archive with all required sources for the build
           # This either includes local or downloads files using an url
           su -c "makepkg --allsource" build
@@ -62,6 +62,7 @@ jobs:
           # Build container from source files
           docker build . \
             --file .github/scripts/build/long/Dockerfile \
+            --build-arg PACKAGE=ungoogled-chromium \
             --tag "$VERSION_TAG" \
           # Reduce worker space used
           rm -rf *
