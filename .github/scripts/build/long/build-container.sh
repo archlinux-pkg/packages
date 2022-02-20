@@ -27,7 +27,7 @@ echo "REGISTRY=$REGISTRY"
 echo "NAME=$NAME"
 echo "ID=$ID"
 echo "REF=$REF"
-echo "VERSION_TAG=$REF_TAG"
+echo "VERSION_TAG=$VERSION_TAG"
 
 echo "::group::Building container image..."
 
