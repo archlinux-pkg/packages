@@ -34,12 +34,16 @@ download_stage() {
 free_space() {
 	echo "::group::Free space on GitHub Runner..."
 
+	df -h
+
 	echo "==> Deleting /usr/share/dotnet.."
 	sudo rm -rf /usr/share/dotnet
 	echo "==> Deleting /usr/local/lib/android.."
 	sudo rm -rf /usr/local/lib/android
 	echo "==> Deleting /opt/ghc.."
 	sudo rm -rf /opt/ghc
+
+	df -h
 
 	echo "::endgroup::"
 }

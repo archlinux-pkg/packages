@@ -89,6 +89,10 @@ jobs:
     steps:
       - name: Run Stage
         id: stage
+        env:
+          STAGE: 1
+          BUILD_TIMEOUT: 310m
+
         run: bash /home/build/build.sh
 
       - uses: actions/upload-artifact@v2
