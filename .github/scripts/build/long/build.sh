@@ -9,7 +9,7 @@
 ROOT_DIR=$(pwd)
 
 # ? makepkg arguments
-BUILD_ARG="--noconfirm --skippgpcheck"
+BUILD_ARGUMENTS="--skippgpcheck"
 
 # ? if the compilation has been completed in previous stages
 if [ "$FINISHED" = "yes" ]
@@ -27,7 +27,8 @@ download_stage() {
 	sudo tar xf "$STAGE_ARCHIVE" -C "$ROOT_DIR"
 	sudo rm -rf "$STAGE_ARCHIVE"
 
-	BUILD_ARG="$BUILD_ARG --noextract --nodeps"
+	 echo "==> Added --noextract --nodeps to build arguments"
+	BUILD_ARGUMENTS="--noextract --nodeps"
 }
 
 # ? free space on GitHub Runner
@@ -53,7 +54,7 @@ build_stage() {
 	echo "::group::Building stage..."
 
 	echo "==> Building package..."
-	timeout -k 10m -s SIGTERM "$BUILD_TIMEOUT" makepkg "$BUILD_ARG"
+	timeout -k 10m -s SIGTERM "$BUILD_TIMEOUT" makepkg $BUILD_ARGUMENTS
 
 	echo "::endgroup::"
 }
