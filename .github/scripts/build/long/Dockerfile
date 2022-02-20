@@ -21,4 +21,6 @@ RUN ls -lah /home/build
 
 USER build
 
+RUN cd /home/build
+
 ENTRYPOINT [ "/bin/bash", "/home/build/build.sh" ]
