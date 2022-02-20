@@ -211,12 +211,16 @@ jobs:
         with:
           name: ${{ join(needs.*.outputs.package) }}
 
+      - name: Files
+        run: ls -lah
+
       - name: Update file names
         run: |
           mkdir pkgs
           mv *.pkg.tar* pkgs/
 
           cd pkgs
+          ls
 
           for file in *.pkg.tar*
           do
@@ -228,6 +232,8 @@ jobs:
             fi
           done
 
+          ls
+
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
         with:
@@ -235,7 +241,11 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Sign packages
-        run: gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
+        run: |
+          for file in ./pkgs/*.pkg.tar*
+          do
+            gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
+          done
 
       - name: Upload package
         run: su -c './.github/scripts/upload.sh' build

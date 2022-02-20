@@ -72,7 +72,7 @@ build_stage() {
 }
 
 # ? download files from previous stage
-if [ -d "/mnt/input" && -f "/mnt/input/progress.tar.zst" ]
+if [[ -d "/mnt/input" && -f "/mnt/input/progress.tar.zst" ]]
 then
 	unpack_stage
 fi
