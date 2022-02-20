@@ -34,6 +34,7 @@ jobs:
         id: build
         run: |
           echo "::group::Generating source archive..."
+          sudo chown build -R .
           cd test/ungoogled-chromium
           # Generate archive with all required sources for the build
           # This either includes local or downloads files using an url
