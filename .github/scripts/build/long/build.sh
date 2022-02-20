@@ -80,8 +80,6 @@ fi
 # ? fix permissions
 sudo chown -R build .
 
-free_space
-
 build_stage
 
 if compgen -G "*.pkg.tar.xz" > /dev/null
@@ -91,10 +89,10 @@ then
 	mkdir output -p
 
 	if [[ -d "/mnt/output" ]]; then
-			echo "==> Moving package to output directory..."
-			sudo mv *.pkg.tar.zst /mnt/output
+		echo "==> Moving package to output directory..."
+		sudo mv *.pkg.tar.xz /mnt/output
 	else
-			echo "==> Output directory does not exist"
+		echo "==> Output directory does not exist"
 	fi
 fi
 
