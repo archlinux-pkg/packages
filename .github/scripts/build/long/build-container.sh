@@ -1,18 +1,48 @@
 #!/bin/bash
-
 echo "::group::Generating source archive..."
+
+ROOT_DIR=$(pwd)
 
 sudo chown build -R .
 
-PACKAGE="update-grub"
+PACKAGE="$(cat $ROOT_DIR/built_packages.txt)"
 
-cd "packages/$PACKAGE"
+pkgdir="$ROOT_DIR/long-build/$PACKAGE"
+
+cd "$pkgdir"
+
+if [ -f "git.sh" ]
+then
+  custom_vars=$(
+    . "${pkgdir}/git.sh"
+    echo "git_repo=${_git};"
+    echo "commit=${_commit};"
+  )
+
+  eval "${custom_vars}"
+
+  mv "${pkgdir}" "${pkgdir}.old"
+
+  git clone "${git_repo}" "${pkgdir}"
+
+  cd "${pkgdir}"
+
+  git reset --hard ${commit}
+
+  code=$?
+
+  if [ "$code" != 0 ]
+  then
+    echo "exit code: $code"
+    exit $code
+  fi
+fi
 
 # Generate archive with all required sources for the build
 # This either includes local or downloads files using an url
 su -c "makepkg --allsource" build
 mv ./*.src.tar.gz ../..
-cd ../..
+cd $ROOT_DIR
 
 echo "::endgroup::"
 
