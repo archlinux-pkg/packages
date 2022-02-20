@@ -27,7 +27,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
-        run: pacman -Syu --needed --noconfirm docker base-devel
+        run: pacman -Syu --needed --noconfirm docker
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build container
@@ -39,6 +39,8 @@ jobs:
           # Generate archive with all required sources for the build
           # This either includes local or downloads files using an url
           su -c "makepkg --allsource" build
+          mv *.src.tar.gz ../..
+          cd ../..
           echo "::endgroup::"
           CHROMIUM_VERSION="$(compgen -G "*.src.tar.gz" | grep -Po '([\d\.]+-\d*)')"
           REGISTRY="ghcr.io/${{ github.repository_owner }}"
