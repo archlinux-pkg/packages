@@ -70,6 +70,6 @@ jobs:
         run: |
           docker push "${{ steps.build.outputs.version-tag }}"
 
-  outputs:
+    outputs:
       chromium-version: "${{ steps.build.outputs.chromium-version }}"
       image-tag: "${{ steps.build.outputs.version-tag }}"
