@@ -38,8 +38,8 @@ unpack_stage() {
 	echo "==> Build subdirectory sizes"
 	du -h -d 1
 
-	echo "==> Added --noextract to build arguments"
-	BUILD_ARGUMENTS="$BUILD_ARGUMENTS --noextract"
+	echo "==> Added --noextract --nodeps to build arguments"
+	BUILD_ARGUMENTS="$BUILD_ARGUMENTS --noextract --nodeps"
 }
 
 # ? build stage with timeout

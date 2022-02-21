@@ -6,7 +6,7 @@ RUN pacman -Syu --needed --noconfirm base-devel
 ARG PACKAGE
 ENV PACKAGE=$PACKAGE
 
-COPY packages/$PACKAGE/PKGBUILD /home/build
+COPY long-build/$PACKAGE/PKGBUILD /home/build
 
 RUN sudo -u build bash -c "cd && makepkg --nobuild --noextract --syncdeps --noconfirm"
 

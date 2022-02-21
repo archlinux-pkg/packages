@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 echo "::group::Generating source archive..."
 
 ROOT_DIR=$(pwd)
