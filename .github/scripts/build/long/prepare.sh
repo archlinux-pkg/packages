@@ -60,6 +60,7 @@ then
         echo "${pkg}" >> ./deleted_packages.txt
       else
         printf "${pkg}" > ./built_packages.txt
+        echo "Package to built: ${pkg}"
       fi
     fi
   done<<<${CHANGED_FILES}
