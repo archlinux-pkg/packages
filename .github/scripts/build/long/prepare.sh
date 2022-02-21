@@ -24,8 +24,6 @@ then
   fi
 fi
 
-mkdir pkgs
-
 if [ "${github_event}" != "workflow_dispatch" ]
 then
   # Process tag '%ci:no-build' that may be added as line to commit message.
@@ -56,7 +54,7 @@ then
     then
       # * package, check if it was deleted or updated
       pkg=${BASH_REMATCH[1]}
-      if [ ! -d "packages/${pkg}" ]; then
+      if [ ! -d "long-build/${pkg}" ]; then
         echo "${pkg}" >> ./deleted_packages.txt
       else
         printf "${pkg}" > ./built_packages.txt
