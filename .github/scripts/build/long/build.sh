@@ -38,7 +38,7 @@ unpack_stage() {
 	du -h -d 1
 
 	echo "==> Added --noextract to build arguments"
-	BUILD_ARGUMENTS="--noextract"
+	BUILD_ARGUMENTS="$BUILD_ARGUMENTS --noextract"
 }
 
 # ? build stage with timeout
