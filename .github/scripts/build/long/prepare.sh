@@ -54,15 +54,15 @@ then
 
     if [[ ${file} =~ ^long-build/([.a-z0-9+-]*)/.*$ ]]
     then
-      # * package, check if it was updated
+      # * package, check if it was deleted or updated
       pkg=${BASH_REMATCH[1]}
-      if [ -d "packages/${pkg}" ]
-      then
+      if [ ! -d "packages/${pkg}" ]; then
+        echo "${pkg}" >> ./deleted_packages.txt
+      else
         printf "${pkg}" > ./built_packages.txt
-        exit 0
       fi
     fi
   done<<<${CHANGED_FILES}
 else
-  printf "${github_inputs_packages}" > ./built_packages.txt
+  printf "${pkg}" > ./built_packages.txt
 fi

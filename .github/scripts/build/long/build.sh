@@ -15,7 +15,8 @@ ROOT_DIR=$(pwd)
 export HOME="/home/build"
 
 # ? makepkg arguments
-BUILD_ARGUMENTS="--syncdeps --skippgpcheck --noconfirm"
+#BUILD_ARGUMENTS="--syncdeps --skippgpcheck --noconfirm"
+BUILD_ARGUMENTS="--skippgpcheck"
 
 # ? unpack compilation files from previous stage
 unpack_stage() {
@@ -43,8 +44,6 @@ unpack_stage() {
 
 # ? build stage with timeout
 build_stage() {
-	echo "::group::Building stage..."
-
 	echo "==> Building package..."
 	timeout -k 10m -s SIGTERM "${TIMEOUT}m" makepkg $BUILD_ARGUMENTS
 
@@ -67,11 +66,9 @@ build_stage() {
 
 	echo "==> Build subdirectory sizes"
 	sudo du -hd 1
-
-	echo "::endgroup::"
 }
 
-# ? download files from previous stage
+# ? unpack files from previous stage
 if [[ -d "/mnt/input" && -f "/mnt/input/progress.tar.zst" ]]
 then
 	unpack_stage
@@ -82,6 +79,7 @@ sudo chown -R build .
 
 build_stage
 
+# ? if package built, move to /mnt/output
 if compgen -G "*.pkg.tar.xz" > /dev/null
 then
 	echo "==> Successfully built package"

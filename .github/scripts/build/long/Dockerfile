@@ -1,13 +1,14 @@
 FROM ghcr.io/archlinux-pkg/packages:latest
 
-ARG PACKAGE
+# Install basic dependencies needed by the following commands
+RUN pacman -Syu --needed --noconfirm base-devel
 
+ARG PACKAGE
 ENV PACKAGE=$PACKAGE
 
 COPY packages/$PACKAGE/PKGBUILD /home/build
 
-RUN pacman -Syu --noconfirm && \
-    su -c 'cd && makepkg --nobuild --noextract --syncdeps --noconfirm && makepkg --nobuild --noextract --syncdeps --noconfirm' build
+RUN sudo -u build bash -c "cd && makepkg --nobuild --noextract --syncdeps --noconfirm"
 
 COPY .github/scripts/build/long/build.sh /home/build/build.sh
 
