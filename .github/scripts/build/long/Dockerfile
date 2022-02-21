@@ -8,7 +8,7 @@ ENV PACKAGE=$PACKAGE
 
 COPY packages/$PACKAGE/PKGBUILD /home/build
 
-RUN sudo -u build bash -c "cd && makepkg --nobuild --noextract --syncdeps --noconfirm"
+RUN sudo -u build bash -c "cd && makepkg --skippgpcheck --nobuild --noextract --syncdeps --noconfirm"
 
 COPY .github/scripts/build/long/build.sh /home/build/build.sh
 
