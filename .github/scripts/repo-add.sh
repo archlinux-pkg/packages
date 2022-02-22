@@ -20,7 +20,10 @@ do
   FILES+=("$file")
 done
 
-repo-add --new --remove --sign --key 7A6646A6C14690C0 medzikuser.db.tar.xz $FILES
+echo "1: $FILES\n\n\n\n"
+echo "3: ${FILES[@]}"
+
+repo-add --new --remove --sign --key 7A6646A6C14690C0 medzikuser.db.tar.xz ${FILES[@]}
 
 cd ..
 
