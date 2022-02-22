@@ -54,7 +54,7 @@ jobs:
         run: |
           if [ -f ./deleted_packages.txt ]
           then
-            su -c '.github/scripts/build/delete-packages.sh $(cat ./deleted_packages.txt)' build
+            su -c '.github/scripts/delete-packages.sh $(cat ./deleted_packages.txt)' build
           fi
 
       - name: Build
