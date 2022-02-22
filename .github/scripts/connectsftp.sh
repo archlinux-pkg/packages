@@ -1,7 +1,7 @@
 #!/bin/bash
 # ? add ssh public keys
-#mkdir -p ~/.ssh
-#ssh-keyscan -H "$FTP_URI" >> ~/.ssh/known_hosts
+mkdir -p ~/.ssh
+ssh-keyscan -H "$FTP_URI" >> ~/.ssh/known_hosts
 
 # ? connect to sftp and run commands
 connectsftp() {
