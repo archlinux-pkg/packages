@@ -1,11 +1,22 @@
 #!/bin/bash
 # ? add ssh public keys
-mkdir -p ~/.ssh
-touch ~/.ssh/known_hosts
-ssh-keyscan -H "$FTP_URI" >> ~/.ssh/known_hosts
+#mkdir -p ~/.ssh
+#ssh-keyscan -H "$FTP_URI" >> ~/.ssh/known_hosts
 
 # ? connect to sftp and run commands
 connectsftp() {
   export SSHPASS="$FTP_PASSWORD"
   sshpass -e sftp -oBatchMode=no -b - "${FTP_USER}@${FTP_URI}"
+}
+
+upload_file() {
+  echo "==> Uploading: $@..."
+  export SSHPASS="$FTP_PASSWORD"
+  sshpass -e rsync -av --ignore-existing $@ -e ssh "${FTP_USER}@${FTP_URI}:${FTP_CWD}/"
+}
+
+upload_file_overwrite() {\
+  echo "==> Uploading: $@..."
+  export SSHPASS="$FTP_PASSWORD"
+  sshpass -e rsync -av $@ -e ssh "${FTP_USER}@${FTP_URI}:${FTP_CWD}/"
 }
