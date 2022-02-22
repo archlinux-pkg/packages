@@ -1,12 +1,5 @@
 #!/bin/bash
-# * Environmental variables
-# * STAGE = Current stage that builds
-# * STAGE_ARCHIVE = Stage archive name
-# * TIMEOUT = Build time timeout
-# * FINISHED = Compilation been completed?
-
-# * GitHub Runner Outputs
-# * FINISHED = Compilation been completed?
+# ? https://github.com/ungoogled-software/ungoogled-chromium-archlinux/blob/6951233c1f35bd2932115cef95a919f0f58152a6/.github/workflows/container/run.sh
 
 cd /home/build
 

@@ -1,7 +1,5 @@
+# ? https://github.com/ungoogled-software/ungoogled-chromium-archlinux/blob/6951233c1f35bd2932115cef95a919f0f58152a6/.github/workflows/container/Dockerfile
 FROM ghcr.io/archlinux-pkg/packages:latest
-
-# Install basic dependencies needed by the following commands
-RUN pacman -Syu --needed --noconfirm base-devel
 
 ARG PACKAGE
 ENV PACKAGE=$PACKAGE
