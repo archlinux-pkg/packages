@@ -58,3 +58,6 @@ for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
   delete "${PACKAGE_LIST[i]}" &
 done
+
+# * wait for delete all files
+wait
