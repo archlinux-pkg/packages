@@ -38,7 +38,9 @@ unpack_stage() {
 # ? build stage with timeout
 build_stage() {
 	echo "==> Building package..."
-	timeout -k 10m -s SIGTERM "${TIMEOUT}m" makepkg $BUILD_ARGUMENTS
+	echo "==> Using timestamp $(cat /etc/buildtime)"
+
+	SOURCE_DATE_EPOCH=$(cat /etc/buildtime) timeout -k 10m -s SIGTERM "${TIMEOUT}m" makepkg $BUILD_ARGUMENTS
 
 	EXIT_CODE=$?
 

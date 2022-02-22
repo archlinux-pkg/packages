@@ -4,8 +4,6 @@ FROM ghcr.io/archlinux-pkg/packages:latest
 ARG PACKAGE
 ENV PACKAGE=$PACKAGE
 
-#COPY long-build/$PACKAGE/PKGBUILD /home/build
-
 COPY .github/scripts/build/long/build.sh /home/build/build.sh
 
 # ? Expect archive with files required for building created by makepkg --allsource
@@ -18,8 +16,8 @@ RUN su -c "cd && makepkg --nobuild --noextract --syncdeps --noconfirm" build
 
 RUN ls -lah /home/build
 
-USER build
+RUN echo $(date +"%s") > /etc/buildtime
 
-RUN cd /home/build
+USER build
 
 ENTRYPOINT [ "/bin/bash", "/home/build/build.sh" ]
