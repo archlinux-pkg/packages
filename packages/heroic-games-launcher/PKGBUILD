@@ -15,7 +15,7 @@ depends=('fuse2' 'gawk' 'zstd')
 optdepends=('legendary')
 
 _file=heroic-${pkgver}.pacman
-source=("$pkgname.tar::${url}/releases/download/${_ver}/${_file}")
+source=("${_file}::${url}/releases/download/${_ver}/${_file}")
 sha256sums=('SKIP')
 options=(!strip)
 
