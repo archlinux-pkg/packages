@@ -6,8 +6,6 @@ upload() {
   local file="$1"
   local type="$2"
 
-  echo "::group::Uploading '${file}'"
-
   for (( i=0; i<10; i++ ))
   do
     if [ "$type" != "overwrite" ]
@@ -27,8 +25,6 @@ upload() {
       sleep $(( 5 * (i + 1)))
     fi
   done
-
-  echo "::endgroup::"
 }
 
 if [ $# -eq 0 ]
