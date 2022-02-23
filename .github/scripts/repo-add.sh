@@ -1,11 +1,11 @@
 #!/bin/bash
-mkdir pkgs_all
+TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 
 for file in pkgs/*
 do
   if [ "$file" != medzikuser.* ]
   then
-    touch "pkgs_all/$(basename ${file})"
+    touch "$TEMPDIR/$(basename ${file})"
   fi
 done
 
@@ -13,20 +13,10 @@ cd pkgs
 
 rm -f medzikuser.*
 
-FILES=()
-
-for file in $(ls *.pkg.tar.xz | sort -V)
-do
-  FILES+=("$file")
-done
-
-echo "1: $FILES\n\n\n\n"
-echo "3: ${FILES[@]}"
-
-repo-add --new --remove --sign --key 7A6646A6C14690C0 medzikuser.db.tar.xz ${FILES[@]}
+repo-add --new --remove --prevent-downgrade --sign --key 7A6646A6C14690C0 medzikuser.db.tar.xz *.pkg.tar.xz
 
 cd ..
 
-diff -q pkgs pkgs_all | grep 'Only in' | grep pkgs_all | awk '{print $4}' > diff.txt
+diff -q pkgs "$TEMPDIR" | grep 'Only in' | grep "$TEMPDIR" | awk '{print $4}' > diff.txt
 
 find pkgs -type f -not -name 'medzikuser.*' -delete

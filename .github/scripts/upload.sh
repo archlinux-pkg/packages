@@ -22,7 +22,7 @@ upload() {
     then
       break
     else
-      sleep $(( 5 * (i + 1)))
+      sleep $(( 7 * (i + 1)))
     fi
   done
 }
