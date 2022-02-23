@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/air.git'
-_commit=afc0ce9638dced1a16fa4d35cd9007bc7153c843
+_commit=19d931f83644572036fab3e72157e88cb3f1e765
