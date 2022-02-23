@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='Heroic-Games-Launcher/HeroicGamesLauncher'
-_ver=v2.1.1
+_ver=v2.2.0
 _auto_update=true
 
 pkgname='heroic-games-launcher'
 pkgdesc='A Native GUI Epic Games Launcher for Linux, Windows and Mac'
-pkgver=2.1.1
+pkgver=2.2.0
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/${_repo}"
