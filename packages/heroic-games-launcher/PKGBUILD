@@ -10,7 +10,7 @@ pkgrel=1
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('GPL3')
-makedepends=('git' 'nodejs' 'yarn' 'npm' 'typescript')
+makedepends=('git' 'nodejs' 'yarn' 'npm' 'libxcrypt')
 optdepends=('legendary')
 source=("${pkgname}::git+${url}#tag=${_ver}")
 sha256sums=('SKIP')
@@ -18,10 +18,7 @@ sha256sums=('SKIP')
 build() {
   cd "${pkgname}"
 
-  # Install depends
   yarn --cache-folder "yarn-cache"
-
-  # Build
   yarn dist pacman
 }
 
