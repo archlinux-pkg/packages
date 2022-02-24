@@ -12,8 +12,7 @@ arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('Apache' 'MIT')
 
-depends=('gcc-libs' 'zlib')
-makedepends=('cargo')
+depends=('cargo' 'gcc-libs' 'zlib')
 
 source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/${_ver}/${_pkgname}-${_ver}.tar.gz")
 sha256sums=('SKIP')
