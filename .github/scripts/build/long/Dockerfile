@@ -12,7 +12,8 @@ COPY *.src.tar.gz /home/build/
 RUN chown -R build /home/build
 RUN tar xf /home/build/*.src.tar.gz -C /home/build --strip 1 && rm /home/build/*.src.tar.gz
 
-RUN su -c "cd && makepkg --nobuild --noextract --syncdeps --noconfirm" build
+RUN pacman -Sy && \
+    su -c "cd && makepkg --nobuild --noextract --syncdeps --noconfirm" build
 
 RUN ls -lah /home/build
 
