@@ -32,4 +32,6 @@ while IFS= read -r line
 do
   delete "${line}" &
 done < diff.txt
+
+# * wait for delete all files
 wait

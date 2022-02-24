@@ -1,38 +1,27 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='Heroic-Games-Launcher/HeroicGamesLauncher'
-_ver=v2.1.1
+_ver=v2.2.1
 _auto_update=true
 
 pkgname='heroic-games-launcher'
-pkgdesc='A Native GUI Epic Games Launcher for Linux, Windows and Mac'
-pkgver=2.1.1
+pkgdesc='A Native GUI Epic Games Launcher and GOG for Linux, Windows and Mac'
+pkgver=2.2.1
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('GPL3')
-makedepends=('git' 'nodejs' 'yarn' 'npm' 'typescript')
+
+depends=('fuse2' 'gawk' 'zstd')
 optdepends=('legendary')
-source=("${pkgname}::git+${url}#tag=${_ver}")
+
+_file=heroic-${pkgver}.pacman
+source=("${_file}::${url}/releases/download/${_ver}/${_file}")
 sha256sums=('SKIP')
-
-build() {
-  cd "${pkgname}"
-
-  # Install depends
-  yarn --cache-folder "yarn-cache"
-
-  # Build
-  yarn dist pacman
-}
+options=(!strip)
 
 package() {
-  cd "${pkgname}/dist"
+  tar xJf ${_file} -C "${pkgdir}" usr opt
 
-  # Unpack package
-  mkdir "pacman_unpack"
-  tar xf heroic-*.pacman -C "pacman_unpack"
-
-  # Install
-  cd "pacman_unpack"
-  cp -r --no-preserve=ownership --preserve=mode "usr" "opt" "${pkgdir}"
+  mkdir "${pkgdir}/usr/bin"
+  ln -s "/opt/Heroic/heroic" "${pkgdir}/usr/bin/heroic"
 }

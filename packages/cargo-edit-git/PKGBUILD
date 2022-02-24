@@ -1,0 +1,46 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_repo='killercup/cargo-edit'
+_ver=8b65e4e9dff4a8c1ad8034445694a8713d6b8915
+_auto_update=true
+_auto_update_git=true
+
+_pkgname='cargo-edit-git'
+pkgname="${_pkgname}"
+conflicts=('cargo-edit')
+provides=('cargo-edit')
+pkgver=2022.02.23_1645643710
+pkgrel=2
+pkgdesc='Managing cargo dependencies from the command line (latest commit from git)'
+arch=('x86_64')
+url="https://github.com/${_repo}"
+license=('Apache' 'MIT')
+
+depends=('cargo' 'libgit2.so')
+
+source=("${_pkgname}::git+${url}.git#commit=${_ver}")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "${_pkgname}"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd "${_pkgname}"
+
+  CFLAGS+=' -ffat-lto-objects'
+  cargo build --release
+}
+
+package() {
+  cd "${_pkgname}"
+
+  install -Dm 755 \
+    target/release/cargo-add \
+    target/release/cargo-rm \
+    target/release/cargo-upgrade \
+    -t "${pkgdir}/usr/bin"
+
+  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}

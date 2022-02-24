@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='MedzikUser/go-imgur'
-_ver=v0.8.0
+_ver=v0.8.1
 _auto_update=true
 
 _pkgname='imgur'
 pkgname="${_pkgname}"
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc='CLI for Imgur API'
 arch=('x86_64')

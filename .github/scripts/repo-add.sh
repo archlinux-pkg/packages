@@ -1,25 +1,21 @@
 #!/bin/bash
-mkdir pkgs_all
+TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 
 for file in pkgs/*
 do
-  if [ "$file" != medzikuser.* ]
-  then
-    touch "pkgs_all/$(basename ${file})"
-  fi
+  touch "$TEMPDIR/$(basename $file)"
 done
 
 cd pkgs
 
-rm -f medzikuser.*
+#rm -f medzikuser.*
 
-for file in *.pkg.tar.xz
-do
-  repo-add --new --remove --sign --key 7A6646A6C14690C0 medzikuser.db.tar.xz "${file}"
-done
+repo-add --new --remove --prevent-downgrade --sign --key 7A6646A6C14690C0 medzikuser.db.tar.xz *.pkg.tar.xz
 
 cd ..
 
-diff -q pkgs pkgs_all | grep 'Only in' | grep pkgs_all | awk '{print $4}' > diff.txt
+# check what files have been deleted and save the list to `diff.txt`
+diff -q pkgs "$TEMPDIR" | grep 'Only in' | grep "$TEMPDIR" | awk '{print $4}' > diff.txt
 
+# delete all files that are not `medzikuser.*` (database files)
 find pkgs -type f -not -name 'medzikuser.*' -delete

@@ -7,6 +7,7 @@ RUN pacman -Syu --noconfirm \
       git \
       wget \
       curl \
+      rsync \
       ccache \
       python \
       sshpass \

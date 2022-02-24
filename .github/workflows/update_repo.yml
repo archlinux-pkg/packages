@@ -2,7 +2,7 @@ name: Update repo
 
 on:
   schedule:
-    - cron:  '*/30 * * * *'
+    - cron:  '* */1 * * *'
 
   workflow_dispatch:
 
@@ -46,4 +46,4 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
-        run: su -c './.github/scripts/upload.sh' build
+        run: su -c './.github/scripts/upload.sh overwrite' build

@@ -54,7 +54,7 @@ jobs:
         run: |
           if [ -f ./deleted_packages.txt ]
           then
-            su -c '.github/scripts/build/delete-packages.sh $(cat ./deleted_packages.txt)' build
+            su -c '.github/scripts/delete-packages.sh $(cat ./deleted_packages.txt)' build
           fi
 
       - name: Build
@@ -71,8 +71,11 @@ jobs:
       - name: Packages
         if: always()
         run: |
-          printf "\n\nPackages Size:\n"
-          xz -l ./pkgs/*.xz
+          if [ -f ./built_packages.txt ]
+          then
+            printf "\n\nPackages Size:\n"
+            xz -l ./pkgs/*.xz
+          fi
 
       - name: Update file names
         if: always() && github.event_name != 'pull_request'
@@ -104,10 +107,13 @@ jobs:
       - name: Sign packages
         if: always() && github.event_name != 'pull_request'
         run: |
-          for file in ./pkgs/*.pkg.tar*
-          do
-            gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
-          done
+          if [ -f ./built_packages.txt ]
+          then
+            for file in ./pkgs/*.pkg.tar*
+            do
+              gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
+            done
+          fi
 
       - name: Upload packages
         if: always() && github.event_name != 'pull_request'

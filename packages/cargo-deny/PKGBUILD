@@ -6,14 +6,13 @@ _auto_update=true
 _pkgname='cargo-deny'
 pkgname="${_pkgname}"
 pkgver=0.11.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Cargo plugin for linting your dependencies'
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('Apache' 'MIT')
 
-depends=('gcc-libs' 'zlib')
-makedepends=('cargo')
+depends=('cargo' 'gcc-libs' 'zlib')
 
 source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/${_ver}/${_pkgname}-${_ver}.tar.gz")
 sha256sums=('SKIP')

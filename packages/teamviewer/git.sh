@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/teamviewer.git'
-_commit=697f9f4772344914fef9040f52be7043c422853e
+_commit=36d4512336d436beddd7caf122cb7c060509232b
