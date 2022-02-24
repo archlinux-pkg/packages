@@ -6,8 +6,10 @@ _auto_update_git=true
 
 _pkgname='cargo-edit-git'
 pkgname="${_pkgname}"
+conflicts=('cargo-edit')
+provides=('cargo-edit')
 pkgver=2022.02.23_1645643710
-pkgrel=1
+pkgrel=2
 pkgdesc='Managing cargo dependencies from the command line (latest commit from git)'
 arch=('x86_64')
 url="https://github.com/${_repo}"
