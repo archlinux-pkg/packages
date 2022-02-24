@@ -5,9 +5,6 @@ source ${DIR}/connectsftp.sh
 sudo chown build .
 mkdir pkgs
 
-connectsftp << EOF
-  cd ${FTP_CWD}
-  get * pkgs
-EOF
+download_all_files
 
 ls -lah pkgs
