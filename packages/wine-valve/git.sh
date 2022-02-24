@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/wine-valve.git'
-_commit=93a6206320587d86332d9adeb333600a1f1d4437
+_commit=e70d3ec307298e9e42e3b29a4f47fe4c0d31926c
