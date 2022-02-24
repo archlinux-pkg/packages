@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='quantumsheep/sshs'
-_ver=2.1.1
+_ver=2.1.2
 _auto_update=true
 
 _pkgname='sshs'
 pkgname="${_pkgname}"
-pkgver=2.1.1
+pkgver=2.1.2
 pkgrel=1
 pkgdesc='Terminal user interface for SSH'
 arch=('x86_64')
