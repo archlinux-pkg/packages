@@ -6,7 +6,7 @@ TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 # Temporary dir for git clone
 mkdir -p "${TEMPDIR}/git"
 
-for pkg_dir in "${BASEDIR}"/packages/*
+for pkg_dir in "${BASEDIR}"/packages/* "${BASEDIR}"/long-build/*
 do
   pkg_name=$(basename ${pkg_dir})
 
