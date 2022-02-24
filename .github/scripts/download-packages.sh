@@ -5,6 +5,6 @@ source ${DIR}/connectsftp.sh
 sudo chown build .
 mkdir pkgs
 
-download_all_files
+download_all_files ./pkgs
 
 ls -lah pkgs

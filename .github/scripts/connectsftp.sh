@@ -23,5 +23,5 @@ upload_file_overwrite() {
 
 download_all_files() {
   export SSHPASS="$FTP_PASSWORD"
-  sshpass -e rsync -av -e ssh "${FTP_USER}@${FTP_URI}:${FTP_CWD}/" .
+  sshpass -e rsync -av -e ssh "${FTP_USER}@${FTP_URI}:${FTP_CWD}/" "$1"
 }
