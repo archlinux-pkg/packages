@@ -9,6 +9,9 @@ declare -a PACKAGE_LIST=()
 
 export BUILDDIR="${SRCDIR}/build_dir"
 
+echo "==> Creating /etc/buildtime..."
+echo $(date +"%s") | sudo tee /etc/buildtime
+
 if [ "$#" -lt 1 ]
 then
   printf "./build-package.sh: type package name to build\n"
@@ -69,7 +72,7 @@ do
 
   mkdir -p "${SRCDIR}/pkgs"
 
-  PKGDEST="${SRCDIR}/pkgs" makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+  SOURCE_DATE_EPOCH=$(cat /etc/buildtime) PKGDEST="${SRCDIR}/pkgs" makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
   code=$?
 
