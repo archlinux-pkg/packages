@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='NeverDecaf/chromium-web-store'
-_ver=v1.4.4.1
+_ver=v1.4.4.2
 _auto_update=true
 
 _id=ocaahdebbfolfmndjeplogmgcagdmblk
 
 pkgname='chromium-extension-web-store'
-pkgver=1.4.4.1
+pkgver=1.4.4.2
 pkgrel=1
 pkgdesc="chromium web store extension (for ungoogled-chromium)"
 arch=('any')
