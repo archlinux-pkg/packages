@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/proton-ge-custom-bin.git'
-_commit=3cb94e838f7f540ccc1033f07c63e0d836fdaac7
+_commit=8a89e227b551fded7424ac90222335d81669a619
