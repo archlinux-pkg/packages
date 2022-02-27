@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/flutter.git'
-_commit=025ffd52c83a84022eec7f2f1752d86964c41969
+_commit=18c12b88899bdb93164a4e3200fe96ab9cfcccf8
