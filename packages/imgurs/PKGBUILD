@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='MedzikUser/imgurs'
-_ver=v0.3.0
+_ver=v0.4.0
 _auto_update=true
 
 _pkgname='imgurs'
 pkgname="${_pkgname}"
-pkgver=0.3.0
+pkgver=0.4.0
 pkgrel=1
 pkgdesc='CLI for Imgur API'
 arch=('x86_64')
