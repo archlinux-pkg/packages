@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='killercup/cargo-edit'
-_ver=8b65e4e9dff4a8c1ad8034445694a8713d6b8915
+_ver=146a3695f1f906499399b0779444f66b7211a19c
 _auto_update=true
 _auto_update_git=true
 
@@ -8,8 +8,8 @@ _pkgname='cargo-edit-git'
 pkgname="${_pkgname}"
 conflicts=('cargo-edit')
 provides=('cargo-edit')
-pkgver=2022.02.23_1645643710
-pkgrel=2
+pkgver=2022.02.28_1646075054
+pkgrel=1
 pkgdesc='Managing cargo dependencies from the command line (latest commit from git)'
 arch=('x86_64')
 url="https://github.com/${_repo}"
