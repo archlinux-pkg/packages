@@ -17,5 +17,5 @@ jobs:
           SSHUSER: ${{ secrets.SSHUSER }}
           SSHHOST: ${{ secrets.SSHHOST }}
         run: |
-          sshpass -e "${SSHUSER}@${SSHHOST}" create
-          sshpass -e "${SSHUSER}@${SSHHOST}" '~/update-repo.sh'
+          sshpass -e ssh "${SSHUSER}@${SSHHOST}" create
+          sshpass -e ssh "${SSHUSER}@${SSHHOST}" '~/update-repo.sh'
