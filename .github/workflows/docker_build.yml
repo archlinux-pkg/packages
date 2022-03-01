@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-packages:
+  docker-image:
     if: github.repository == 'archlinux-pkg/packages'
     runs-on: ubuntu-latest
 

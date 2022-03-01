@@ -63,5 +63,5 @@ then
     fi
   done<<<${CHANGED_FILES}
 else
-  printf "${pkg}" > ./built_packages.txt
+  printf "${github_inputs_packages}" > ./built_packages.txt
 fi
