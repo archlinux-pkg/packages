@@ -9,41 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: ghcr.io/archlinux-pkg/packages:latest
 
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Download packages
+      - name: Run in SSH
         env:
-          FTP_URI: ${{ secrets.FTP_URI }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_CWD: ${{ secrets.FTP_CWD }}
-        run: su -c './.github/scripts/download-packages.sh' build
-
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v4
-        with:
-          gpg_private_key: ${{ secrets.GPG_SECRET }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE }}
-
-      - name: Repo Add
-        run: ./.github/scripts/repo-add.sh
-
-      - name: Delete old packages
-        env:
-          FTP_URI: ${{ secrets.FTP_URI }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_CWD: ${{ secrets.FTP_CWD }}
-        run: su -c './.github/scripts/delete.sh' build
-
-      - name: Upload packages
-        env:
-          FTP_URI: ${{ secrets.FTP_URI }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_CWD: ${{ secrets.FTP_CWD }}
-        run: su -c './.github/scripts/upload.sh overwrite' build
+          SSHPASS: ${{ secrets.SSHPASS }}
+          SSHUSER: ${{ secrets.SSHUSER }}
+          SSHHOST: ${{ secrets.SSHHOST }}
+        run: |
+          sshpass -e "${SSHUSER}@${SSHHOST}" create
+          sshpass -e "${SSHUSER}@${SSHHOST}" '~/update-repo.sh'
