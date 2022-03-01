@@ -1,6 +1,4 @@
 #!/bin/bash
-set -e
-
 mkdir -p ~/.ssh
 ssh-keyscan -H "$SSHHOST" >> ~/.ssh/known_hosts
 
