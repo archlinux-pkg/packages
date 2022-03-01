@@ -12,12 +12,6 @@ cd pkgs
 
 #rm -f medzikuser.*
 
-if [[ ! -f *.pkg.tar.xz ]]
-then
-  echo "Files not found!"
-  exit 1
-fi
-
 repo-add --new --remove --prevent-downgrade --sign --key 7A6646A6C14690C0 medzikuser.db.tar.xz *.pkg.tar.xz
 
 EXIT_CODE=$?
