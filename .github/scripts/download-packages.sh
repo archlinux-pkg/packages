@@ -7,4 +7,8 @@ mkdir pkgs
 
 download_all_files ./pkgs
 
+EXIT_CODE=$?
+
 ls -lah pkgs
+
+exit $EXIT_CODE
