@@ -16,6 +16,4 @@ jobs:
           SSHPASS: ${{ secrets.SSHPASS }}
           SSHUSER: ${{ secrets.SSHUSER }}
           SSHHOST: ${{ secrets.SSHHOST }}
-        run: |
-          sshpass -e ssh "${SSHUSER}@${SSHHOST}" create
-          sshpass -e ssh "${SSHUSER}@${SSHHOST}" '~/update-repo.sh'
+        run: ./.github/scripts/update-repo.sh
