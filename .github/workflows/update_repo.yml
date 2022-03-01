@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout latest commit
+        uses: actions/checkout@v2
+
       - name: Run in SSH
         env:
           SSHPASS: ${{ secrets.SSHPASS }}
