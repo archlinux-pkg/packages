@@ -130,11 +130,11 @@ package() {
   cd "vscodium/VSCode-linux-${_vscode_arch}"
 
   # Install resource files
-  install -d "${pkgdir}/usr/lib/${pkgname}"
-  cp -r --no-preserve=ownership --preserve=mode resources/app/* "${pkgdir}/usr/lib/${pkgname}/"
+  install -d "$pkgdir/usr/lib/$pkgname"
+  cp -r --no-preserve=ownership --preserve=mode resources/app/* "$pkgdir/usr/lib/$pkgname/"
 
   # Replace statically included binary with system copy
-  ln -sf /usr/bin/rg "$pkgdir"/usr/lib/code/node_modules.asar.unpacked/@vscode/ripgrep/bin/rg
+  ln -sf /usr/bin/rg "$pkgdir/usr/lib/$pkgname/node_modules.asar.unpacked/@vscode/ripgrep/bin/rg"
 
   # Install bash and zsh completions
   install -Dm 644 "resources/completions/bash/${pkgname}" "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
@@ -149,7 +149,7 @@ package() {
   install -Dm 755 "${pkgname}.js" "${pkgdir}/usr/lib/${pkgname}/${pkgname}.js"
 
   # Install appdata and desktop files
-  install -d "${pkgdir}/usr/share/{${pkgname},applications,pixmaps}"
-  install -Dm 644 "${pkgname}.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
-  install -Dm 644 "${pkgname}-uri-handler.desktop" "${pkgdir}/usr/share/applications/${pkgname}-uri-handler.desktop"
+  install -d "$pkgdir/usr/share/{$pkgname,applications,pixmaps}"
+  install -Dm 644 "$pkgname.desktop" "$pkgdir/usr/share/applications/${pkgname}.desktop"
+  install -Dm 644 "${pkgname}-uri-handler.desktop" "$pkgdir/usr/share/applications/${pkgname}-uri-handler.desktop"
 }
