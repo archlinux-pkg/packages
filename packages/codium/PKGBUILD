@@ -12,12 +12,26 @@ microsofturl='https://github.com/microsoft/vscode'
 url="https://github.com/${_repo}"
 license=('MIT')
 _electron='electron13'
-depends=("${_electron}" 'libsecret' 'libx11' 'libxkbfile' 'ripgrep')
+
+depends=(
+  "${_electron}"
+  'fontconfig'
+  'libxtst'
+  'gtk3'
+  'cairo'
+  'alsa-lib'
+  'nss'
+  'libnotify'
+  'libxss'
+  'glibc>=2.28-4'
+  'libxkbfile'
+  'ripgrep'
+)
 makedepends=(
-  'nodejs-lts-gallium'
+  'nvm'
   'gulp'
   'yarn'
-  'npm'
+  'jq'
   'libxdmcp'
   'git'
   'git-lfs'
@@ -25,14 +39,16 @@ makedepends=(
   'python'
   'pkg-config'
 )
+
 optdepends=(
-  'bash-completion: Bash completions'
-  'zsh-completions: ZSH completitons'
+  'gvfs: For move to trash functionality'
+  'libdbusmenu-glib: For KDE global menu'
   'x11-ssh-askpass: SSH authentication'
   'org.freedesktop.secrets: Keyring password store support'
   'codium-features: Unblock some features in VSCodium'
   'codium-marketplace: Enable VS-Code marketplace in VSCodium'
 )
+
 source=(
   "vscodium::git+${url}#tag=${_ver}"
   "vscode::git+${microsofturl}#tag=${pkgver}"
@@ -68,6 +84,9 @@ case "$CARCH" in
     ;;
 esac
 
+# Version of NodeJS that will be used to create the build. Sinds 1.64.0, Codium requires version 14 >= 14.17.0.
+_nodejs='14.19.0'
+
 prepare() {
   # Change electron binary name to the target electron
   sed -i "s|exec electron |exec ${_electron} |" ${pkgname}.sh
@@ -95,7 +114,16 @@ build() {
   # Disable building rpm, deb, and AppImage packages which are not needed in an AUR build
   export SKIP_LINUX_PACKAGES="True"
 
+  # Set a temporary NVM directory to make sure the nvm in this script does not clash with a system-wide nvm install
+  export NVM_DIR=$(mktemp -d)
+
+  # Build just like Travis does: install NodeJS and run the build.sh script.
+  source /usr/share/nvm/init-nvm.sh
+  nvm install ${_nodejs}
   ./build.sh
+
+  # Clean up temp NVM directory
+  rm -rf "$NVM_DIR" || true
 }
 
 package() {
@@ -106,7 +134,7 @@ package() {
   cp -r --no-preserve=ownership --preserve=mode resources/app/* "${pkgdir}/usr/lib/${pkgname}/"
 
   # Replace statically included binary with system copy
-  #ln -sf "/usr/bin/rg" "${pkgdir}/usr/lib/${pkgname}/node_modules.asar.unpacked/vscode-ripgrep/bin/rg"
+  ln -sf /usr/bin/rg "$pkgdir"/usr/lib/code/node_modules.asar.unpacked/@vscode/ripgrep/bin/rg
 
   # Install bash and zsh completions
   install -Dm 644 "resources/completions/bash/${pkgname}" "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
@@ -115,7 +143,7 @@ package() {
   install -Dm 644 "resources/app/resources/linux/code.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
 
   # Install start scripts
-  cd "${srcdir}"
+  cd "$srcdir"
 
   install -Dm 755 "${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
   install -Dm 755 "${pkgname}.js" "${pkgdir}/usr/lib/${pkgname}/${pkgname}.js"
