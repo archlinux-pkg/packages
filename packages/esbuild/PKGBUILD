@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo=evanw/esbuild
-_ver=v0.14.23
+_ver=v0.14.24
 _auto_update=true
 
 _pkgname="esbuild"
 pkgname="${_pkgname}"
-pkgver=0.14.23
+pkgver=0.14.24
 pkgrel=1
 pkgdesc='An extremely fast JavaScript and CSS bundler and minifier'
 arch=('x86_64')
