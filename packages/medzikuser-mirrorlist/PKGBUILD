@@ -8,7 +8,7 @@ url='https://arch-repo.magicuser.cf'
 license=('unknow')
 backup=('etc/pacman.d/mirrorlist-medzikuser')
 source=('mirrorlist')
-sha256sums=('414044841615c277146162139e0d7a15547a39fe1c7075ca75c71c27422a5fc6')
+sha256sums=('SKIP')
 
 package() {
   mkdir -p "$pkgdir/etc/pacman.d"
