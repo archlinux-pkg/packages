@@ -86,8 +86,14 @@ do
       sed -i "s|^\(pkgver=\)\(.*\)\$|\1${version}|g" "${pkg_dir}/PKGBUILD"
       git diff-index --quiet HEAD || sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "${pkg_dir}/PKGBUILD"
 
-      git add ${pkg_dir}
-      git commit -m "update '${pkg_name}' to '${version}'"
+      echo "==> Updating pkgsum..."
+      cd "$pkg_dir"
+      chown -R build .
+      su -c 'updpkgsums' build
+      cd "$BASEDIR"
+
+      git add "$pkg_dir/PKGBUILD"
+      git commit -m "update '$pkg_name' to '$version'"
       git pull --rebase 2> /dev/null
       git push 2> /dev/null
     fi
