@@ -3,16 +3,16 @@ _repo='lakinduakash/linux-wifi-hotspot'
 _ver=v4.4.0
 _auto_update=true
 
-_pkgname='linux-wifi-hotspot'
-pkgname="${_pkgname}"
+pkgname='linux-wifi-hotspot'
 provides=('wihotspot' 'create_ap')
 conflicts=('wihotspot' 'create_ap')
 pkgver=4.4.0
 pkgrel=1
 pkgdesc='A wrapper that does winetricks things for Proton enabled games, requires Winetricks'
 arch=('any')
-url="https://github.com/${_repo}"
+url="https://github.com/$_repo"
 license=('BSD')
+
 depends=(
   'dnsmasq'
   'gtk3'
@@ -27,17 +27,18 @@ optdepends=(
   'wireless_tools: if iw cannot recognize your adapter'
   'bash-completion: for bash completions'
 )
-source=("${_pkgname}::git+${url}#tag=${_ver}")
-sha256sums=('SKIP')
+
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+sha512sums=('a4cc68afc8528a33d58d98cd302df0e94d09c3375f8fd5e305b0ec95fa91057429df4040340c94a2738a59ddd9c57f04a30cb25e87ad019fd550a58aca0f495a')
 
 build() {
-  cd "${pkgname}"
+  cd "$srcdir/$pkgname-$pkgver"
   make
 }
 
 package() {
-  cd "${pkgname}"
-  make DESTDIR="${pkgdir}" install
+  cd "$srcdir/$pkgname-$pkgver"
 
-  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  make DESTDIR="$pkgdir" install
+  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

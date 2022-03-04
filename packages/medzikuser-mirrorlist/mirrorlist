@@ -1,3 +1,6 @@
 # Hosted on SourceForge via Proxy
+## Worldwide
 Server = https://arch-repo.magicuser.cf
 Server = https://arch-repo.gaming0skar123.workers.dev
+## Poland
+Server = http://ct8.pl:54267

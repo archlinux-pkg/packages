@@ -4,22 +4,21 @@ _ver=511d8b51cabaa362cdd052c20986ab2dbeabe29c
 _auto_update=true
 _auto_update_git=true
 
-_pkgname='rsfetch'
-pkgname="${_pkgname}"
+pkgname='rsfetch'
 pkgver=2021.11.19_1637337131
 pkgrel=1
 pkgdesc='extremely fast, simple and lightweight fetch program'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/$_repo"
 license=('unknow')
 
 makedepends=('git' 'cargo')
 
-source=("${_pkgname}::git+${url}#tag=${_ver}")
+source=("$pkgname::git+$url#commit=$_ver")
 sha256sums=('SKIP')
 
 build() {
-  cd "${_pkgname}"
+  cd "$pkgname"
 
   rm -rf .cargo/config.toml
 
@@ -27,8 +26,8 @@ build() {
 }
 
 package() {
-  cd "${_pkgname}"
+  cd "$pkgname"
 
-  install -Dm 755 target/release/${_pkgname} "${pkgdir}/usr/bin/${pkgname}"
-  #install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm 755 target/release/$pkgname "$pkgdir/usr/bin/$pkgname"
+  #install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/${pkgname}/LICENSE"
 }

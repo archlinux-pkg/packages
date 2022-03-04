@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='medzikuser-mirrorlist'
-pkgver=2022.2.16
+pkgver=2022.3.4
 pkgrel=1
 pkgdesc='MedzikUser repo mirrorlist to use with Pacman'
 arch=('any')
@@ -8,9 +8,9 @@ url='https://arch-repo.magicuser.cf'
 license=('unknow')
 backup=('etc/pacman.d/mirrorlist-medzikuser')
 source=('mirrorlist')
-sha256sums=('SKIP')
+sha256sums=('414044841615c277146162139e0d7a15547a39fe1c7075ca75c71c27422a5fc6')
 
 package() {
-  mkdir -p "${pkgdir}/etc/pacman.d"
-  install -Dm 644 "${srcdir}/mirrorlist" "${pkgdir}/etc/pacman.d/mirrorlist-medzikuser"
+  mkdir -p "$pkgdir/etc/pacman.d"
+  install -Dm 644 "$srcdir/mirrorlist" "$pkgdir/etc/pacman.d/mirrorlist-medzikuser"
 }

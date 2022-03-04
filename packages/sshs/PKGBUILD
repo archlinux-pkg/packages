@@ -3,27 +3,26 @@ _repo='quantumsheep/sshs'
 _ver=2.1.2
 _auto_update=true
 
-_pkgname='sshs'
-pkgname="${_pkgname}"
+pkgname='sshs'
 pkgver=2.1.2
 pkgrel=1
 pkgdesc='Terminal user interface for SSH'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/$_repo"
 license=('MIT')
 
 depends=('glibc' 'openssh')
 makedepends=('git' 'go')
 
-source=("${_pkgname}::git+${url}#tag=${_ver}")
-sha256sums=('SKIP')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+sha512sums=('cda06169f62926f7aa7428baa828a80ccc8761927f6c605003046ebc842c2ab09514f5938e64442f88631f3a4bb9fb85144d7d2fe8f3165eb8ce9860a5209d0a')
 
 build() {
-  cd "${_pkgname}"
+  cd "$pkgname-$pkgver"
   make VERSION="$pkgver"
 }
 
 package() {
-  cd "${_pkgname}"
+  cd "$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }
