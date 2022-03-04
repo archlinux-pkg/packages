@@ -68,6 +68,8 @@ do
 
   cd "${pkgdir}"
 
+  sudo chown -R build .
+
   sudo pacman -Sy
 
   mkdir -p "${SRCDIR}/pkgs"

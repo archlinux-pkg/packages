@@ -8,20 +8,20 @@ pkgdesc='A Native GUI Epic Games Launcher and GOG for Linux, Windows and Mac'
 pkgver=2.2.1
 pkgrel=1
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/$_repo"
 license=('GPL3')
 
 depends=('fuse2' 'gawk' 'zstd')
 optdepends=('legendary')
 
-_file=heroic-${pkgver}.pacman
-source=("${_file}::${url}/releases/download/${_ver}/${_file}")
+_file="heroic-$pkgver.pacman"
+source=("$_file::$url/releases/download/$_ver/$_file")
 sha256sums=('SKIP')
 options=(!strip)
 
 package() {
-  tar xJf ${_file} -C "${pkgdir}" usr opt
+  tar xJf "$_file" -C "$pkgdir" usr opt
 
-  mkdir "${pkgdir}/usr/bin"
-  ln -s "/opt/Heroic/heroic" "${pkgdir}/usr/bin/heroic"
+  mkdir "$pkgdir/usr/bin"
+  ln -s "/opt/Heroic/heroic" "$pkgdir/usr/bin/heroic"
 }
