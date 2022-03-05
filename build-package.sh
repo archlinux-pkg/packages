@@ -77,8 +77,8 @@ do
 
   export BUILDDIR='/home/nobody/makepkg'
 
-  usermod -e '' nobody
-  chown -R nobody .
+  sudo usermod -e '' nobody
+  sudo chown -R nobody .
 
   sudo pacman -Sy
 
