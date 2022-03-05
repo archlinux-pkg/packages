@@ -8,6 +8,7 @@ mkdir -p "${SRCDIR}/pkgfiles"
 declare -a PACKAGE_LIST=()
 
 export BUILDDIR="${SRCDIR}/build_dir"
+mkdir -p "$BUILDDIR"
 
 echo "==> Creating /etc/buildtime..."
 echo $(date +"%s") | sudo tee /etc/buildtime
@@ -68,7 +69,7 @@ do
 
   cd "${pkgdir}"
 
-  sudo chown -R build .
+  sudo chown -R build "$SRCDIR/build_dir"
 
   sudo pacman -Sy
 
