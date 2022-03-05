@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/spotify.git'
-_commit=598d091117bde3cc93950ba46ea619ffac2e3bb6
+_commit=ed62580a475c8ae2b4266e3a369beeec0a974983
