@@ -73,7 +73,7 @@ do
 
   sudo mkdir -p /home/nobody
   sudo chown -R nobody /home/nobody
-  usermod -d /home/nobody nobody
+  sudo usermod -d /home/nobody nobody
 
   export BUILDDIR='/home/nobody/makepkg'
 
