@@ -71,6 +71,8 @@ jobs:
         run: |
           cd pkgs
 
+          sudo chown -R $(whoami) .
+
           for file in *.pkg.tar*
           do
             new_filename="${file//:/_}"
