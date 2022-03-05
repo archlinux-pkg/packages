@@ -43,45 +43,45 @@ do
   if [ -f "${pkgdir}/git.sh" ]
   then
     custom_vars=$(
-      . "${pkgdir}/git.sh"
+      . "$pkgdir/git.sh"
       echo "git_repo=${_git};"
       echo "commit=${_commit};"
     )
 
-    eval "${custom_vars}"
+    eval "$custom_vars"
 
-    mv "${pkgdir}" "${pkgdir}.old"
+    mv "$pkgdir" "$pkgdir.old"
 
-    git clone "${git_repo}" "${pkgdir}"
+    git clone "$git_repo" "$pkgdir"
 
-    cd "${pkgdir}"
+    cd "$pkgdir"
 
-    git reset --hard ${commit}
+    git reset --hard "$commit"
 
     code=$?
 
-    if [ ${code} != 0 ]
+    if [ $code != 0 ]
     then
-      echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> "${ROOT_DIR}/fail_built.txt"
+      echo "${PACKAGE_LIST[i]} | exit code: $code" >> "$ROOT_DIR/fail_built.txt"
       continue
     fi
   fi
 
-  cd "${pkgdir}"
+  cd "$pkgdir"
 
-  sudo chown -R build "$SRCDIR/build_dir"
+  sudo chown -R build:build "$BUILDDIR"
 
   sudo pacman -Sy
 
-  mkdir -p "${SRCDIR}/pkgs"
+  mkdir -p "$SRCDIR/pkgs"
 
-  SOURCE_DATE_EPOCH=$(cat /etc/buildtime) PKGDEST="${SRCDIR}/pkgs" makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+  SOURCE_DATE_EPOCH=$(cat /etc/buildtime) PKGDEST="$SRCDIR/pkgs" makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
   code=$?
 
-  if [ ${code} != 0 ]
+  if [ $code != 0 ]
   then
-    echo "${PACKAGE_LIST[i]} | exit code: ${code}" >> "${ROOT_DIR}/fail_built.txt"
+    echo "${PACKAGE_LIST[i]} | exit code: $code" >> "$ROOT_DIR/fail_built.txt"
   fi
 
   echo "::endgroup::"
