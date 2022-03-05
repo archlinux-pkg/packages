@@ -7,7 +7,7 @@ mkdir -p "${SRCDIR}/pkgfiles"
 
 declare -a PACKAGE_LIST=()
 
-export BUILDDIR="${SRCDIR}/build_dir"
+export BUILDDIR="/tmp/build_dir"
 mkdir -p "$BUILDDIR"
 
 echo "==> Creating /etc/buildtime..."
