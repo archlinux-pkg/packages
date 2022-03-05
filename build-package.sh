@@ -76,15 +76,18 @@ do
   sudo usermod -d /home/nobody nobody
 
   export BUILDDIR='/home/nobody/makepkg'
+  export PKGDEST="$SRCDIR/pkgs"
 
   sudo usermod -e '' nobody
   sudo chown -R nobody .
+  sudo mkdir "$PKGDEST"
+  sudo chown -R nobody "$PKGDEST"
 
   sudo pacman -Sy
 
   mkdir -p "$SRCDIR/pkgs"
 
-  SOURCE_DATE_EPOCH=$(cat /etc/buildtime) PKGDEST="$SRCDIR/pkgs" sudo -u nobody -E -H makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+  SOURCE_DATE_EPOCH=$(cat /etc/buildtime)  sudo -u nobody -E -H makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
   code=$?
 
