@@ -3,12 +3,18 @@
 
 #? variables
 SRCDIR='/mnt/src'
+USER=$(whoami)
 
 #? makepkg variables
 export BUILDDIR='/mnt/builddir'
 export PKGDEST='/mnt/pkgdest'
 
 declare -a PACKAGE_LIST=()
+
+sudo chown -R "$USER" \
+  "$SRCDIR" \
+  "$BUILDDIR" \
+  "$PKGDEST"
 
 cd "$SRCDIR"
 
