@@ -1,14 +1,16 @@
 #!/bin/bash
 #? This file is a modified version of: https://github.com/termux/termux-packages/blob/715ce90c53eb9e44c12a5378df907a94522f7df2/build-package.sh
-ROOT_DIR=$(pwd)
-SRCDIR=$(pwd)
 
-mkdir -p "${SRCDIR}/pkgfiles"
+#? variables
+SRCDIR='/mnt/src'
+
+#? makepkg variables
+export BUILDDIR='/mnt/builddir'
+export PKGDEST='/mnt/pkgdest'
 
 declare -a PACKAGE_LIST=()
 
-export BUILDDIR="/tmp/build_dir"
-mkdir -p "$BUILDDIR"
+cd "$SRCDIR"
 
 echo "==> Creating /etc/buildtime..."
 echo $(date +"%s") | sudo tee /etc/buildtime
@@ -62,7 +64,7 @@ do
 
     if [ $code != 0 ]
     then
-      echo "${PACKAGE_LIST[i]} | exit code: $code" >> "$ROOT_DIR/fail_built.txt"
+      echo "${PACKAGE_LIST[i]} | exit code: $code" >> "$SRCDIR/fail_built.txt"
       continue
     fi
   fi
@@ -71,44 +73,25 @@ do
 
   sudo chown -R build:build "$BUILDDIR"
 
-  sudo mkdir -p /home/nobody
-  sudo chown -R nobody /home/nobody
-  sudo usermod -d /home/nobody nobody
-
-  export BUILDDIR='/home/nobody/makepkg'
-  export PKGDEST="$SRCDIR/pkgs"
-
-  # this is a very ugly fix for recent makepkg-5.1-chmod-shenanigans, which mess up the build process in docker (from https://gitlab.com/librewolf-community/browser/arch/-/blob/521415e6d4c192a2d3afac0afa346c3a80b1be4f/ci.build.sh)
-  sudo sed -E -i 's/^chmod a-s \"\$BUILDDIR\"$/# chmod a-s \"\$BUILDDIR\"/' `which makepkg`
-
-  echo 'nobody ALL=(ALL) NOPASSWD: /usr/bin/pacman' | sudo tee --append /etc/sudoers
-
-  sudo usermod -e '' nobody
-  sudo chown -R nobody .
-  sudo mkdir "$PKGDEST"
-  sudo chown -R nobody "$PKGDEST"
-
   sudo pacman -Sy
 
-  mkdir -p "$SRCDIR/pkgs"
-
-  SOURCE_DATE_EPOCH=$(cat /etc/buildtime)  sudo -u nobody -E -H makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+  SOURCE_DATE_EPOCH=$(cat /etc/buildtime) makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
   code=$?
 
   if [ $code != 0 ]
   then
-    echo "${PACKAGE_LIST[i]} | exit code: $code" >> "$ROOT_DIR/fail_built.txt"
+    echo "${PACKAGE_LIST[i]} | exit code: $code" >> "$SRCDIR/fail_built.txt"
   fi
 
   echo "::endgroup::"
 done
 
-if [ -f "${ROOT_DIR}/fail_built.txt" ]
+if [ -f "${SRCDIR}/fail_built.txt" ]
 then
   printf "\n\nFailed to build:\n"
 
-  cat --number "${ROOT_DIR}/fail_built.txt"
+  cat --number "${SRCDIR}/fail_built.txt"
 
   exit 1
 fi

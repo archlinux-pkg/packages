@@ -20,7 +20,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: ghcr.io/archlinux-pkg/packages:latest
 
     steps:
       - name: Clone repository
