@@ -1,4 +1,4 @@
 #!/bin/bash
 
 _git='https://aur.archlinux.org/dxvk-mingw.git'
-_commit=d8e7c0c1fa70e1500e35384de54df402a28f0290
+_commit=b7249fd3437b0d89cd46f0e3c2f71465e45d86be
