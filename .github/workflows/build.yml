@@ -46,8 +46,6 @@ jobs:
             cat --number deleted_packages.txt
           fi
 
-          sudo chown -R build .
-
       - name: Build
         if: always()
         env:
@@ -56,7 +54,7 @@ jobs:
         run: |
           if [ -f ./built_packages.txt ]
           then
-            su -c '.github/scripts/build/build.sh' build
+            ./.github/scripts/build/build.sh
           fi
 
       - name: Packages
@@ -111,5 +109,5 @@ jobs:
         run: |
           if [ -f ./built_packages.txt ]
           then
-            su -c './.github/scripts/upload.sh' build
+            ./.github/scripts/upload.sh
           fi
