@@ -71,11 +71,20 @@ do
 
   sudo chown -R build:build "$BUILDDIR"
 
+  mkdir -p /home/nobody
+  sudo chown -R nobody /home/nobody
+  usermod -d /home/nobody nobody
+
+  export BUILDDIR='/home/nobody/makepkg'
+
+  usermod -e '' nobody
+  chown -R nobody .
+
   sudo pacman -Sy
 
   mkdir -p "$SRCDIR/pkgs"
 
-  SOURCE_DATE_EPOCH=$(cat /etc/buildtime) PKGDEST="$SRCDIR/pkgs" makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+  SOURCE_DATE_EPOCH=$(cat /etc/buildtime) PKGDEST="$SRCDIR/pkgs" sudo -u nobody -E -H makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
   code=$?
 
