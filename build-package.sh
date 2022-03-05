@@ -72,14 +72,11 @@ do
   sudo chown -R build:build "$BUILDDIR"
 
   # this is a very ugly fix for recent makepkg-5.1-chmod-shenanigans, which mess up the build process in docker (from https://gitlab.com/librewolf-community/browser/arch/-/blob/521415e6d4c192a2d3afac0afa346c3a80b1be4f/ci.build.sh)
-  sed -E -i 's/^chmod a-s \"\$BUILDDIR\"$/# chmod a-s \"\$BUILDDIR\"/' `which makepkg`
+  sudo sed -E -i 's/^chmod a-s \"\$BUILDDIR\"$/# chmod a-s \"\$BUILDDIR\"/' `which makepkg`
 
-  export BUILDDIR='/home/nobody/makepkg'
   export PKGDEST="$SRCDIR/pkgs"
 
   sudo pacman -Sy
-
-  mkdir -p "$SRCDIR/pkgs"
 
   SOURCE_DATE_EPOCH=$(cat /etc/buildtime)  makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
