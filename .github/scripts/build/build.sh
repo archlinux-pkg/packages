@@ -14,4 +14,4 @@ sudo docker run \
   --mount type=bind,source="$PKGDEST",target=/mnt/pkgdest \
   --mount type=bind,source="$SRCDIR",target=/mnt/src \
   "$DOCKER_IMAGE" \
-  /mnt/src/build-package.sh $(cat ./built_packages.txt)
+  su -c '/mnt/src/build-package.sh $(cat ./built_packages.txt)' build
