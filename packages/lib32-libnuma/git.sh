@@ -1,2 +1,2 @@
 _git='https://aur.archlinux.org/lib32-libnuma.git'
-_commit='341d96336f0c8e8133d6da9425292d1957b1570f'
+_commit='d6b5e5b4e195bfd27e4f0e49ab1b0fb949955f85'
