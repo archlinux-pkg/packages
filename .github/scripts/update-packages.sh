@@ -113,7 +113,7 @@ do
     _commit_short="$(git log -n 1 --pretty=format:"%h")"
     cd "${BASEDIR}"
 
-    sed -i "s|^\(_commit=\)\(.*\)\$|\1${_commit_long}|g" "${pkg_dir}/git.sh"
+    sed -i "s|^\(_commit=\)\(.*\)\$|\1'${_commit_long}'|g" "${pkg_dir}/git.sh"
 
     rm -rf "${TEMPDIR}/git/${pkg_name}"
 

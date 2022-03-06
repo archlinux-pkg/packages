@@ -3,7 +3,6 @@
 
 #? variables
 SRCDIR='/mnt/src'
-USER=$(whoami)
 
 #? makepkg variables
 export BUILDDIR='/mnt/builddir'
@@ -11,10 +10,7 @@ export PKGDEST='/mnt/pkgdest'
 
 declare -a PACKAGE_LIST=()
 
-sudo chown -R "$USER" \
-  "$SRCDIR" \
-  "$BUILDDIR" \
-  "$PKGDEST"
+sudo chown -R $(id -u) /mnt/*
 
 cd "$SRCDIR"
 
@@ -44,11 +40,11 @@ done
 for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
   pkgname="${PACKAGE_LIST[i]}"
-  pkgdir="${SRCDIR}/packages/${pkgname}"
+  pkgdir="$SRCDIR/packages/$pkgname"
 
-  echo "::group::Building '${pkgname}'"
+  echo "::group::Building '$pkgname'"
 
-  if [ -f "${pkgdir}/git.sh" ]
+  if [ -f "$pkgdir/git.sh" ]
   then
     custom_vars=$(
       . "$pkgdir/git.sh"
@@ -77,8 +73,6 @@ do
 
   cd "$pkgdir"
 
-  sudo chown -R build:build "$BUILDDIR"
-
   sudo pacman -Sy
 
   SOURCE_DATE_EPOCH=$(cat /etc/buildtime) makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
@@ -93,11 +87,11 @@ do
   echo "::endgroup::"
 done
 
-if [ -f "${SRCDIR}/fail_built.txt" ]
+if [ -f "$SRCDIR/fail_built.txt" ]
 then
   printf "\n\nFailed to build:\n"
 
-  cat --number "${SRCDIR}/fail_built.txt"
+  cat --number "$SRCDIR/fail_built.txt"
 
   exit 1
 fi
