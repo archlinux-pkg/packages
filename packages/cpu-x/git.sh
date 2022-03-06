@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/cpu-x.git'
-_commit=786b1ba583a09a72b9a44a6e90b76789e31b8e4f
+_commit=f99df4aa8b55ad15d5db0ec1d7ee6bfa66bc4b69
