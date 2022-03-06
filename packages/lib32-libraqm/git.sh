@@ -1,2 +1,2 @@
 _git='https://aur.archlinux.org/lib32-libraqm.git'
-_commit='341d96336f0c8e8133d6da9425292d1957b1570f'
+_commit='c7ba7fb0ddfc487b3352c7e2300d119badbdbc95'
