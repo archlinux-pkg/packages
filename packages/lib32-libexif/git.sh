@@ -1,2 +1,2 @@
 _git='https://aur.archlinux.org/lib32-libexif.git'
-_commit='341d96336f0c8e8133d6da9425292d1957b1570f'
+_commit='e3e5b5bea6b317bb61215b4edad5e68bf5cfc8b3'
