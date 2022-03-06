@@ -1,2 +1,2 @@
 _git='https://aur.archlinux.org/lib32-dav1d.git'
-_commit='341d96336f0c8e8133d6da9425292d1957b1570f'
+_commit='15724a3479991cd82434d1d08cc26af0a6cb09da'
