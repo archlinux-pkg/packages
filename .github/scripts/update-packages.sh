@@ -101,25 +101,29 @@ do
     custom_vars=$(
       . "${pkg_dir}/git.sh"
       echo "git_repo=${_git};"
+      echo "git_commit=${_commit};"
     )
 
-    eval "${custom_vars}"
+    eval "$custom_vars"
 
     # Get latest commat from AUR
-    git clone "${git_repo}" "${TEMPDIR}/git/${pkg_name}" --depth 1 2> /dev/null
+    git clone "$git_repo" "$TEMPDIR/git/$pkg_name" --depth 1 &> /dev/null
 
-    cd "${TEMPDIR}/git/${pkg_name}"
+    cd "$TEMPDIR/git/$pkg_name"
     _commit_long="$(git log -n 1 --pretty=format:"%H")"
     _commit_short="$(git log -n 1 --pretty=format:"%h")"
-    cd "${BASEDIR}"
+    cd "$BASEDIR"
 
-    sed -i "s|^\(_commit=\)\(.*\)\$|\1'${_commit_long}'|g" "${pkg_dir}/git.sh"
+    rm -rf "$TEMPDIR/git/$pkg_name"
 
-    rm -rf "${TEMPDIR}/git/${pkg_name}"
+    if [ "$git_commit" != "$_commit_long" ]
+    then
+      sed -i "s|^\(_commit=\)\(.*\)\$|\1'$_commit_long'|g" "$pkg_dir/git.sh"
 
-    git add ${pkg_dir}
-    git diff-index --quiet HEAD || git commit -m "update '${pkg_name}' to AUR commit '${_commit_short}'"
-    git pull --rebase > /dev/null
-    git push 2> /dev/null
+      git add "$pkg_dir"
+      git diff-index --quiet HEAD || git commit -m "update '$pkg_name' to AUR commit '$_commit_short'"
+      git pull --rebase &> /dev/null
+      git push &> /dev/null
+    fi
   fi
 done
