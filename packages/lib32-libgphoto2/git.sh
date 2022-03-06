@@ -1,2 +1,2 @@
 _git='https://aur.archlinux.org/lib32-libgphoto2.git'
-_commit='341d96336f0c8e8133d6da9425292d1957b1570f'
+_commit='ade21c310d208de60652f4b3a3ae2f54be81b0f3'
