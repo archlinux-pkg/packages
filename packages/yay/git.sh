@@ -1,2 +1,2 @@
 _git='https://aur.archlinux.org/yay.git'
-_commit='cdf06b6781263e24d98754a99d70857aa959f691'
+_commit='b773371c25f6685b2d3a031a40f0b6af447965d0'
