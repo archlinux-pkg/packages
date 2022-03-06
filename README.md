@@ -5,14 +5,16 @@
 **First, install the primary key - it can then be used to install our mirrorlist**
 
 ```bash
-$ sudo pacman-key --recv-key 7A6646A6C14690C0
-$ sudo pacman-key --lsign-key 7A6646A6C14690C0
-$ sudo pacman -U 'https://arch-repo.magicuser.cf/medzikuser-mirrorlist.pkg.tar.xz'
+sudo pacman-key --recv-key 7A6646A6C14690C0
+sudo pacman-key --lsign-key 7A6646A6C14690C0
+sudo pacman -U 'https://arch-repo.magicuser.cf/medzikuser-mirrorlist.pkg.tar.xz'
 ```
 
-**Append (adding to the end of the file) to `/etc/pacman.conf`:**
+**This command will add what repo to pacman.conf**
 
-```toml
+```bash
+echo '
 [medzikuser]
-Include = /etc/pacman.d/medzikuser-mirrorlist
+SigLevel = DatabaseOptional
+Include = /etc/pacman.d/mirrorlist-medzikuser' | sudo tee --append /etc/pacman.conf
 ```
