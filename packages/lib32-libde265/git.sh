@@ -1,2 +1,2 @@
 _git='https://aur.archlinux.org/lib32-libde265.git'
-_commit='341d96336f0c8e8133d6da9425292d1957b1570f'
+_commit='6851d812a4ae7638d9ec9431229b5963564d6f4a'
