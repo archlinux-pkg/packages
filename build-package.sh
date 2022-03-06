@@ -5,8 +5,8 @@
 SRCDIR='/mnt/src'
 
 #? makepkg variables
-export BUILDDIR='/mnt/builddir'
-export PKGDEST='/mnt/pkgdest'
+export BUILDDIR='/mnt/build'
+export PKGDEST='/mnt/pkgs'
 
 declare -a PACKAGE_LIST=()
 
@@ -17,32 +17,17 @@ cd "$SRCDIR"
 echo "==> Creating /etc/buildtime..."
 echo $(date +"%s") | sudo tee /etc/buildtime
 
-if [ "$#" -lt 1 ]
-then
-  printf "./build-package.sh: type package name to build\n"
-  exit 2
-fi
-
-while (($# >= 1))
+while IFS= read -r line
 do
-  case "$1" in
-    -*)
-      printf "./build-package.sh: illegal option '$1'\n"
-      exit 2
-      ;;
-    *)
-      PACKAGE_LIST+=("$1")
-      ;;
-  esac
-  shift 1
-done
+  PACKAGE_LIST+=("$line")
+done < "$SRCDIR/built_packages.txt"
 
 for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
   pkgname="${PACKAGE_LIST[i]}"
   pkgdir="$SRCDIR/packages/$pkgname"
 
-  echo "::group::Building '$pkgname'"
+  echo "::group::==> Building '$pkgname'"
 
   if [ -f "$pkgdir/git.sh" ]
   then
