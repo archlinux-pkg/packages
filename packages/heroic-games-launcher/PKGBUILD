@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='Heroic-Games-Launcher/HeroicGamesLauncher'
-_ver=v2.2.1
+_ver=v2.2.2
 _auto_update=true
 
 pkgname='heroic-games-launcher'
 pkgdesc='A Native GUI Epic Games Launcher and GOG for Linux, Windows and Mac'
-pkgver=2.2.1
+pkgver=2.2.2
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/$_repo"
@@ -16,7 +16,7 @@ optdepends=('legendary')
 
 _file="heroic-$pkgver.pacman"
 source=("$_file::$url/releases/download/$_ver/$_file")
-sha256sums=('SKIP')
+sha256sums=('4b38e1a461447aa0c9334ac518185511114fac7616bc4c37031f3664398cbf55')
 options=(!strip)
 
 package() {
