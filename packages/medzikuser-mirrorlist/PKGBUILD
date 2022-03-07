@@ -1,7 +1,7 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='medzikuser-mirrorlist'
-pkgver=2022.3.4
-pkgrel=3
+pkgver=2022.3.7
+pkgrel=1
 pkgdesc='MedzikUser repo mirrorlist to use with Pacman'
 arch=('any')
 url='https://arch-repo.magicuser.cf'

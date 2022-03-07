@@ -1,6 +1,6 @@
 # Hosted on SourceForge via Proxy
-## Worldwide
+## Worldwide (Cloudflare)
 Server = https://arch-repo.magicuser.cf/$arch
 Server = https://arch-repo.gaming0skar123.workers.dev/$arch
-## Poland
+## Germany
 Server = http://ct8.pl:54267/$arch
