@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/webcord.git'
-_commit='63a09efecadb5405837f9ca656cd8d9c9875c45f'
+_commit='d162b7c39cc887703761ec07528ef38af6b66dcc'
