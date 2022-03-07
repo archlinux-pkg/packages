@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/pi-hole-ftl.git'
-_commit='50aad066b641bb3a00888b3881803baac3a326b7'
+_commit='5dac79c17dcd279c82093507df30c0f463c6c0f3'
