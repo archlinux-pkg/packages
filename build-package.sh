@@ -7,6 +7,8 @@ SRCDIR='/mnt/src'
 #? makepkg variables
 export BUILDDIR='/mnt/build'
 export PKGDEST='/mnt/pkgs'
+
+#? set home dir
 export HOME='/mnt/home'
 
 declare -a PACKAGE_LIST=()
