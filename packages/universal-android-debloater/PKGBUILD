@@ -28,19 +28,23 @@ prepare() {
 build() {
   cd "$srcdir/$pkgname-$pkgver"
 
+  export RUSTUP_TOOLCHAIN=nightly
+
   # OpenGL
+  echo '=> Compiling with OpenGL...'
   cargo build --release --features glow
   mv target/release/uad_gui target/release/uad_gui-opengl
 
   # Vulkan
+  echo '=> Compiling with Vulkan...'
   cargo build --release --features wgpu
 }
 
 package() {
   cd "$srcdir/$pkgname-$pkgver"
 
-  install -Dm755 target/release/uad_gui{,-opengl} -t "$pkgdir/usr/bin"
-  install -Dm644 "$srcdir"/uad_gui{,-opengl}.desktop -t "$pkgdir/usr/share/applications"
+  install -Dm 755 target/release/uad_gui{,-opengl} -t "$pkgdir/usr/bin"
+  install -Dm 644 "$srcdir"/uad_gui{,-opengl}.desktop -t "$pkgdir/usr/share/applications"
 
   install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
