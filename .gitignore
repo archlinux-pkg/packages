@@ -14,3 +14,12 @@ env.sh
 # makepkg
 packages/*/src
 packages/*/pkg
+
+# build dir
+/build
+/buildir
+
+# pkgs dest
+/pkgs
+/pkgsdest
+/pkgdest

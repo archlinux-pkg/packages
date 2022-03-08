@@ -3,16 +3,16 @@ _repo='0x192/universal-android-debloater'
 _ver=0.4.1
 _auto_update=true
 
-pkgname="universal-android-debloater"
+pkgname='universal-android-debloater'
 pkgver=0.4.1
 pkgrel=1
-pkgdesc='Cloudflare Tunnel client (formerly Argo Tunnel)'
+pkgdesc='Cross-platform GUI written in Rust using ADB to debloat non-rooted android devices. Improve your privacy, the security and battery life of your device'
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('GPL3')
 
 depends=('android-tools' 'expat' 'freetype2')
-makedepends=('cargo' 'libxkbcommon' 'pkg-config')
+makedepends=('cargo-nightly' 'libxkbcommon' 'pkg-config')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/${_ver}.tar.gz")
 sha256sums=('SKIP')
@@ -31,12 +31,12 @@ build() {
   export RUSTUP_TOOLCHAIN=nightly
 
   # OpenGL
-  echo '=> Compiling with OpenGL...'
+  echo '==> Compiling with OpenGL...'
   cargo build --release --features glow
   mv target/release/uad_gui target/release/uad_gui-opengl
 
   # Vulkan
-  echo '=> Compiling with Vulkan...'
+  echo '==> Compiling with Vulkan...'
   cargo build --release --features wgpu
 }
 
