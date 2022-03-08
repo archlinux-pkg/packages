@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/android-platform-29.git'
-_commit='302770c8f595d5db0ea0cc20b07cd7c3b46eb282'
+_commit='0e870737e7dbed748e97e355e8146d167c0ed6b2'
