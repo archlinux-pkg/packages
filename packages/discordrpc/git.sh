@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/discordrpc.git'
-_commit='e74e0c69f80099b2983059747f9ae1ea389fa17f'
+_commit='969c1d75c21c98d04cb253d1b50ee82c6a45e7ce'
