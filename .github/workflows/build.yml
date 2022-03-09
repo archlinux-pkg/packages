@@ -124,7 +124,5 @@ jobs:
         run: |
           if [ -f ./built_packages.txt ]
           then
-            ls ./logs
-            ls ./logs/*
             ./.github/scripts/upload-logs.sh
           fi

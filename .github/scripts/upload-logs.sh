@@ -4,16 +4,13 @@ source "$DIR/connectsftp.sh"
 
 upload() {
   local file="$1"
-  local type="$2"
 
   for (( i=0; i<10; i++ ))
   do
-    if [ "$type" != "overwrite" ]
-    then
-      upload_file "$file"
-    else
-      upload_file_overwrite "$file"
-    fi
+    echo "==> Uploading: $@..."
+
+    export SSHPASS="$FTP_PASSWORD"
+    sshpass -e rsync -avL $@ -e ssh "$FTP_USER@$FTP_URI:$FTP_CWD/../logs"
 
     EXIT_STATUS=$?
     echo "==> $file | exit code: $EXIT_STATUS"
@@ -27,13 +24,11 @@ upload() {
   done
 }
 
-type="overwrite"
-
 for file in ./logs/*
 do
   if [ -f "$file" ]
   then
-    upload "$file" "$type" &
+    upload "$file" &
   fi
 done
 wait
