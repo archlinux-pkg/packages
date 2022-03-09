@@ -9,6 +9,7 @@ DOCKER_IMAGE="ghcr.io/archlinux-pkg/packages:latest"
 
 mkdir -p \
   "$BUILDDIR" \
+  "$LOGDIR" \
   "$PKGDEST" \
   "$HOMEDIR"
 
