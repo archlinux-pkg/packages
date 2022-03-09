@@ -5,8 +5,10 @@
 SRCDIR='/mnt/src'
 
 #? makepkg variables
+MAKEPKGARGS='--log --rmdeps --clean --skippgpcheck --noconfirm'
 export BUILDDIR='/mnt/build'
 export PKGDEST='/mnt/pkgs'
+export LOGDEST='/mnt/logs'
 
 #? set home dir
 export HOME='/mnt/home'
@@ -20,11 +22,13 @@ cd "$SRCDIR"
 echo "==> Creating /etc/buildtime..."
 echo $(date +"%s") | sudo tee /etc/buildtime
 
+#* check the packages to built from file built_packages.txt, add them to the PACKAGE_LIST variable
 while IFS= read -r line
 do
   PACKAGE_LIST+=("$line")
 done < "$SRCDIR/built_packages.txt"
 
+#* built packages one by one
 for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
 do
   pkgname="${PACKAGE_LIST[i]}"
@@ -78,7 +82,7 @@ do
     fi
   done
 
-  SOURCE_DATE_EPOCH=$(cat /etc/buildtime) makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
+  SOURCE_DATE_EPOCH=$(cat /etc/buildtime) makepkg $MAKEPKGARGS
 
   code=$?
 

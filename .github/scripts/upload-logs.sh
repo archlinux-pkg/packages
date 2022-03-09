@@ -27,15 +27,9 @@ upload() {
   done
 }
 
-if [ $# -eq 0 ]
-then
-  type="normal"
-elif [ "$1" == "overwrite" ]
-then
-  type="overwrite"
-fi
+type="overwrite"
 
-for file in ./pkgs/*
+for file in ./logs/*
 do
   if [ -f "$file" ]
   then

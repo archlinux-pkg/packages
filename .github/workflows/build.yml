@@ -113,3 +113,18 @@ jobs:
           then
             ./.github/scripts/upload.sh
           fi
+
+      - name: Upload logs
+        if: always() && github.event_name != 'pull_request'
+        env:
+          FTP_URI: ${{ secrets.FTP_URI }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_CWD: ${{ secrets.FTP_CWD }}
+        run: |
+          if [ -f ./built_packages.txt ]
+          then
+            ls ./logs
+            ls ./logs/*
+            ./.github/scripts/upload-logs.sh
+          fi
