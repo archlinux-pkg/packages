@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='VSCodium/vscodium'
 _auto_update=true
-_ver=1.65.0
+_ver=1.65.1
 
 pkgname='codium'
 pkgdesc='Free/Libre Open Source Software Binaries of VSCode'
-pkgver=1.65.0
+pkgver=1.65.1
 pkgrel=1
 arch=('x86_64')
 microsofturl='https://github.com/microsoft/vscode'
@@ -57,14 +57,12 @@ source=(
   "${pkgname}.js"
   "${pkgname}.sh"
 )
-sha256sums=(
-  'SKIP'
-  'SKIP'
-  'SKIP'
-  'SKIP'
-  'SKIP'
-  'SKIP'
-)
+sha256sums=('SKIP'
+            'SKIP'
+            'c1339ef39bb4a3b4d79cedb0b5a9837b95259424677eb6483e38eb02fbf7a485'
+            'cbbb81153ae784d08c20b450c172f6068501558487c6ea8d587506594d6828fe'
+            '8163558373e5093988717a5e576003718713a6aa97b62ef68f077badddbead03'
+            'a23f31a316fa2965fab5333f748388854935fb9e23fa1a6ea0e88e323909aee4')
 
 # Even though we don't officially support other archs, let's allow the
 # user to use this PKGBUILD to compile the package for their architecture.
