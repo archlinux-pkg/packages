@@ -61,7 +61,22 @@ do
 
   cd "$pkgdir"
 
-  sudo pacman -Sy
+  echo "==> Sychronizing dependencies..."
+  for (( i=0; i<15; i++ ))
+  do
+    sudo pacman -Sy
+    makepkg --nobuild --noextract --syncdeps --noconfirm
+
+    EXIT_STATUS=$?
+
+    if ! (( $EXIT_STATUS ))
+    then
+      break
+    else
+      sleep 2
+      echo "==> Sychronizing dependencies... (attempt $i)"
+    fi
+  done
 
   SOURCE_DATE_EPOCH=$(cat /etc/buildtime) makepkg --sync --rmdeps --clean --skippgpcheck --noconfirm
 
