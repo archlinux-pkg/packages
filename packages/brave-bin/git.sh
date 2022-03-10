@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/brave-bin.git'
-_commit='a1a19afaf18c2416d7de16c1ade32e89bfdca98e'
+_commit='b51a0a64fe5ebdde52f5ae09b98c60badb218a12'
