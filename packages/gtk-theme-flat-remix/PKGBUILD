@@ -1,10 +1,10 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='daniruiz/flat-remix-gtk'
-_ver=20220215
+_ver=20220310
 _auto_update=true
 
 pkgname='gtk-theme-flat-remix'
-pkgver=20220215
+pkgver=20220310
 pkgrel=1
 pkgdesc='Flat Remix is a GTK application theme inspired by material design. It is mostly flat using a colorful palette with some shadows, highlights, and gradients for some depth.'
 arch=('any')
