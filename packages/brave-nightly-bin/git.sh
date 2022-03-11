@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/brave-nightly-bin.git'
-_commit='4396ec986b7524363dc3160660cd6b77820e7f7e'
+_commit='523687c5a35a58bdbf5c9627d147a377d6d59b5d'
