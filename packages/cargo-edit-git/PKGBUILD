@@ -5,8 +5,8 @@ _auto_update=true
 _auto_update_git=true
 
 pkgname='cargo-edit-git'
-conflicts='cargo-edit'
-provides='cargo-edit'
+conflicts=('cargo-edit')
+provides=('cargo-edit')
 epoch=1
 pkgver=v0.8.0.r178.g56cc9079
 pkgrel=1
