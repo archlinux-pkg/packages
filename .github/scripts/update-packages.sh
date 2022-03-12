@@ -35,8 +35,8 @@ do
       git clone "https://github.com/${pkg_repo}.git" "${TEMPDIR}/git/${pkg_name}" 2> /dev/null
 
       cd "${TEMPDIR}/git/${pkg_name}"
-      latest_tag=$(git log -1 --date=short --pretty=format:"%H")
-      version=$(git log -1 --date=short --pretty=format:%cd_%ct | sed -r 's/-/./g')
+      latest_tag=$(git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g')
+      version=$latest_tag
       cd ${BASEDIR}
 
       rm -rf "${TEMPDIR}/git/${pkg_name}"
