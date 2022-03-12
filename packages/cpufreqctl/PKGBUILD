@@ -6,17 +6,19 @@ _auto_update=true
 _pkgname='cpufreqctl'
 pkgname="${_pkgname}"
 pkgver=10.0.1
-pkgrel=1
-pkgdesc="A intel_pstate CPU freq controller for regular user (extracted from extension 'CPU Power Manager for Gnome"
+pkgrel=2
+pkgdesc="A intel_pstate CPU freq controller for regular user (extracted from extension 'CPU Power Manager for Gnome)"
 arch=('any')
+url="https://github.com/$_repo"
+license=('GPL')
+
 depends=('gnome-shell')
 makedepends=('zip')
-url="https://github.com/${_repo}"
-license=('GPL')
-source=("${_pkgname}::git+${url}#tag=${_ver}")
+
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
 sha256sums=('SKIP')
 
 package() {
-  cd "${_pkgname}"
+  cd "$srcdir/$pkgname-$pkgver"
   make install PREFIX="${pkgdir}/usr"
 }

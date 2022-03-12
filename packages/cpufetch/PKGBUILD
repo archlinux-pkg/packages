@@ -3,26 +3,24 @@ _repo='Dr-Noob/cpufetch'
 _ver=v1.00
 _auto_update=true
 
-_pkgname='cpufetch'
-pkgname="${_pkgname}"
+pkgname='cpufetch'
 pkgver=1.00
 pkgrel=2
 pkgdesc='Simple yet fancy CPU architecture fetching tool'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/$_repo"
 license=('MIT')
-makedepends=('git')
-source=("${_pkgname}::git+${url}#tag=${_ver}")
+
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
 sha256sums=('SKIP')
 
 build() {
-  cd "${pkgname}"
+  cd "$srcdir/$pkgname-$pkgver"
   make
 }
 
 package() {
-  cd "${pkgname}"
-
-  make DESTDIR="${pkgdir}" install
-  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd "$srcdir/$pkgname-$pkgver"
+  make DESTDIR="$pkgdir" install
+  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

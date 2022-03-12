@@ -1,47 +1,38 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo=evanw/esbuild
+_repo='evanw/esbuild'
 _ver=v0.14.25
 _auto_update=true
 
-_pkgname="esbuild"
-pkgname="${_pkgname}"
+pkgname='esbuild'
 pkgver=0.14.25
 pkgrel=1
 pkgdesc='An extremely fast JavaScript and CSS bundler and minifier'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/$_repo"
 license=('MIT')
 
-depends=('glibc')
-makedepends=('git' 'go')
+makedepends=('go')
 
-source=("${_pkgname}::git+${url}.git#tag=${_ver}")
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
 sha256sums=('SKIP')
 
 build() {
-  cd "${_pkgname}"
+  cd "$srcdir/$pkgname-$pkgver"
 
-  local _flags
-  _flags=(
-    -s -w
-  )
-
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
   export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -modcacherw"
 
   go build \
     -v \
-    -ldflags "${_flags[*]}" \
-    -o bin/${_pkgname} \
-    ./cmd/${_pkgname}
+    -o bin/$pkgname \
+    ./cmd/$pkgname
 }
 
 package() {
-  cd "${_pkgname}"
-
-  install -Dm 755 bin/${_pkgname} "${pkgdir}/usr/bin/${_pkgname}"
-  install -Dm 644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd "$srcdir/$pkgname-$pkgver"
+  install -Dm 755 bin/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm 644 LICENSE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

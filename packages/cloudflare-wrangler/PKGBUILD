@@ -4,29 +4,27 @@ _ver=v1.19.8
 _auto_update=true
 
 _pkgname='wrangler'
-pkgname="cloudflare-${_pkgname}"
+pkgname="cloudflare-$_pkgname"
 pkgver=1.19.8
 pkgrel=1
 pkgdesc='Command-line tool for working with Cloudflare Workers'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/$_repo"
 license=('Apache' 'MIT')
-makedepends=('git' 'cargo')
-source=("${_pkgname}::git+${url}#tag=${_ver}")
+
+makedepends=('cargo')
+
+source=("$_pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
 sha256sums=('SKIP')
 
 build() {
-  cd "${_pkgname}"
-
-  rm -rf .cargo/config.toml
-
+  cd "$srcdir/$_pkgname-$pkgver"
   cargo build --release --locked
 }
 
 package() {
-  cd "${_pkgname}"
-
-  install -Dm 755 target/release/${_pkgname} "${pkgdir}/usr/bin/${_pkgname}"
-  install -Dm 644 LICENSE-APACHE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-APACHE"
-  install -Dm 644 LICENSE-MIT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-MIT"
+  cd "$srcdir/$_pkgname-$pkgver"
+  install -Dm 755 target/release/$_pkgname "$pkgdir/usr/bin/$_pkgname"
+  install -Dm 644 LICENSE-APACHE "$pkgdir/usr/share/licenses/$pkgname/LICENSE-APACHE"
+  install -Dm 644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/LICENSE-MIT"
 }
