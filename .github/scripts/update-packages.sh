@@ -2,13 +2,19 @@
 #? This file is a modified version of: https://github.com/termux/termux-packages/blob/715ce90c53eb9e44c12a5378df907a94522f7df2/scripts/bin/update-packages
 BASEDIR="$(pwd)"
 TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
+DEBUG=true
 
 # Temporary dir for git clone
 mkdir -p "${TEMPDIR}/git"
 
 for pkg_dir in "${BASEDIR}"/packages/* "${BASEDIR}"/long-build/*
 do
-  pkg_name=$(basename ${pkg_dir})
+  pkg_name=$(basename $pkg_dir)
+
+  if [ "$DEBUG" == true ]
+  then
+    echo "Updating $pkg_name..."
+  fi
 
   if [ ! -f "${pkg_dir}/git.sh" ]
   then
@@ -35,7 +41,7 @@ do
     # Check the latest version from github
     if [ "${auto_update_git}" == true ]
     then
-      git clone "https://github.com/$pkg_repo.git" "$TEMPDIR/git/$pkg_name" &> /dev/null
+      git clone "https://github.com/$pkg_repo.git" "$TEMPDIR/git/$pkg_name" --depth 1 &> /dev/null
 
       cd "$TEMPDIR/git/$pkg_name"
       latest_tag=$(git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g')
@@ -66,7 +72,9 @@ do
     # npmjs.org package
     elif [ "$auto_update_npm" == true ]
     then
-      version=$(curl --location --silent "https://unpkg.com/$pkg_npm/package.json" | jq -r ".version")
+      latest_tag=$(curl --location --silent "https://unpkg.com/$pkg_npm/package.json" | jq -r ".version")
+
+      version=$latest_tag
     elif [ ! -f "${pkg_dir}/_version" ]
     then
       latest_tag=$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${pkg_repo}/releases/latest" | jq -r .tag_name)
