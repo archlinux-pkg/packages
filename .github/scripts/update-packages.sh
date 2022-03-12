@@ -17,6 +17,7 @@ do
       . "${pkg_dir}/PKGBUILD"
       echo "auto_update=${_auto_update};"
       echo "auto_update_git=${_auto_update_git};"
+      echo "auto_update_github_tag=${_auto_update_github_tag};"
       echo "pkg_tag=\"${_ver}\";"
       echo "pkg_repo=\"${_repo}\";"
     )
@@ -40,6 +41,19 @@ do
       cd ${BASEDIR}
 
       rm -rf "${TEMPDIR}/git/${pkg_name}"
+    elif [ "$auto_update_github_tag" == true ]
+    then
+      latest_tag=$(curl --location --silent -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/tags" | jq -r '.[0].name')
+
+      # Translate "_" into ".": some packages use underscores to seperate
+      # version numbers, but we require them to be separated by dots.
+      version=${latest_tag//_/.}
+
+      # Remove leading 'v' or 'r'
+      version=${version#[v,r]}
+
+      # Translate "-" into ".": pacman does not support - in pkgver
+      version=${version//-/.}
     elif [ ! -f "${pkg_dir}/_version" ]
     then
       latest_tag=$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${pkg_repo}/releases/latest" | jq -r .tag_name)
