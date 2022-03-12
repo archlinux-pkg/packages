@@ -2,7 +2,6 @@
 #? This file is a modified version of: https://github.com/termux/termux-packages/blob/715ce90c53eb9e44c12a5378df907a94522f7df2/scripts/bin/update-packages
 BASEDIR="$(pwd)"
 TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
-DEBUG=true
 
 # Temporary dir for git clone
 mkdir -p "${TEMPDIR}/git"
@@ -10,11 +9,6 @@ mkdir -p "${TEMPDIR}/git"
 for pkg_dir in "${BASEDIR}"/packages/* "${BASEDIR}"/long-build/*
 do
   pkg_name=$(basename $pkg_dir)
-
-  if [ "$DEBUG" == true ]
-  then
-    echo "Updating $pkg_name..."
-  fi
 
   if [ ! -f "${pkg_dir}/git.sh" ]
   then
