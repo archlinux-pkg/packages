@@ -4,47 +4,75 @@ BASEDIR="$(pwd)"
 TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 
 # Temporary dir for git clone
-mkdir -p "${TEMPDIR}/git"
+mkdir -p "$TEMPDIR/git"
 
-for pkg_dir in "${BASEDIR}"/packages/* "${BASEDIR}"/long-build/*
+for pkg_dir in "$BASEDIR"/packages/* "$BASEDIR"/long-build/*
 do
   pkg_name=$(basename $pkg_dir)
 
-  if [ ! -f "${pkg_dir}/git.sh" ]
+  if [ ! -f "$pkg_dir/git.sh" ]
   then
     build_vars=$(
       set +e +u
-      . "${pkg_dir}/PKGBUILD"
-      echo "auto_update=${_auto_update};"
-      echo "auto_update_git=${_auto_update_git};"
-      echo "auto_update_github_tag=${_auto_update_github_tag};"
-      echo "auto_update_npm=${_auto_update_npm};"
+      . "$pkg_dir/PKGBUILD"
+      echo "auto_update=$_auto_update;"
+      echo "auto_update_git=$_auto_update_git;"
+      echo "auto_update_github_tag=$_auto_update_github_tag;"
+      echo "auto_update_npm=$_auto_update_npm;"
       echo "pkg_tag=\"${_ver}\";"
       echo "pkg_repo=\"${_repo}\";"
       echo "pkg_npm=\"${_npm}\";"
     )
 
-    eval "${build_vars}"
+    eval "$build_vars"
 
     # Ignore packages that have auto-update disabled.
-    if [ "${auto_update}" != "true" ]
+    if [ "$auto_update" != "true" ]
     then
       continue
     fi
 
     # Check the latest version from github
-    if [ "${auto_update_git}" == true ]
+    if [ "$auto_update_git" == true ]
     then
       git clone "https://github.com/$pkg_repo.git" "$TEMPDIR/git/$pkg_name" --depth 1 &> /dev/null
 
       cd "$TEMPDIR/git/$pkg_name"
 
+      commit_short=$(git rev-parse --short HEAD)
       latest_tag=$(git rev-parse HEAD)
       version=$latest_tag
 
       cd "$BASEDIR"
 
       rm -rf "$TEMPDIR/git/$pkg_name"
+
+      if [ -z "$latest_tag" ] || [ "$latest_tag" = "null" ]
+      then
+        echo "Error: failed to get the latest version for '${pkg_name}'. Version returned 'null'."
+        continue
+      fi
+
+      if [ "$latest_tag" != "$pkg_tag" ]
+      then
+        echo "==> Updating '$pkg_name' to '$latest_tag'.."
+
+        sed -i "s|^\(pkgver=\)\(.*\)\$|\1$version|g" "$pkg_dir/PKGBUILD"
+        git diff-index --quiet HEAD || sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "$pkg_dir/PKGBUILD"
+
+        echo "==> Updating pkgsum..."
+        cd "$pkg_dir"
+        chown -R build .
+        su -c 'updpkgsums' build &>
+        cd "$BASEDIR"
+
+        git add "$pkg_dir/PKGBUILD"
+        git commit -m "update '$pkg_name' to '$commit_short'"
+        git pull --rebase &> /dev/null
+        git push &> /dev/null
+
+        continue
+      fi
     elif [ "$auto_update_github_tag" == true ]
     then
       latest_tag=$(curl --location --silent -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/tags" | jq -r '.[0].name')
@@ -64,14 +92,14 @@ do
       latest_tag=$(curl --location --silent "https://unpkg.com/$pkg_npm/package.json" | jq -r ".version")
 
       version=$latest_tag
-    elif [ ! -f "${pkg_dir}/_version" ]
+    elif [ ! -f "$pkg_dir/_version" ]
     then
-      latest_tag=$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${pkg_repo}/releases/latest" | jq -r .tag_name)
+      latest_tag=$(curl --silent --location -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/releases/latest" | jq -r .tag_name)
 
       # If the github api returns error
-      if [ -z "${latest_tag}" ] || [ "${latest_tag}" = "null" ]
+      if [ -z "$latest_tag" ] || [ "$latest_tag" = "null" ]
       then
-        echo "Error: failed to get the latest release tag for '${pkg_dir}'. GitHub API returned 'null' which indicates that no releases available."
+        echo "Error: failed to get the latest release tag for '$pkg_name'. GitHub API returned 'null' which indicates that no releases available."
         continue
       fi
 
@@ -86,46 +114,46 @@ do
       version=${version//-/.}
     else
       custom_vars=$(
-        . "${pkg_dir}/_version"
+        . "$pkg_dir/_version"
         echo "latest_tag=${_ver};"
         echo "version=\"${pkgver}\";"
       )
 
-      eval "${custom_vars}"
+      eval "$custom_vars"
     fi
 
     # If the api returns error
-    if [ -z "${latest_tag}" ] || [ "${latest_tag}" = "null" ]
+    if [ -z "$latest_tag" ] || [ "$latest_tag" = "null" ]
     then
-      echo "Error: failed to get the latest version for '${pkg_name}'. Version returned 'null'."
+      echo "Error: failed to get the latest version for '$pkg_name'. Version returned 'null'."
       continue
     fi
 
     # We have no better choice for comparing versions.
-    if [ "$(echo -e "${pkg_tag}\n${latest_tag}" | sort -V | head -n 1)" != "${latest_tag}" ] || [ "$auto_update_git" == true ] && [ "$latest_tag" != "$pkg_tag" ]
+    if [ "$(echo -e "$pkg_tag\n$latest_tag" | sort -V | head -n 1)" != "$latest_tag" ] ]
     then
-      echo "Updating '${pkg_name}' to '${latest_tag}'"
+      echo "Updating '$pkg_name' to '$latest_tag'.."
 
-      sed -i "s|^\(_ver=\)\(.*\)\$|\1${latest_tag}|g" "${pkg_dir}/PKGBUILD"
-      sed -i "s|^\(pkgver=\)\(.*\)\$|\1${version}|g" "${pkg_dir}/PKGBUILD"
-      git diff-index --quiet HEAD || sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "${pkg_dir}/PKGBUILD"
+      sed -i "s|^\(_ver=\)\(.*\)\$|\1$latest_tag|g" "$pkg_dir/PKGBUILD"
+      sed -i "s|^\(pkgver=\)\(.*\)\$|\1$version|g" "$pkg_dir/PKGBUILD"
+      git diff-index --quiet HEAD || sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "$pkg_dir/PKGBUILD"
 
       echo "==> Updating pkgsum..."
       cd "$pkg_dir"
       chown -R build .
-      su -c 'updpkgsums' build
+      su -c 'updpkgsums' build &> /dev/null
       cd "$BASEDIR"
 
       git add "$pkg_dir/PKGBUILD"
       git commit -m "update '$pkg_name' to '$version'"
-      git pull --rebase 2> /dev/null
-      git push 2> /dev/null
+      git pull --rebase &> /dev/null
+      git push &> /dev/null
     fi
   else
     custom_vars=$(
-      . "${pkg_dir}/git.sh"
-      echo "git_repo=${_git};"
-      echo "git_commit=${_commit};"
+      . "$pkg_dir/git.sh"
+      echo "git_repo=$_git;"
+      echo "git_commit=$_commit;"
     )
 
     eval "$custom_vars"
