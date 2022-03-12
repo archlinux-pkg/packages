@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _npm='create-react-app'
-_ver=0.0.0
+_ver=5.0.0
 _auto_update=true
 _auto_update_npm=true
 
 pkgname="$_npm"
-pkgver=0.0.0
+pkgver=5.0.0
 pkgrel=1
 pkgdesc='Create React apps with no build configuration'
 arch=('any')
@@ -18,7 +18,7 @@ makedepends=('npm')
 _file="$_npm-$pkgver.tgz"
 source=("https://registry.npmjs.org/$_npm/-/$_file")
 noextract=("$_file")
-sha256sums=('SKIP')
+sha256sums=('9bb365d7ba1086401a1b49c493002cc11fb08b2084fe07e764ba19f725a58bed')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
