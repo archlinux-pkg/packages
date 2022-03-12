@@ -66,7 +66,7 @@ do
     # npmjs.org package
     elif [ "$auto_update_npm" == true ]
     then
-      version=$(curl --location --silent "https://unpkg.com/${_npm}/package.json" | jq -r ".version")
+      version=$(curl --location --silent "https://unpkg.com/$pkg_npm/package.json" | jq -r ".version")
     elif [ ! -f "${pkg_dir}/_version" ]
     then
       latest_tag=$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${pkg_repo}/releases/latest" | jq -r .tag_name)
@@ -97,7 +97,7 @@ do
       eval "${custom_vars}"
     fi
 
-    # If the github api returns error
+    # If the api returns error
     if [ -z "${latest_tag}" ] || [ "${latest_tag}" = "null" ]
     then
       echo "Error: failed to get the latest version for '${pkg_name}'. Version returned 'null'."
