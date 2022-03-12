@@ -5,10 +5,9 @@
 SRCDIR='/mnt/src'
 
 #? makepkg variables
-MAKEPKGARGS='--log --rmdeps --clean --skippgpcheck --noconfirm --nocheck'
+MAKEPKGARGS='--rmdeps --clean --skippgpcheck --noconfirm --nocheck'
 export BUILDDIR='/mnt/build'
 export PKGDEST='/mnt/pkgs'
-export LOGDEST='/mnt/logs'
 
 #? set home dir
 export HOME='/mnt/home'
@@ -88,7 +87,8 @@ do
 
   if [ $code != 0 ]
   then
-    echo "${PACKAGE_LIST[i]} | exit code: $code" >> "$SRCDIR/fail_built.txt"
+    echo "$pkgname | exit code: $code"
+    echo "$pkgname | exit code: $code" >> "$SRCDIR/fail_built.txt"
   fi
 
   echo "::endgroup::"
