@@ -5,6 +5,7 @@ _auto_update=true
 _auto_update_git=true
 
 pkgname='rsfetch'
+epoch=1
 pkgver=2021.11.19_1637337131
 pkgrel=1
 pkgdesc='extremely fast, simple and lightweight fetch program'
