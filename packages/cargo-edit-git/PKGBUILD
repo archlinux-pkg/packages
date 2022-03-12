@@ -4,43 +4,38 @@ _ver=v0.8.0.r178.g56cc9079
 _auto_update=true
 _auto_update_git=true
 
-_pkgname='cargo-edit-git'
-pkgname="${_pkgname}"
-conflicts=('cargo-edit')
-provides=('cargo-edit')
+pkgname='cargo-edit-git'
+conflicts='cargo-edit'
+provides='cargo-edit'
+epoch=1
 pkgver=v0.8.0.r178.g56cc9079
 pkgrel=1
-pkgdesc='Managing cargo dependencies from the command line (latest commit from git)'
+pkgdesc='Managing cargo dependencies from the command line (master branch from git)'
 arch=('x86_64')
 url="https://github.com/${_repo}"
 license=('Apache' 'MIT')
 
 depends=('cargo' 'libgit2.so')
 
-source=("${_pkgname}::git+${url}.git#commit=${_ver}")
+source=("$pkgname::git+$url.git")
 sha256sums=('SKIP')
 
-prepare() {
-  cd "${_pkgname}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
-}
-
 build() {
-  cd "${_pkgname}"
+  cd "$pkgname"
 
   CFLAGS+=' -ffat-lto-objects'
   cargo build --release
 }
 
 package() {
-  cd "${_pkgname}"
+  cd "$pkgname"
 
   install -Dm 755 \
-    target/release/cargo-add \
-    target/release/cargo-rm \
-    target/release/cargo-upgrade \
-    -t "${pkgdir}/usr/bin"
+    'target/release/cargo-add' \
+    'target/release/cargo-rm' \
+    'target/release/cargo-upgrade' \
+    -t "$pkgdir/usr/bin"
 
-  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/${pkgname%-git}"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/${pkgname%-git}"
 }
