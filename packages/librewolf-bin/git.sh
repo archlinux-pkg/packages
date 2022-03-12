@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/librewolf-bin.git'
-_commit='c7324e0ecf6e84f14133c2f0f7431fae2920ecfb'
+_commit='d086e4a21f6732a6a8e6f1f53d5092907b8cfb27'
