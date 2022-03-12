@@ -16,7 +16,7 @@ license=('BSD')
 
 makedepends=('git' 'go' 'perl')
 
-source=('$pkgname::git+https://go.googlesource.com/go#branch=master')
+source=("$pkgname::git+https://go.googlesource.com/go#branch=master")
 sha256sums=('SKIP')
 
 options=(!strip staticlibs)
