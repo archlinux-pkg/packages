@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='goreleaser/goreleaser'
-_ver=v1.6.1
+_ver=v1.6.2
 _auto_update=true
 
 _pkgname='goreleaser'
 pkgname="${_pkgname}"
-pkgver=1.6.1
+pkgver=1.6.2
 pkgrel=1
 pkgdesc='Deliver Go binaries as fast and easily as possible'
 arch=('x86_64')
