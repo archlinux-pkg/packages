@@ -3,6 +3,8 @@
 
 #? variables
 SRCDIR='/mnt/src'
+TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
+PACKAGES_TO_BUILD_DIR="$TEMPDIR/packages/tobuild"
 
 #? makepkg variables
 MAKEPKGARGS='--rmdeps --clean --skippgpcheck --noconfirm --nocheck'
@@ -12,7 +14,7 @@ export PKGDEST='/mnt/pkgs'
 #? set home dir
 export HOME='/mnt/home'
 
-declare -a PACKAGE_LIST=()
+mkdir -p "$PACKAGES_TO_BUILD_DIR"
 
 sudo chown -R $(id -u) /mnt/*
 
@@ -21,16 +23,16 @@ cd "$SRCDIR"
 echo "==> Creating /etc/buildtime..."
 echo $(date +"%s") | sudo tee /etc/buildtime
 
-#* check the packages to built from file built_packages.txt, add them to the PACKAGE_LIST variable
-while IFS= read -r line
+#* check the packages to built
+while IFS= read -r name
 do
-  PACKAGE_LIST+=("$line")
+  touch "$PACKAGES_TO_BUILD_DIR/$name"
 done < "$SRCDIR/built_packages.txt"
 
 #* built packages one by one
-for ((i=0; i<${#PACKAGE_LIST[@]}; i++))
+for FILE in $PACKAGES_TO_BUILD_DIR/*
 do
-  pkgname="${PACKAGE_LIST[i]}"
+  pkgname="$(basename $FILE)"
   pkgdir="$SRCDIR/packages/$pkgname"
 
   echo "::group::==> Building '$pkgname'"
@@ -57,7 +59,7 @@ do
 
     if [ $code != 0 ]
     then
-      echo "${PACKAGE_LIST[i]} | exit code: $code" >> "$SRCDIR/fail_built.txt"
+      echo "$pkgname | exit code: $code" >> "$SRCDIR/fail_built.txt"
       continue
     fi
   fi

@@ -21,4 +21,4 @@ sudo docker run \
   --mount type=bind,source="$SRCDIR",target=/mnt/src \
   --mount type=bind,source="$HOMEDIR",target=/mnt/home \
   $DOCKER_IMAGE \
-  su -c '/mnt/src/build-package.sh' build
+  su -c "/mnt/src/build-package.sh" build
