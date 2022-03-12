@@ -56,8 +56,6 @@ package() {
   ln -sf /usr/lib/go/bin/gofmt "$pkgdir/usr/bin/gofmt"
   ln -sf /usr/share/doc/go "$pkgdir/usr/lib/go/doc"
 
-  install -Dm644 VERSION "$pkgdir/usr/lib/go/VERSION"
-
   rm -rf "$pkgdir/usr/lib/go/pkg/bootstrap" "$pkgdir/usr/lib/go/pkg/tool/*/api"
 
   # TODO: Figure out if really needed
