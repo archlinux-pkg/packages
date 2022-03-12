@@ -3,11 +3,11 @@ _repo='martin31821/cpupower'
 _ver=v10.0.1
 _auto_update=true
 
-_pkgname='cpufreqctl'
-pkgname="${_pkgname}"
+_pkgname='cpupower'
+pkgname='cpufreqctl'
 pkgver=10.0.1
-pkgrel=2
-pkgdesc="A intel_pstate CPU freq controller for regular user (extracted from extension 'CPU Power Manager for Gnome)"
+pkgrel=3
+pkgdesc="Manage the frequency scaling driver of your CPU for GNOME (Intel Core and AMD Ryzen processors supported)"
 arch=('any')
 url="https://github.com/$_repo"
 license=('GPL')
@@ -15,10 +15,10 @@ license=('GPL')
 depends=('gnome-shell')
 makedepends=('zip')
 
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+source=("$_pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
 sha256sums=('SKIP')
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
-  make install PREFIX="${pkgdir}/usr"
+  cd "$srcdir/$_pkgname-$pkgver"
+  make install PREFIX="$pkgdir/usr"
 }
