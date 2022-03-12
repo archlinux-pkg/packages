@@ -5,7 +5,7 @@
 SRCDIR='/mnt/src'
 
 #? makepkg variables
-MAKEPKGARGS='--log --rmdeps --clean --skippgpcheck --noconfirm'
+MAKEPKGARGS='--log --rmdeps --clean --skippgpcheck --noconfirm --nocheck'
 export BUILDDIR='/mnt/build'
 export PKGDEST='/mnt/pkgs'
 export LOGDEST='/mnt/logs'
