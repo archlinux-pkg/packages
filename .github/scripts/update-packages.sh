@@ -33,12 +33,19 @@ do
     # Check the latest version from github
     if [ "${auto_update_git}" == true ]
     then
-      git clone "https://github.com/${pkg_repo}.git" "${TEMPDIR}/git/${pkg_name}" 2> /dev/null
+      git clone "https://github.com/$pkg_repo.git" "$TEMPDIR/git/$pkg_name" &> /dev/null
 
-      cd "${TEMPDIR}/git/${pkg_name}"
+      cd "$TEMPDIR/git/$pkg_name"
       latest_tag=$(git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g')
+
+      if [ -z "$latest_tag" ] || [ "$latest_tag" = "null" ]
+      then
+        latest_tag=$(printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)")
+      fi
+
       version=$latest_tag
-      cd ${BASEDIR}
+
+      cd "$BASEDIR"
 
       rm -rf "${TEMPDIR}/git/${pkg_name}"
     elif [ "$auto_update_github_tag" == true ]
