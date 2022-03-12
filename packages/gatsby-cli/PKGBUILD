@@ -6,7 +6,7 @@ _auto_update_npm=true
 
 _pkgname="${_npm}"
 pkgname="${_pkgname}"
-pkgver=null
+pkgver=0.14.25
 pkgrel=1
 pkgdesc='Gatsby command-line interface for creating new sites and running Gatsby commands'
 arch=('any')
