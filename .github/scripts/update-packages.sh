@@ -130,7 +130,7 @@ do
     fi
 
     # We have no better choice for comparing versions.
-    if [ "$(echo -e "$pkg_tag\n$latest_tag" | sort -V | head -n 1)" != "$latest_tag" ] ]
+    if [ "$(echo -e "$pkg_tag\n$latest_tag" | sort -V | head -n 1)" != "$latest_tag" ]
     then
       echo "Updating '$pkg_name' to '$latest_tag'.."
 
