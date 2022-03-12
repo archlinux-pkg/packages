@@ -2,30 +2,32 @@
 _npm='create-next-app'
 _ver=12.1.0
 _auto_update=true
+_auto_update_npm=true
 
-_pkgname="${_npm}"
-pkgname="${_pkgname}"
+pkgname="$_npm"
 pkgver=12.1.0
 pkgrel=1
 pkgdesc='Create Next.js-powered React apps with one command'
 arch=('any')
-url="https://www.npmjs.com/package/${_npm}"
+url="https://www.npmjs.com/package/$_npm"
 license=('MIT')
+
 depends=('nodejs')
 makedepends=('npm')
-_file="${_npm}-${pkgver}.tgz"
-source=("https://registry.npmjs.org/$_npm/-/${_file}")
-noextract=("${_file}")
+
+_file="$_npm-$pkgver.tgz"
+source=("https://registry.npmjs.org/$_npm/-/$_file")
+noextract=("$_file")
 sha256sums=('SKIP')
 
 package() {
-  npm install -g --prefix "${pkgdir}/usr" "${srcdir}/${_file}"
+  npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
 
   # Non-deterministic race in npm gives 777 permissions to random directories.
   # See https://github.com/npm/npm/issues/9359 for details.
-  chmod -R u=rwX,go=rX "${pkgdir}"
+  chmod -R u=rwX,go=rX "$pkgdir"
 
   # npm installs package.json owned by build user
   # https://bugs.archlinux.org/task/63396
-  chown -R root:root "${pkgdir}"
+  chown -R root:root "$pkgdir"
 }

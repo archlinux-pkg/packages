@@ -2,25 +2,26 @@
 _npm='@capacitor/cli'
 _ver=3.4.3
 _auto_update=true
+_auto_update_npm=true
 
 pkgname='capacitor-cli'
 pkgver=3.4.3
 pkgrel=1
 pkgdesc='Build cross-platform Native Progressive Web Apps for iOS, Android, and the Web'
 arch=('any')
-url="https://www.npmjs.com/package/${_npm}"
+url="https://www.npmjs.com/package/$_npm"
 license=('MIT')
 
 depends=('nodejs')
 makedepends=('npm')
 
-_file="cli-${pkgver}.tgz"
-source=("${_file}::https://registry.npmjs.org/${_npm}/-/${_file}")
-noextract=("${_file}")
+_file="cli-$pkgver.tgz"
+source=("$_file::https://registry.npmjs.org/$_npm/-/$_file")
+noextract=("$_file")
 sha256sums=('SKIP')
 
 package() {
-  npm install -g --prefix "$pkgdir/usr" "${_file}"
+  npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
 
   # Non-deterministic race in npm gives 777 permissions to random directories.
   # See https://github.com/npm/npm/issues/9359 for details.

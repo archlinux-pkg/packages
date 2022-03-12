@@ -18,8 +18,10 @@ do
       echo "auto_update=${_auto_update};"
       echo "auto_update_git=${_auto_update_git};"
       echo "auto_update_github_tag=${_auto_update_github_tag};"
+      echo "auto_update_npm=${_auto_update_npm};"
       echo "pkg_tag=\"${_ver}\";"
       echo "pkg_repo=\"${_repo}\";"
+      echo "pkg_npm=\"${_npm}\";"
     )
 
     eval "${build_vars}"
@@ -61,6 +63,10 @@ do
 
       # Translate "-" into ".": pacman does not support - in pkgver
       version=${version//-/.}
+    # npmjs.org package
+    elif [ "$auto_update_npm" == true ]
+    then
+      version=$(curl --location --silent "https://unpkg.com/${_npm}/package.json" | jq -r ".version")
     elif [ ! -f "${pkg_dir}/_version" ]
     then
       latest_tag=$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${pkg_repo}/releases/latest" | jq -r .tag_name)

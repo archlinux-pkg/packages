@@ -2,6 +2,7 @@
 _npm='netlify'
 _ver=11.0.0
 _auto_update=true
+_auto_update_npm=true
 
 pkgname="$_npm"
 pkgver=11.0.0

@@ -2,6 +2,7 @@
 _npm='aws-cdk'
 _ver=2.16.0
 _auto_update=true
+_auto_update_npm=true
 
 pkgname="$_npm"
 pkgver=2.16.0
@@ -20,7 +21,7 @@ noextract=("$_file")
 sha256sums=('084e3406ff86dd84867b33fec9dcb825262f67289c01971ad7fa7fd0e3bb109d')
 
 package() {
-  npm install -g --prefix "$pkgdir/usr" "$_file"
+  npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
 
   # Non-deterministic race in npm gives 777 permissions to random directories.
   # See https://github.com/npm/npm/issues/9359 for details.
