@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/polymc.git'
-_commit='d61fc35d7d21e45f6ff69c36e46b58a980793879'
+_commit='e868516ac06a5b14bde4abfdeb1a1faf91872e1c'
