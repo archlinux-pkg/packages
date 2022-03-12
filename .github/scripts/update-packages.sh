@@ -63,7 +63,7 @@ do
         echo "==> Updating pkgsum..."
         cd "$pkg_dir"
         chown -R build .
-        su -c 'updpkgsums' build &>
+        su -c 'updpkgsums' build &> /dev/nu;;
         cd "$BASEDIR"
 
         git add "$pkg_dir/PKGBUILD"
