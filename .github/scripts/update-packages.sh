@@ -38,18 +38,13 @@ do
       git clone "https://github.com/$pkg_repo.git" "$TEMPDIR/git/$pkg_name" --depth 1 &> /dev/null
 
       cd "$TEMPDIR/git/$pkg_name"
-      latest_tag=$(git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g')
 
-      if [ -z "$latest_tag" ] || [ "$latest_tag" = "null" ]
-      then
-        latest_tag=$(printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)")
-      fi
-
+      latest_tag=$(git rev-parse HEAD)
       version=$latest_tag
 
       cd "$BASEDIR"
 
-      rm -rf "${TEMPDIR}/git/${pkg_name}"
+      rm -rf "$TEMPDIR/git/$pkg_name"
     elif [ "$auto_update_github_tag" == true ]
     then
       latest_tag=$(curl --location --silent -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/tags" | jq -r '.[0].name')
@@ -107,7 +102,7 @@ do
     fi
 
     # We have no better choice for comparing versions.
-    if [ "$(echo -e "${pkg_tag}\n${latest_tag}" | sort -V | head -n 1)" != "${latest_tag}" ]
+    if [ "$(echo -e "${pkg_tag}\n${latest_tag}" | sort -V | head -n 1)" != "${latest_tag}" ] || [ "$auto_update_git" == true && "$latest_tag" != "$pkg_tag" ]
     then
       echo "Updating '${pkg_name}' to '${latest_tag}'"
 
