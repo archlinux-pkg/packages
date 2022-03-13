@@ -1,0 +1,35 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_npm='create-react-native-app'
+_ver=3.8.0
+_auto_update=true
+_auto_update_npm=true
+
+pkgname="$_npm"
+pkgver=3.8.0
+pkgrel=1
+replaces=("expo-$_npm")
+provides=("expo-$_npm")
+pkgdesc='Create React Native apps that run on iOS, Android, and web'
+arch=('any')
+url="https://www.npmjs.com/package/$_npm"
+license=('BSD3')
+
+depends=('nodejs')
+makedepends=('npm')
+
+_file="$_npm-$pkgver.tgz"
+source=("$_file::https://registry.npmjs.org/$_npm/-/$_file")
+noextract=("$_file")
+sha256sums=('95f7afb267e543f55ef47126ea6bba78d4fb5d040b96d7d336bc8fb100d77742')
+
+package() {
+  npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
+
+  # Non-deterministic race in npm gives 777 permissions to random directories.
+  # See https://github.com/npm/npm/issues/9359 for details.
+  chmod -R u=rwX,go=rX "$pkgdir"
+
+  # npm installs package.json owned by build user
+  # https://bugs.archlinux.org/task/63396
+  chown -R root:root "$pkgdir"
+}
