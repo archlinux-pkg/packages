@@ -7,7 +7,7 @@ _auto_update_git=true
 pkgname='cargo-edit-git'
 conflicts=('cargo-edit')
 provides=('cargo-edit')
-epoch=1
+epoch=2
 pkgver=56cc90798b5a758997adf70c863f48e325450aff
 pkgrel=1
 pkgdesc='Managing cargo dependencies from the command line (master branch from git)'
@@ -19,6 +19,11 @@ depends=('cargo' 'libgit2.so')
 
 source=("$pkgname::git+$url.git")
 sha256sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+  git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
 
 build() {
   cd "$pkgname"
