@@ -1,0 +1,33 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_npm='expo-cli'
+_ver=5.3.0
+_auto_update=true
+_auto_update_npm=true
+
+pkgname="$_npm"
+pkgver=5.3.0
+pkgrel=1
+pkgdesc='Tools for creating, running, and deploying universal Expo and React Native apps'
+arch=('any')
+url="https://expo.io"
+license=('MIT')
+
+depends=('nodejs')
+makedepends=('npm')
+
+_file="$_npm-$pkgver.tgz"
+source=("$_file::https://registry.npmjs.org/$_npm/-/$_file")
+noextract=("$_file")
+sha256sums=('SKIP')
+
+package() {
+  npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
+
+  # Non-deterministic race in npm gives 777 permissions to random directories.
+  # See https://github.com/npm/npm/issues/9359 for details.
+  chmod -R u=rwX,go=rX "$pkgdir"
+
+  # npm installs package.json owned by build user
+  # https://bugs.archlinux.org/task/63396
+  chown -R root:root "$pkgdir"
+}
