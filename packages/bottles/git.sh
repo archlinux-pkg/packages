@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/bottles.git'
-_commit='270cdadaf98e150822dbdd58c13f6e6b6e1d5930'
+_commit='12abb7a74b2e0758ac2fa38099f79278f2eacb94'
