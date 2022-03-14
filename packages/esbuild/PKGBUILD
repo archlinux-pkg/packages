@@ -1,10 +1,10 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='evanw/esbuild'
-_ver=v0.14.25
+_ver=v0.14.26
 _auto_update=true
 
 pkgname='esbuild'
-pkgver=0.14.25
+pkgver=0.14.26
 pkgrel=1
 pkgdesc='An extremely fast JavaScript and CSS bundler and minifier'
 arch=('x86_64')
@@ -14,7 +14,7 @@ license=('MIT')
 makedepends=('go')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('d7497930eebb134a5f3c9f8950fa00ff6e1afa6f1b17f7ef13caaedab4cc187d')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
