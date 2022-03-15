@@ -13,16 +13,11 @@ connectsftp() {
 upload_file() {
   echo "==> Uploading: $@..."
   export SSHPASS="$FTP_PASSWORD"
-  sshpass -e rsync -avL --ignore-existing $@ -e ssh "${FTP_USER}@${FTP_URI}:${FTP_CWD}/"
+  sshpass -e rsync -avL -nPh --ignore-existing $@ -e ssh "${FTP_USER}@${FTP_URI}:${FTP_CWD}/"
 }
 
 upload_file_overwrite() {
   echo "==> Uploading: $@..."
   export SSHPASS="$FTP_PASSWORD"
-  sshpass -e rsync -avL $@ -e ssh "${FTP_USER}@${FTP_URI}:${FTP_CWD}/"
-}
-
-download_all_files() {
-  export SSHPASS="$FTP_PASSWORD"
-  sshpass -e rsync -av -e ssh "${FTP_USER}@${FTP_URI}:${FTP_CWD}/" "$1"
+  sshpass -e rsync -avL -nPh $@ -e ssh "${FTP_USER}@${FTP_URI}:${FTP_CWD}/"
 }
