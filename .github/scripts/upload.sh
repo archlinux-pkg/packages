@@ -39,7 +39,7 @@ for file in ./pkgs/*
 do
   if [ -f "$file" ]
   then
-    upload "$file" "$type" &
+    upload "$file" "$type"
+    sleep 3
   fi
 done
-wait
