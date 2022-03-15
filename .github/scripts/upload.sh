@@ -41,7 +41,9 @@ for file in ./pkgs/*
 do
   if [ -f "$file" ]
   then
-    upload "$file" "$type" &
+    upload "$file" "$type"
   fi
 done
-wait
+
+# Wait 5 sencods before exit
+sleep 5
