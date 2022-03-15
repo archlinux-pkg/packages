@@ -1,6 +1,4 @@
 #!/bin/bash
-set -e
-
 DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$DIR/connectsftp.sh"
 
@@ -41,9 +39,7 @@ for file in ./pkgs/*
 do
   if [ -f "$file" ]
   then
-    upload "$file" "$type"
+    upload "$file" "$type" &
   fi
 done
-
-# Wait 5 sencods before exit
-sleep 5
+wait
