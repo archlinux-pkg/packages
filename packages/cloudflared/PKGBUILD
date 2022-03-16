@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='cloudflare/cloudflared'
-_ver=2022.3.1
+_ver=2022.3.2
 _auto_update=true
 
 pkgname='cloudflared'
-pkgver=2022.3.1
-pkgrel=2
+pkgver=2022.3.2
+pkgrel=1
 pkgdesc='Cloudflare Tunnel client (formerly Argo Tunnel)'
 arch=('x86_64')
 url="https://github.com/$_repo"
@@ -14,7 +14,7 @@ license=('Apache')
 makedepends=('go')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('58ed53896b7ee2cc4ac84ec2d6f47423476b4292a56b5379aa9715103a4cb226')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
