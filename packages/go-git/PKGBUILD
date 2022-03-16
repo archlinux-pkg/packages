@@ -5,7 +5,7 @@ _auto_update=true
 _auto_update_git=true
 
 pkgname=go-git
-pkgver=81d3c25c6cf39a76b17ab4eda97e8ad7b92a21e9
+pkgver=91631bc7e0131367eb051b581cf34573399ac592
 pkgrel=1
 replaces=('go')
 provides=('go')
