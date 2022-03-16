@@ -10,6 +10,11 @@ for pkg_dir in "$BASEDIR"/packages/* "$BASEDIR"/long-build/*
 do
   pkg_name=$(basename $pkg_dir)
 
+  # Delete old variables
+  commit_short='null'
+  latest_tag='null'
+  version='null'
+
   if [ ! -f "$pkg_dir/git.sh" ]
   then
     build_vars=$(
