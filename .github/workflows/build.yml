@@ -83,6 +83,28 @@ jobs:
             fi
           done
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages
+          path: ./pkgs
+
+  upload:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1000
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: packages
+
       - name: Import GPG key
         if: always() && github.event_name != 'pull_request'
         uses: crazy-max/ghaction-import-gpg@v4
@@ -93,9 +115,9 @@ jobs:
       - name: Sign packages
         if: always() && github.event_name != 'pull_request'
         run: |
-          if [ -f ./built_packages.txt ]
+          if [ -f ./*.tar* ]
           then
-            for file in ./pkgs/*.pkg.tar*
+            for file in ./*.pkg.tar*
             do
               gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
             done
@@ -109,7 +131,7 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
         run: |
-          if [ -f ./built_packages.txt ]
+          if [ -f ./*.tar* ]
           then
             ./.github/scripts/upload.sh
           fi
