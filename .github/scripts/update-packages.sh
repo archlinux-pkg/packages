@@ -1,186 +1,165 @@
 #!/bin/bash
-#? This file is a modified version of: https://github.com/termux/termux-packages/blob/715ce90c53eb9e44c12a5378df907a94522f7df2/scripts/bin/update-packages
+# This file is a modified version of: https://github.com/termux/termux-packages/blob/715ce90c53eb9e44c12a5378df907a94522f7df2/scripts/bin/update-packages
+
+# variables
 BASEDIR="$(pwd)"
 TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 
-# Temporary dir for git clone
+# create temporary dir for git clone
 mkdir -p "$TEMPDIR/git"
 
-for pkg_dir in "$BASEDIR"/packages/* "$BASEDIR"/long-build/*
-do
-  pkg_name=$(basename $pkg_dir)
+update_package() {
+  local PKGDIR="$1"
+  local PKGNAME=$(basename $1)
 
-  # Delete old variables
-  commit_short='null'
-  latest_tag='null'
-  version='null'
+  # check if the package is from AUR
+  if [ -f "$PKGDIR/git.sh" ]
+  then
+    local custom_vars=$(
+      . "$PKGDIR/git.sh"
+      echo "local git_repo=$_git;"
+      echo "local git_commit=$_commit;"
+    )
 
-  if [ ! -f "$pkg_dir/git.sh" ]
+    eval "$custom_vars"
+
+    # clone repository from AUR
+    git clone "$git_repo" "$TEMPDIR/git/$PKGNAME" --depth 1 &> /dev/null
+
+    # check the latest commit of the package in AUE
+    cd "$TEMPDIR/git/$PKGNAME"
+    local commit_long=$(git log -n 1 --pretty=format:"%H")
+    local commit_short=$(git log -n 1 --pretty=format:"%h")
+    cd "$BASEDIR"
+
+    rm -rf "$TEMPDIR/git/$PKGNAME"
+
+    # check if there is a newer commit, if so, change it to the package file 'git.sh'
+    if [ "$git_commit" != "$commit_long" ]
+    then
+      sed -i "s|^\(_commit=\)\(.*\)\$|\1'$commit_long'|g" "$PKGDIR/git.sh"
+
+      # commit and push changes
+      git add "$PKGDIR"
+      git diff-index --quiet HEAD || git commit -m "update '$PKGNAME' to AUR commit '$commit_short'"
+      git pull --rebase &> /dev/null
+      git push &> /dev/null
+    fi
+
+    return 0
+  fi
+
+  # check if the package exists
+  if [ -f "$PKGDIR/PKGBUILD" ]
   then
     build_vars=$(
       set +e +u
-      . "$pkg_dir/PKGBUILD"
-      echo "auto_update=$_auto_update;"
-      echo "auto_update_git=$_auto_update_git;"
-      echo "auto_update_github_tag=$_auto_update_github_tag;"
-      echo "auto_update_npm=$_auto_update_npm;"
-      echo "pkg_tag=\"${_ver}\";"
-      echo "pkg_repo=\"${_repo}\";"
-      echo "pkg_npm=\"${_npm}\";"
+      . "$PKGDIR/PKGBUILD"
+      echo "local auto_update=$_auto_update;"
+      echo "local auto_update_git=$_auto_update_git;"
+      echo "local auto_update_github_tag=$_auto_update_github_tag;"
+      echo "local auto_update_npm=$_auto_update_npm;"
+      echo "local pkg_tag=\"${_ver}\";"
+      echo "local pkg_repo=\"${_repo}\";"
+      echo "local pkg_npm=\"${_npm}\";"
     )
 
     eval "$build_vars"
 
-    # Ignore packages that have auto-update disabled.
+    # ignore the package if auto-update isn't enabled
     if [ "$auto_update" != "true" ]
     then
-      continue
+      return 0
     fi
 
-    # Check the latest version from github
-    if [ "$auto_update_git" == true ]
+    # check latest version from github by tags
+    if [ "$auto_update_github_tag" == true ]
     then
-      git clone "https://github.com/$pkg_repo.git" "$TEMPDIR/git/$pkg_name" --depth 1 &> /dev/null
-
-      cd "$TEMPDIR/git/$pkg_name"
-
-      commit_short=$(git rev-parse --short HEAD)
-      latest_tag=$(git rev-parse HEAD)
-      version=$latest_tag
-
-      cd "$BASEDIR"
-
-      rm -rf "$TEMPDIR/git/$pkg_name"
-
-      if [ -z "$latest_tag" ] || [ "$latest_tag" = "null" ]
-      then
-        echo "Error: failed to get the latest version for '${pkg_name}'. Version returned 'null'."
-        continue
-      fi
-
-      if [ "$latest_tag" != "$pkg_tag" ]
-      then
-        echo "==> Updating '$pkg_name' to '$latest_tag'.."
-
-        sed -i "s|^\(pkgver=\)\(.*\)\$|\1$version|g" "$pkg_dir/PKGBUILD"
-        git diff-index --quiet HEAD || sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "$pkg_dir/PKGBUILD"
-
-        echo "==> Updating pkgsum..."
-        cd "$pkg_dir"
-        chown -R build .
-        su -c 'updpkgsums' build &> /dev/null
-        cd "$BASEDIR"
-
-        git add "$pkg_dir/PKGBUILD"
-        git commit -m "update '$pkg_name' to '$commit_short'"
-        git pull --rebase &> /dev/null
-        git push &> /dev/null
-
-        continue
-      fi
-    elif [ "$auto_update_github_tag" == true ]
-    then
-      latest_tag=$(curl --location --silent -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/tags" | jq -r '.[0].name')
+      local latest_tag=$(curl --location --silent -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/tags" | jq -r '.[0].name')
 
       # Translate "_" into ".": some packages use underscores to seperate
       # version numbers, but we require them to be separated by dots.
-      version=${latest_tag//_/.}
+      local version=${latest_tag//_/.}
 
       # Remove leading 'v' or 'r'
-      version=${version#[v,r]}
+      local version=${version#[v,r]}
 
       # Translate "-" into ".": pacman does not support - in pkgver
-      version=${version//-/.}
-    # npmjs.org package
+      local version=${version//-/.}
+
+    # check latest version from npmjs.org
     elif [ "$auto_update_npm" == true ]
     then
-      latest_tag=$(curl --location --silent "https://unpkg.com/$pkg_npm/package.json" | jq -r ".version")
+      local latest_tag=$(curl --location --silent "https://unpkg.com/$pkg_npm/package.json" | jq -r ".version")
+      local version=$latest_tag
 
-      version=$latest_tag
-    elif [ ! -f "$pkg_dir/_version" ]
+    # check latest version from github by releases
+    elif [ ! -f "$PKGDIR/_version" ]
     then
-      latest_tag=$(curl --silent --location -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/releases/latest" | jq -r .tag_name)
+      local latest_tag=$(curl --silent --location -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/releases/latest" | jq -r .tag_name)
 
       # If the github api returns error
       if [ -z "$latest_tag" ] || [ "$latest_tag" = "null" ]
       then
-        echo "Error: failed to get the latest release tag for '$pkg_name'. GitHub API returned 'null' which indicates that no releases available."
-        continue
+        echo "Error: failed to get the latest release tag for '$PKGNAME'. GitHub API returned 'null' which indicates that no releases available"
+        return 1
       fi
 
       # Translate "_" into ".": some packages use underscores to seperate
       # version numbers, but we require them to be separated by dots.
-      version=${latest_tag//_/.}
+      local version=${latest_tag//_/.}
 
       # Remove leading 'v' or 'r'
-      version=${version#[v,r]}
+      local version=${version#[v,r]}
 
       # Translate "-" into ".": pacman does not support - in pkgver
-      version=${version//-/.}
-    else
+      local version=${version//-/.}
+
+    # check version from custom function using '_version' file
+    elif [ -f "$PKGDIR/_version" ]
+    then
       custom_vars=$(
-        . "$pkg_dir/_version"
-        echo "latest_tag=${_ver};"
-        echo "version=\"${pkgver}\";"
+        . "$PKGDIR/_version"
+        echo "local latest_tag=${_ver};"
+        echo "local version=\"${pkgver}\";"
       )
 
       eval "$custom_vars"
     fi
 
-    # If the api returns error
-    if [ -z "$latest_tag" ] || [ "$latest_tag" = "null" ]
+    # if the version is incorrect
+    if [[ -z "$latest_tag" || "$latest_tag" = "null" || -z "$version" || "$version" = "null" ]]
     then
-      echo "Error: failed to get the latest version for '$pkg_name'. Version returned 'null'."
-      continue
+      echo "Error: failed to get the latest version for '$PKGNAME'. Version returned 'null'."
+      return 1
     fi
 
-    # We have no better choice for comparing versions.
+    # version comparison
     if [ "$(echo -e "$pkg_tag\n$latest_tag" | sort -V | head -n 1)" != "$latest_tag" ]
     then
-      echo "Updating '$pkg_name' to '$latest_tag'.."
+      echo "Updating '$PKGNAME' to '$latest_tag'.."
 
-      sed -i "s|^\(_ver=\)\(.*\)\$|\1$latest_tag|g" "$pkg_dir/PKGBUILD"
-      sed -i "s|^\(pkgver=\)\(.*\)\$|\1$version|g" "$pkg_dir/PKGBUILD"
-      git diff-index --quiet HEAD || sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "$pkg_dir/PKGBUILD"
+      # update the version in the package files
+      sed -i "s|^\(_ver=\)\(.*\)\$|\1$latest_tag|g" "$PKGDIR/PKGBUILD"
+      sed -i "s|^\(pkgver=\)\(.*\)\$|\1$version|g" "$PKGDIR/PKGBUILD"
+      # change pkgrel to '1'
+      git diff-index --quiet HEAD || sed -i "s/^\(pkgrel=\)\(.*\)\$/\11/g" "$PKGDIR/PKGBUILD"
 
       echo "==> Updating pkgsum..."
-      cd "$pkg_dir"
+      cd "$PKGDIR"
       chown -R build .
-      su -c 'updpkgsums' build &> /dev/null
+      su -c 'updpkgsums' build
       cd "$BASEDIR"
 
-      git add "$pkg_dir/PKGBUILD"
-      git commit -m "update '$pkg_name' to '$version'"
-      git pull --rebase &> /dev/null
-      git push &> /dev/null
-    fi
-  else
-    custom_vars=$(
-      . "$pkg_dir/git.sh"
-      echo "git_repo=$_git;"
-      echo "git_commit=$_commit;"
-    )
-
-    eval "$custom_vars"
-
-    # Get latest commat from AUR
-    git clone "$git_repo" "$TEMPDIR/git/$pkg_name" --depth 1 &> /dev/null
-
-    cd "$TEMPDIR/git/$pkg_name"
-    _commit_long="$(git log -n 1 --pretty=format:"%H")"
-    _commit_short="$(git log -n 1 --pretty=format:"%h")"
-    cd "$BASEDIR"
-
-    rm -rf "$TEMPDIR/git/$pkg_name"
-
-    if [ "$git_commit" != "$_commit_long" ]
-    then
-      sed -i "s|^\(_commit=\)\(.*\)\$|\1'$_commit_long'|g" "$pkg_dir/git.sh"
-
-      git add "$pkg_dir"
-      git diff-index --quiet HEAD || git commit -m "update '$pkg_name' to AUR commit '$_commit_short'"
+      git add "$PKGDIR/PKGBUILD"
+      git commit -m "update '$PKGNAME' to '$version'"
       git pull --rebase &> /dev/null
       git push &> /dev/null
     fi
   fi
+}
+
+for PKGDIR in "$BASEDIR"/packages/* "$BASEDIR"/long-build/*
+do
+  update_package "$PKGDIR"
 done
