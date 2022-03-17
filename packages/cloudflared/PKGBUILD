@@ -5,7 +5,7 @@ _auto_update=true
 
 pkgname='cloudflared'
 pkgver=2022.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Cloudflare Tunnel client (formerly Argo Tunnel)'
 arch=('x86_64')
 url="https://github.com/$_repo"
@@ -22,7 +22,7 @@ build() {
   local _flags
   _flags=(
     -X main.Version="$pkgver"
-    -X main.BuildTime="$(date +%Y.%m.%d-%H:%M:%S)"
+    -X main.BuildTime=$(date -u '+%Y.%m.%d-%H:%M UTC')
   )
 
   export CGO_CPPFLAGS="$CPPFLAGS"
