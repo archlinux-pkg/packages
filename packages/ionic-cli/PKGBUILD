@@ -2,6 +2,7 @@
 _npm='@ionic/cli'
 _ver=6.19.0
 _auto_update=true
+_auto_update_npm=true
 
 pkgname='ionic-cli'
 pkgver=6.19.0
