@@ -115,9 +115,12 @@ jobs:
       - name: Sign packages
         if: always() && github.event_name != 'pull_request'
         run: |
-          if [ -f ./*.tar* ]
+          mkdir pkgs
+          mv *.pkg.tar* pkgs/
+
+          if [ -f ./pkgs/*.tar* ]
           then
-            for file in ./*.pkg.tar*
+            for file in ./pkgs/*.pkg.tar*
             do
               gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
             done
@@ -131,7 +134,7 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
         run: |
-          if [ -f ./*.tar* ]
+          if [ -f ./pkgs/*.tar* ]
           then
             ./.github/scripts/upload.sh
           fi
