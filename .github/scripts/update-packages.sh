@@ -9,27 +9,29 @@ TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 mkdir -p "$TEMPDIR/git"
 
 update_package() {
-  local PKGDIR="$1"
-  local PKGNAME=$(basename $1)
+  PKGDIR="$1"
+  PKGNAME=$(basename $1)
 
   # check if the package is from AUR
   if [ -f "$PKGDIR/git.sh" ]
   then
-    local custom_vars=$(
+    custom_vars=$(
       . "$PKGDIR/git.sh"
-      echo "local git_repo=$_git;"
-      echo "local git_commit=$_commit;"
+      echo "git_repo=$_git;"
+      echo "git_commit=$_commit;"
     )
 
+    git_repo='null'; git_commit='null' # Overwrite variables with 'null' value
     eval "$custom_vars"
 
     # clone repository from AUR
     git clone "$git_repo" "$TEMPDIR/git/$PKGNAME" --depth 1 &> /dev/null
 
-    # check the latest commit of the package in AUE
+    # check the latest commit of the package in AUR
+    commit_long='null'; commit_short='null' # Overwrite variables with 'null' value
     cd "$TEMPDIR/git/$PKGNAME"
-    local commit_long=$(git log -n 1 --pretty=format:"%H")
-    local commit_short=$(git log -n 1 --pretty=format:"%h")
+    commit_long=$(git log -n 1 --pretty=format:"%H")
+    commit_short=$(git log -n 1 --pretty=format:"%h")
     cd "$BASEDIR"
 
     rm -rf "$TEMPDIR/git/$PKGNAME"
@@ -55,15 +57,16 @@ update_package() {
     build_vars=$(
       set +e +u
       . "$PKGDIR/PKGBUILD"
-      echo "local auto_update=$_auto_update;"
-      echo "local auto_update_git=$_auto_update_git;"
-      echo "local auto_update_github_tag=$_auto_update_github_tag;"
-      echo "local auto_update_npm=$_auto_update_npm;"
-      echo "local pkg_tag=\"${_ver}\";"
-      echo "local pkg_repo=\"${_repo}\";"
-      echo "local pkg_npm=\"${_npm}\";"
+      echo "auto_update=$_auto_update;"
+      echo "auto_update_git=$_auto_update_git;"
+      echo "auto_update_github_tag=$_auto_update_github_tag;"
+      echo "auto_update_npm=$_auto_update_npm;"
+      echo "pkg_tag=\"${_ver}\";"
+      echo "pkg_repo=\"${_repo}\";"
+      echo "pkg_npm=\"${_npm}\";"
     )
 
+    auto_update='null'; auto_update_git='null'; auto_update_github_tag='null'; auto_update_npm='null'; pkg_tag='null'; pkg_repo='null'; pkg_npm='null' # Overwrite variables with 'null' value
     eval "$build_vars"
 
     # ignore the package if auto-update isn't enabled
@@ -72,31 +75,38 @@ update_package() {
       return 0
     fi
 
-    # check latest version from github by tags
+    version='null'; latest_tag='null' # Overwrite variables with 'null' value
+
+    # ignore the package if it is built from git (master branch)
     if [ "$auto_update_github_tag" == true ]
     then
-      local latest_tag=$(curl --location --silent -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/tags" | jq -r '.[0].name')
+      return 0
+
+    # check latest version from github by tags
+    elif [ "$auto_update_github_tag" == true ]
+    then
+      latest_tag=$(curl --location --silent -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/tags" | jq -r '.[0].name')
 
       # Translate "_" into ".": some packages use underscores to seperate
       # version numbers, but we require them to be separated by dots.
-      local version=${latest_tag//_/.}
+      version=${latest_tag//_/.}
 
       # Remove leading 'v' or 'r'
-      local version=${version#[v,r]}
+      version=${version#[v,r]}
 
       # Translate "-" into ".": pacman does not support - in pkgver
-      local version=${version//-/.}
+      version=${version//-/.}
 
     # check latest version from npmjs.org
     elif [ "$auto_update_npm" == true ]
     then
-      local latest_tag=$(curl --location --silent "https://unpkg.com/$pkg_npm/package.json" | jq -r ".version")
-      local version=$latest_tag
+      latest_tag=$(curl --location --silent "https://unpkg.com/$pkg_npm/package.json" | jq -r ".version")
+      version=$latest_tag
 
     # check latest version from github by releases
     elif [ ! -f "$PKGDIR/_version" ]
     then
-      local latest_tag=$(curl --silent --location -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/releases/latest" | jq -r .tag_name)
+      latest_tag=$(curl --silent --location -H "Authorization: token $GITHUB_API_TOKEN" "https://api.github.com/repos/$pkg_repo/releases/latest" | jq -r .tag_name)
 
       # If the github api returns error
       if [ -z "$latest_tag" ] || [ "$latest_tag" = "null" ]
@@ -107,21 +117,21 @@ update_package() {
 
       # Translate "_" into ".": some packages use underscores to seperate
       # version numbers, but we require them to be separated by dots.
-      local version=${latest_tag//_/.}
+      version=${latest_tag//_/.}
 
       # Remove leading 'v' or 'r'
-      local version=${version#[v,r]}
+      version=${version#[v,r]}
 
       # Translate "-" into ".": pacman does not support - in pkgver
-      local version=${version//-/.}
+      version=${version//-/.}
 
     # check version from custom function using '_version' file
     elif [ -f "$PKGDIR/_version" ]
     then
       custom_vars=$(
         . "$PKGDIR/_version"
-        echo "local latest_tag=${_ver};"
-        echo "local version=\"${pkgver}\";"
+        echo "latest_tag=${_ver};"
+        echo "version=\"${pkgver}\";"
       )
 
       eval "$custom_vars"
