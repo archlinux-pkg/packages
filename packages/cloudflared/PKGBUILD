@@ -22,7 +22,7 @@ build() {
   local _flags
   _flags=(
     -X main.Version="$pkgver"
-    -X main.BuildTime=$(date -u '+%Y.%m.%d-%H:%M UTC')
+    -X main.BuildTime=$(date -u '+%Y.%m.%d-%H:%M')
   )
 
   export CGO_CPPFLAGS="$CPPFLAGS"
