@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 # ? add ssh public keys
 mkdir -p ~/.ssh
 ssh-keyscan -H "$FTP_URI" >> ~/.ssh/known_hosts
