@@ -9,6 +9,8 @@ TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 mkdir -p "$TEMPDIR/git"
 
 update_package() {
+  set -e -u
+
   PKGDIR="$1"
   PKGNAME=$(basename $1)
 
@@ -25,7 +27,7 @@ update_package() {
     eval "$custom_vars"
 
     # clone repository from AUR
-    git clone "$git_repo" "$TEMPDIR/git/$PKGNAME" --depth 1 &> /dev/null
+    git clone "$git_repo" "$TEMPDIR/git/$PKGNAME" --depth 1 #&> /dev/null
 
     # check the latest commit of the package in AUR
     commit_long='null'; commit_short='null' # Overwrite variables with 'null' value
@@ -44,8 +46,6 @@ update_package() {
       # commit and push changes
       git add "$PKGDIR"
       git diff-index --quiet HEAD || git commit -m "update '$PKGNAME' to AUR commit '$commit_short'"
-      git pull --rebase &> /dev/null
-      git push &> /dev/null
     fi
 
     return 0
@@ -78,7 +78,7 @@ update_package() {
     version='null'; latest_tag='null' # Overwrite variables with 'null' value
 
     # ignore the package if it is built from git (master branch)
-    if [ "$auto_update_github_tag" == true ]
+    if [ "$auto_update_git" == true ]
     then
       return 0
 
@@ -163,13 +163,28 @@ update_package() {
 
       git add "$PKGDIR/PKGBUILD"
       git commit -m "update '$PKGNAME' to '$version'"
-      git pull --rebase &> /dev/null
-      git push &> /dev/null
     fi
   fi
 }
 
 for PKGDIR in "$BASEDIR"/packages/* "$BASEDIR"/long-build/*
 do
+  echo "::group::==> Updating package '$(basename $PKGDIR)'..."
+  sleep 0.2
+  set -x
+
   update_package "$PKGDIR"
+  EXIT_CODE=$?
+
+  if ! (( $EXIT_CODE ))
+  then
+    git pull --rebase &> /dev/null
+    git push
+  else
+    echo "failed to update package '$(basename $PKGDIR)'!"
+  fi
+
+  set +x
+  echo "::endgroup::"
+  sleep 0.2
 done

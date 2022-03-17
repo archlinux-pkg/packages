@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/mozillavpn.git'
-_commit='3e244c5e842b696e5c70d24cbdaaf34f9b10bae8'
+_commit='3d069794eeb6ce0156c87c096948111697f71076'
