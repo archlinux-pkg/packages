@@ -1,10 +1,10 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='quantumsheep/sshs'
-_ver=2.1.2
+_ver=3.0.0
 _auto_update=true
 
 pkgname='sshs'
-pkgver=2.1.2
+pkgver=3.0.0
 pkgrel=1
 pkgdesc='Terminal user interface for SSH'
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('glibc' 'openssh')
 makedepends=('git' 'go')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
-sha512sums=('cda06169f62926f7aa7428baa828a80ccc8761927f6c605003046ebc842c2ab09514f5938e64442f88631f3a4bb9fb85144d7d2fe8f3165eb8ce9860a5209d0a')
+sha512sums=('f5bfd43effcd5e46993bae0e07b57ba2859542b1b392a08dc15a87e87f3ebd2504012f23bc3cea81117147deb1aeb60c11e0a61244ab74d565f1bedd882697b3')
 
 build() {
   cd "$pkgname-$pkgver"
