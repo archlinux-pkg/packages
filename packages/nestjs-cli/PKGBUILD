@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _npm='@nestjs/cli'
-_ver=8.1.8
+_ver=8.2.3
 _auto_update=true
 _auto_update_npm=true
 
 pkgname='nestjs-cli'
-pkgver=8.1.8
+pkgver=8.2.3
 pkgrel=1
 replaces=("nodejs-$pkgname")
 provides=("nodejs-$pkgname")
@@ -20,7 +20,7 @@ makedepends=('npm')
 _file="cli-$pkgver.tgz"
 source=("https://registry.npmjs.org/$_npm/-/$_file")
 noextract=("$_file")
-sha256sums=('d1e3e6fa67129af368b95fdefc9e0d9a48b3cc2cb03d993cc932c0bf6171010e')
+sha256sums=('ea78c87c9acf6957600c87f6678343832c3a6cb01151cd2b71f7dd767a3c1d53')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$_file"
