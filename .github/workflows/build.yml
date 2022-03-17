@@ -118,13 +118,10 @@ jobs:
           mkdir pkgs
           mv *.pkg.tar* pkgs/
 
-          if [ -f ./pkgs/*.tar* ]
-          then
-            for file in ./pkgs/*.pkg.tar*
-            do
-              gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
-            done
-          fi
+          for file in ./pkgs/*.pkg.tar*
+          do
+            gpg --detach-sign --use-agent --default-key 7A6646A6C14690C0 --batch --yes "$file"
+          done
 
       - name: Upload packages
         if: always() && github.event_name != 'pull_request'
@@ -134,7 +131,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_CWD: ${{ secrets.FTP_CWD }}
         run: |
-          if [ -f ./pkgs/*.tar* ]
-          then
-            ./.github/scripts/upload.sh
-          fi
+          ./.github/scripts/upload.sh
