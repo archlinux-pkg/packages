@@ -1,2 +1,2 @@
-_git='https://aur.archlinux.org/yay.git'
-_commit='b773371c25f6685b2d3a031a40f0b6af447965d0'
+_git='https://aur.archlinux.org/dxvk-bin.git'
+_commit='1fa14489683437bbea5f20e0a627a62954629889'
