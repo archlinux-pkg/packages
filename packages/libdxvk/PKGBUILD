@@ -1,7 +1,8 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='Joshua-Ashton/dxvk-native'
 _ver=native-1.9.2a
-#_auto_update=true
+_auto_update=true
+_auto_update_regexp="\d+\.\d+\.\d+"
 
 pkgbase=libdxvk
 pkgname=('libdxvk' 'lib32-libdxvk')

@@ -59,7 +59,7 @@ update_package() {
       echo "auto_update_git=$_auto_update_git;"
       echo "auto_update_github_tag=$_auto_update_github_tag;"
       echo "auto_update_npm=$_auto_update_npm;"
-      echo "version_regexp=$_auto_update_regex;"
+      echo "version_regexp=$_auto_update_regexp;"
       echo "pkg_tag=\"${_ver}\";"
       echo "pkg_repo=\"${_repo}\";"
       echo "pkg_npm=\"${_npm}\";"
