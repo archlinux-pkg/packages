@@ -9,8 +9,6 @@ TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 mkdir -p "$TEMPDIR/git"
 
 update_package() {
-  set -e -u
-
   PKGDIR="$1"
   PKGNAME=$(basename $1)
 
