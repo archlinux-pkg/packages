@@ -1,11 +1,10 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='golang/go'
-_ver=baf61e4a67789e20f019507287a324cca06bed42
 _auto_update=true
-_auto_update_git=true
+_auto_update_rebuild='12h'
 
 pkgname=go-git
-pkgver=9956a5423e40bab92c572489eae26ba80ed803ab
+pkgver=go1.18beta2.r375.gc379c3d58d5
 pkgrel=1
 replaces=('go')
 provides=('go')

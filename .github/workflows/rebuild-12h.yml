@@ -1,0 +1,22 @@
+name: Update repo
+
+on:
+  schedule:
+    - cron:  '* */12 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  update-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Rebuild packages
+        env:
+          SSHPASS: ${{ secrets.SSHPASS }}
+          SSHUSER: ${{ secrets.SSHUSER }}
+          SSHHOST: ${{ secrets.SSHHOST }}
+        run: ./.github/scripts/rebuild-packages.sh
