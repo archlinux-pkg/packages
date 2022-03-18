@@ -1,8 +1,8 @@
-name: Update repo
+name: Rebuild every 12h
 
 on:
   schedule:
-    - cron:  '* */12 * * *'
+    - cron:  '0 */12 * * *'
 
   workflow_dispatch:
 
@@ -16,7 +16,5 @@ jobs:
 
       - name: Rebuild packages
         env:
-          SSHPASS: ${{ secrets.SSHPASS }}
-          SSHUSER: ${{ secrets.SSHUSER }}
-          SSHHOST: ${{ secrets.SSHHOST }}
-        run: ./.github/scripts/rebuild-packages.sh
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_REBUILD }}
+        run: ./.github/scripts/rebuild-packages.sh 12h

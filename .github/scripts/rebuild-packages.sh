@@ -57,15 +57,22 @@ rebuild_package() {
     # trigger rebuild packge
     if [ "$auto_update_rebuild" == "$REBUILDTYPE" ]
     then
-      echo "{\"packages\":\"$PKGNAME\"}" | gh workflow run build.yml --json
+      gh workflow run build.yml -f packages="$PKGNAME"
       EXIT_CODE=$?
 
-      echo "Rebuild was triggered for the package '$PKGNAME'"
+      echo "Rebuild was triggered for the package '$PKGNAME' | exit code $EXIT_CODE"
 
       return $EXIT_CODE
     fi
   fi
 }
+
+if [ -z "$1" ]
+then
+  echo "No argument supplied"
+
+  exit 1
+fi
 
 for PKGDIR in "$BASEDIR"/packages/* "$BASEDIR"/long-build/*
 do
