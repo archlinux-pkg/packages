@@ -63,7 +63,7 @@ build() {
   _pick dest-src  usr/lib/rustlib/src
 }
 
-package_rust() {
+package_rust-nightly() {
   optdepends=('lldb: rust-lldb script'
               'gdb: rust-gdb script')
   provides=(cargo rustfmt)
@@ -73,7 +73,7 @@ package_rust() {
   cp -a dest-rust/* "$pkgdir"
 }
 
-package_rust-src() {
+package_rust-nightly-src() {
   pkgdesc="Source code for the Rust standard library"
   depends=(rust)
 
