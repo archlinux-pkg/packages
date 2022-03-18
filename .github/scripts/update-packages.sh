@@ -59,12 +59,13 @@ update_package() {
       echo "auto_update_git=$_auto_update_git;"
       echo "auto_update_github_tag=$_auto_update_github_tag;"
       echo "auto_update_npm=$_auto_update_npm;"
+      echo "version_regexp=$_auto_update_regex;"
       echo "pkg_tag=\"${_ver}\";"
       echo "pkg_repo=\"${_repo}\";"
       echo "pkg_npm=\"${_npm}\";"
     )
 
-    auto_update='null'; auto_update_git='null'; auto_update_github_tag='null'; auto_update_npm='null'; pkg_tag='null'; pkg_repo='null'; pkg_npm='null' # Overwrite variables with 'null' value
+    auto_update='null'; auto_update_git='null'; auto_update_github_tag='null'; auto_update_npm='null'; pkg_tag='null'; pkg_repo='null'; pkg_npm='null'; version_regexp='null'; # Overwrite variables with 'null' value
     eval "$build_vars"
 
     # ignore the package if auto-update isn't enabled
@@ -133,6 +134,11 @@ update_package() {
       )
 
       eval "$custom_vars"
+    fi
+
+    # if needed, filter version numbers by using regexp
+    if [ -n "$version_regexp" ]; then
+      latest_version=$(grep -oP "$version_regexp" <<< "$latest_version" || true)
     fi
 
     # if the version is incorrect
