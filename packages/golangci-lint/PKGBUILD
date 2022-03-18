@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='golangci/golangci-lint'
-_ver=v1.44.2
+_ver=v1.45.0
 _auto_update=true
 
 _pkgname='golangci-lint'
 pkgname="${_pkgname}"
-pkgver=1.44.2
+pkgver=1.45.0
 pkgrel=1
 pkgdesc='Linters Runner for Go. 5x faster than gometalinter'
 arch=('x86_64')
