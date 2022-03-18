@@ -1,0 +1,84 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_auto_update=true
+_auto_update_rebuild='12h'
+
+pkgbase=rust-nightly
+pkgname=("$pkgbase" "$pkgbase-src")
+pkgver=0.11.3
+pkgrel=2
+pkgdesc='Systems programming language focused on safety, speed and concurrency'
+arch=('x86_64')
+url='https://www.rust-lang.org/'
+license=('MIT' 'Apache')
+
+depends=('gcc-libs' 'llvm-libs' 'curl' 'libssh2 gcc')
+makedepends=('rust' 'llvm' 'libffi' 'perl' 'python' 'cmake' 'musl'
+             'ninja' 'lld')
+
+_src="https://static.rust-lang.org/dist/rustc-nightly-src.tar.xz"
+source=("$_src")
+sha256sums=("$(curl -sL $_src.sha256 | cut -d\  -f1)")
+
+options=(!emptydirs !strip !lto)
+
+pkgver() {
+  cd "$srcdir/rustc-nightly-src"
+  ver="$(expr "$(cat version)" : '\(.*\)-nightly')"
+  date="$(expr "$(cat version)" : '.* \(.*\))')"
+  echo "${ver}_${date//\-/.}"
+}
+
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/$f"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+build() {
+  cd "$srcdir/rustc-nightly-src"
+
+  export RUST_BACKTRACE=1
+
+  DESTDIR="$srcdir/dest-rust" python ./x.py install -j "$(nproc)"
+
+  cd "$srcdir/dest-rust"
+
+  # delete unnecessary files, e.g. files only used for the uninstall script
+  rm usr/lib/rustlib/{components,install.log,rust-installer-version,uninstall.sh}
+  rm usr/lib/rustlib/manifest-*
+
+  # rustbuild always installs copies of the shared libraries to /usr/lib,
+  # overwrite them with symlinks to the per-architecture versions
+  mkdir -p usr/lib32
+  ln -srft usr/lib   usr/lib/rustlib/x86_64-unknown-linux-gnu/lib/*.so
+  ln -srft usr/lib32 usr/lib/rustlib/i686-unknown-linux-gnu/lib/*.so
+
+  mkdir -p usr/share/licenses/rust
+  mv -t usr/share/licenses/rust usr/share/doc/rust/{COPYRIGHT,LICENSE*}
+
+  _pick dest-src  usr/lib/rustlib/src
+}
+
+package_rust() {
+  optdepends=('lldb: rust-lldb script'
+              'gdb: rust-gdb script')
+  provides=(cargo rustfmt)
+  conflicts=(cargo rustfmt 'rust-docs<1:1.56.1-3')
+  replaces=(cargo rustfmt cargo-tree 'rust-docs<1:1.56.1-3')
+
+  cp -a dest-rust/* "$pkgdir"
+}
+
+package_rust-src() {
+  pkgdesc="Source code for the Rust standard library"
+  depends=(rust)
+
+  cp -a dest-src/* "$pkgdir"
+
+  mkdir -p "$pkgdir/usr/share/licenses"
+  ln -s rust "$pkgdir/usr/share/licenses/$pkgname"
+}
