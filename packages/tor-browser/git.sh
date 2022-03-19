@@ -1,3 +1,3 @@
 #!/bin/bash
 _git='https://aur.archlinux.org/tor-browser.git'
-_commit='6d53de1456d5065f1f79202e2d3f6f2f137fb999'
+_commit='9d3eeaced787841e9256a23904b7cc024742fec2'
