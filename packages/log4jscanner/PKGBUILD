@@ -1,12 +1,12 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='cloudflare/cloudflared'
-_ver=2022.3.3
+_repo='google/log4jscanner'
+_ver=v0.4.0
 _auto_update=true
 
-pkgname='cloudflared'
-pkgver=2022.3.3
+pkgname='log4jscanner'
+pkgver=0.4.0
 pkgrel=1
-pkgdesc='Cloudflare Tunnel client (formerly Argo Tunnel)'
+pkgdesc='log4j vulnerability filesystem scanner for analyzing JAR files'
 arch=('x86_64')
 url="https://github.com/$_repo"
 license=('Apache')
@@ -14,16 +14,10 @@ license=('Apache')
 makedepends=('go')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
-sha256sums=('da352ea84032f8d1143b239041e8092eff0a35a4966b63cf46d073522dc37672')
+sha256sums=('89ba6a9a20fd8342c21e224633f6103aa67b35a6f4e59e28861811300a7012b8')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
-
-  local _flags
-  _flags=(
-    -X main.Version="$pkgver"
-    -X main.BuildTime="$(date -u -d "@$SOURCE_DATE_EPOCH" +'%FT%TZ')"
-  )
+  cd "$pkgname-$pkgver"
 
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
@@ -33,13 +27,12 @@ build() {
 
   go build \
     -v \
-    -ldflags "${_flags[*]}" \
     -o bin/$pkgname \
-    ./cmd/$pkgname
+    .
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
   install -Dm 755 bin/$pkgname "$pkgdir/usr/bin/$pkgname"
-  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm 644 LICENSE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
