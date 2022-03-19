@@ -3,47 +3,43 @@ _repo='golangci/golangci-lint'
 _ver=v1.45.0
 _auto_update=true
 
-_pkgname='golangci-lint'
-pkgname="${_pkgname}"
+pkgname='golangci-lint'
 pkgver=1.45.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Linters Runner for Go. 5x faster than gometalinter'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/$_repo"
 license=('GPL3')
 
-depends=('glibc')
-makedepends=('git' 'go')
+makedepends=('go')
 
-source=("${_pkgname}::git+${url}#tag=${_ver}")
-sha256sums=('SKIP')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+sha256sums=('47e9146ce9e6d1617284ffdab8dccf6d35a6aad9d4ccca8cc763dbb63ede1525')
 
 build() {
-  cd "${_pkgname}"
+  cd "$pkgname-$pkgver"
 
   local _flags
   _flags=(
-    -s -w
-    -X main.version="${pkgver}"
-    -X main.date="$(date -u -d "@${SOURCE_DATE_EPOCH}" +'%FT%TZ')"
+    -X main.version="$pkgver"
+    -X main.date="$(date -u -d "@$SOURCE_DATE_EPOCH" +'%FT%TZ')"
   )
 
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
   export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -modcacherw"
 
   go build \
     -v \
     -ldflags "${_flags[*]}" \
-    -o bin/${_pkgname} \
-    ./cmd/${_pkgname}
+    -o bin/$pkgname \
+    ./cmd/$pkgname
 }
 
 package() {
-  cd "${_pkgname}"
-
-  install -Dm 755 bin/${_pkgname} "${pkgdir}/usr/bin/${_pkgname}"
-  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd "$pkgname-$pkgver"
+  install -Dm 755 bin/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
