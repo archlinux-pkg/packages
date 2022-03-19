@@ -23,7 +23,7 @@ build() {
   local _flags
   _flags=(
     -X main.version="$pkgver"
-    -X main.builtBy="MedzikUser <nivua1fn@duck.com>"
+    -X main.builtBy="medzikuser"
   )
 
   export CGO_CPPFLAGS="$CPPFLAGS"
