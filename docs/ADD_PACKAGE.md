@@ -2,8 +2,6 @@
 
 A short tutorial on how to add a new package to the repo
 
----
-
 ## New package from AUR
 
 - In the `packages` folder, create a folder with a name corresponding to the package
@@ -18,6 +16,8 @@ _commit='{{AUR_PACKAGE_LATEST_COMMIT}}'
   - `cd {{AUR_PACKAGE_NAME}}`
   - `git log -n 1 --pretty=format:'%H'`
 - Send [PR]
+
+---
 
 ## New package that is not in the AUR (or does not compile, or is outdated/dropped)
 
