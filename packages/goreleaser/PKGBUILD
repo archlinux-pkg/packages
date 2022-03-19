@@ -3,47 +3,44 @@ _repo='goreleaser/goreleaser'
 _ver=v1.6.3
 _auto_update=true
 
-_pkgname='goreleaser'
-pkgname="${_pkgname}"
+pkgname="goreleaser"
 pkgver=1.6.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Deliver Go binaries as fast and easily as possible'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/$_repo"
 license=('MIT')
 
-depends=('glibc' 'go')
-makedepends=('git' 'go')
+depends=('go')
+makedepends=('go')
 
-source=("${_pkgname}::git+${url}#tag=${_ver}")
-sha256sums=('SKIP')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+sha256sums=('c5dc5e8fabbb722f586beef813171de14e94ddcef0466aea0d69c072da258664')
 
 build() {
-  cd "${_pkgname}"
+  cd "$pkgname-$pkgver"
 
   local _flags
   _flags=(
-    -s -w
-    -X main.version="${pkgver}"
-    -X main.builtBy="medzikuser"
+    -X main.version="$pkgver"
+    -X main.builtBy="MedzikUser <nivua1fn@duck.com>"
   )
 
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
   export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -modcacherw"
 
   go build \
     -v \
     -ldflags "${_flags[*]}" \
-    -o bin/${_pkgname} \
+    -o bin/$pkgname \
     .
 }
 
 package() {
-  cd "${_pkgname}"
-
-  install -Dm 755 bin/${_pkgname} "$pkgdir/usr/bin/${_pkgname}"
-  install -Dm 644 LICENSE.md "$pkgdir/usr/share/licenses/${pkgname}/LICENSE"
+  cd "$pkgname-$pkgver"
+  install -Dm 755 bin/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm 644 LICENSE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
