@@ -1,11 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _repo='Forkgram/tdesktop'
-_ver=v0.14.27
+_ver=v3.6.1
 _auto_update=true
 
 pkgname=forkgram
 _pkgname=frk
-pkgver=v0.14.27
+pkgver=3.6.1
 pkgrel=1
 provides=("telegram-desktop")
 conflicts=("telegram-desktop" "tdesktop-x64")
