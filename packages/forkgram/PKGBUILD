@@ -1,0 +1,65 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_repo='Forkgram/tdesktop'
+_ver=v0.14.27
+_auto_update=true
+
+pkgname=forkgram
+_pkgname=frk
+pkgver=v0.14.27
+pkgrel=1
+provides=("telegram-desktop")
+conflicts=("telegram-desktop" "tdesktop-x64")
+replaces=("tdesktop-x64")
+pkgdesc='Fork of Telegram Desktop messaging app.'
+arch=('x86_64' 'x86_64_v3')
+url="https://github.com/$_repo"
+license=('GPL3')
+
+depends=('hunspell' 'ffmpeg4.4' 'hicolor-icon-theme' 'lz4' 'minizip' 'openal' 'ttf-opensans'
+         'qt6-imageformats' 'qt6-svg' 'qt6-wayland' 'qt6-5compat' 'xxhash' 'glibmm'
+         'rnnoise' 'pipewire' 'libxtst' 'libxrandr' 'jemalloc' 'abseil-cpp' 'libdispatch')
+makedepends=('cmake' 'git' 'ninja' 'python' 'range-v3' 'tl-expected' 'microsoft-gsl' 'meson'
+             'extra-cmake-modules' 'wayland-protocols' 'plasma-wayland-protocols' 'libtg_owt')
+optdepends=('gtk3: GTK environment integration'
+            'webkit2gtk: embedded browser features'
+            'xdg-desktop-portal: desktop integration')
+
+source=("https://github.com/Forkgram/tdesktop/releases/download/$_ver/$_pkgname-$_ver-full.tar.gz")
+sha512sums=('edd299332e941384ff82c58a7c978f5b6e43dc24f8272a03a0efc0650868d26c3309d388abc7f4b8a06157ab5f81fc79a4d76c7d6e18394277900839392a98b8')
+
+build() {
+  cd "$_pkgname-$_ver-full"
+
+  # Fix https://bugs.archlinux.org/task/73220
+  export CXXFLAGS+=" -Wp,-U_GLIBCXX_ASSERTIONS"
+
+  export PKG_CONFIG_PATH='/usr/lib/ffmpeg4.4/pkgconfig'
+
+  # Official API ID&Hash by default
+  cmake . \
+    -B build \
+    -G Ninja \
+    -DCMAKE_INSTALL_PREFIX="/usr" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DTDESKTOP_API_ID=611335 \
+    -DTDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c \
+    -DDESKTOP_APP_DISABLE_AUTOUPDATE=ON
+
+  # Hack to compile for ffmpeg4.4
+  sed -i "s|/usr/lib/libav|/usr/lib/ffmpeg4.4/libav|g" build/build.ninja
+  sed -i "s|/usr/lib/libsw|/usr/lib/ffmpeg4.4/libsw|g" build/build.ninja
+  sed -i "s|-lavcodec|/usr/lib/ffmpeg4.4/libavcodec.so|g" build/build.ninja
+  sed -i "s|-lavformat|/usr/lib/ffmpeg4.4/libavformat.so|g" build/build.ninja
+  sed -i "s|-lavutil|/usr/lib/ffmpeg4.4/libavutil.so|g" build/build.ninja
+  sed -i "s|-lswscale|/usr/lib/ffmpeg4.4/libswscale.so|g" build/build.ninja
+  sed -i "s|-lswresample|/usr/lib/ffmpeg4.4/libswresample.so|g" build/build.ninja
+
+  ninja -C build
+}
+
+package() {
+  cd "$_pkgname-$_ver-full"
+  DESTDIR=$pkgdir ninja -C build install
+  # They botched the release and put a lot of stuff here.
+  rm -rf "$pkgdir/build"
+}
