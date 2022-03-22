@@ -1,9 +1,5 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='Forkgram/tdesktop'
-_ver=v3.6.1
-_auto_update=true
-
-pkgname=forkgram
+pkgname='forkgram'
 _pkgname=frk
 pkgver=3.6.1
 pkgrel=1
@@ -12,7 +8,7 @@ conflicts=("telegram-desktop" "tdesktop-x64")
 replaces=("tdesktop-x64")
 pkgdesc='Fork of Telegram Desktop messaging app.'
 arch=('x86_64' 'x86_64_v3')
-url="https://github.com/$_repo"
+url="https://github.com/Forkgram/tdesktop"
 license=('GPL3')
 
 depends=('hunspell' 'ffmpeg4.4' 'hicolor-icon-theme' 'lz4' 'minizip' 'openal' 'ttf-opensans'
@@ -24,11 +20,11 @@ optdepends=('gtk3: GTK environment integration'
             'webkit2gtk: embedded browser features'
             'xdg-desktop-portal: desktop integration')
 
-source=("https://github.com/Forkgram/tdesktop/releases/download/$_ver/$_pkgname-$_ver-full.tar.gz")
+source=("https://github.com/Forkgram/tdesktop/releases/download/v$pkgver/$_pkgname-v$pkgver-full.tar.gz")
 sha512sums=('edd299332e941384ff82c58a7c978f5b6e43dc24f8272a03a0efc0650868d26c3309d388abc7f4b8a06157ab5f81fc79a4d76c7d6e18394277900839392a98b8')
 
 build() {
-  cd "$_pkgname-$_ver-full"
+  cd "$_pkgname-v$pkgver-full"
 
   # Fix https://bugs.archlinux.org/task/73220
   export CXXFLAGS+=" -Wp,-U_GLIBCXX_ASSERTIONS"
@@ -58,7 +54,7 @@ build() {
 }
 
 package() {
-  cd "$_pkgname-$_ver-full"
+  cd "$_pkgname-v$pkgver-full"
   DESTDIR=$pkgdir ninja -C build install
   # They botched the release and put a lot of stuff here.
   rm -rf "$pkgdir/build"

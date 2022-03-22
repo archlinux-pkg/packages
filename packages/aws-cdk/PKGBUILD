@@ -1,24 +1,19 @@
-# Maintainer: MedzikUser <nivua1fn@duck.com>
-_npm='aws-cdk'
-_ver=2.17.0
-_auto_update=true
-_auto_update_npm=true
-
-pkgname="$_npm"
-pkgver=2.17.0
+# Maintainer: MedzikUser <nivua1fn@duck.com>\
+pkgname='aws-cdk'
+pkgver='2.17.0'
 pkgrel=1
 pkgdesc='CDK Toolkit, the command line tool for CDK app'
 arch=('any')
-url="https://github.com/awslabs/aws-cdk"
+url='https://github.com/awslabs/aws-cdk'
 license=('Apache')
 
 depends=('nodejs')
 makedepends=('npm')
 
-_file="$_npm-$pkgver.tgz"
-source=("$_file::https://registry.npmjs.org/$_npm/-/$_file")
+_file="$pkgname-$pkgver.tgz"
+source=("$_file::https://registry.npmjs.org/$pkgname/-/$_file")
 noextract=("$_file")
-sha256sums=('c2d611deb68254e0698f5cdb6cfb8b3bc5080567fdaf9c4c61f54b153efd31c8')
+sha512sums=('8113cfa5338d3a3b50e3403cb1cd92cd73c60f316555b48f3edb35a633b1e15049d92f7503438ddc591bcbe5d7fd7a9da351884d358093955ae0f9e863252198')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"

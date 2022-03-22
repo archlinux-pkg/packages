@@ -5,10 +5,11 @@ A short tutorial on how to add a new package to the repo
 ## New package from AUR
 
 - In the `packages` folder, create a folder with a name corresponding to the package
-- Create a `git.sh` file in which you add a few lines:
-```bash
-_git='https://aur.archlinux.org/{{AUR_PACKAGE_NAME}}.git'
-_commit='{{AUR_PACKAGE_LATEST_COMMIT}}'
+- Create a `auto-update.yaml` file in which you add a few lines:
+```yaml
+aur:
+  name: '{{AUR_PACKAGE_NAME}}'
+  commit: '{{AUR_PACKAGE_LATEST_COMMIT}}'
 ```
 - replace `{{AUR_PACKAGE_NAME}}` with a package name like `imgurs`
 - and replace `{{AUR_PACKAGE_NAME}}` with the latest commit from AUR e.g. `d7277ef73f29714dc22c5f3e8265c847bc0fdd41` to get it, type:

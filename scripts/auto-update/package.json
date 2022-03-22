@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "setup": "npm install && tsc -p tsconfig.json",
+    "update": "npm run setup && node dist/index.js"
+  },
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.1",
+    "@octokit/core": "^3.6.0",
+    "cross-fetch": "^3.1.5",
+    "typescript": "^4.6.2",
+    "yaml": "^2.0.0-10"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21"
+  }
+}

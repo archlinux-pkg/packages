@@ -1,20 +1,15 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='kornelski/cargo-deb'
-_ver=v1.36.0
-_auto_update=true
-_auto_update_github_tag=true
-
 pkgname='cargo-deb'
 pkgver=1.36.0
 pkgrel=1
 pkgdesc='Cargo subcommand that generates Debian packages'
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/kornelski/cargo-deb"
 license=('MIT')
 
 depends=('cargo')
 
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver/$pkgname-$_ver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
 sha256sums=('786fc0ec130f0bb1fa37e7d884795d8a8d80ba361da6cc6d1e9a54dd4397ac88')
 
 build() {

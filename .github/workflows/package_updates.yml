@@ -19,11 +19,18 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_PUSH_TOKEN }}
 
-      - name: Process package updates
-        env:
-          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_PUSH_TOKEN: ${{ secrets.GH_PUSH_TOKEN }}
+      - name: Setup GIT
         run: |
           git config --global user.name "MedzikUserBot"
           git config --global user.email "rm99iv9s@duck.com"
-          ./.github/scripts/update-packages.sh
+
+      - name: Install Dependencies
+        run: sudo pacman -S --noconfirm npm
+
+      - name: Setup Auto Update Script
+        run: npm run setup --prefix ./scripts/auto-update
+
+      - name: Auto Update
+        uses: ./scripts/auto-update
+        env:
+          token: ${{ secrets.GITHUB_TOKEN }}

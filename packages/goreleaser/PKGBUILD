@@ -1,20 +1,16 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='goreleaser/goreleaser'
-_ver=v1.6.3
-_auto_update=true
-
 pkgname="goreleaser"
 pkgver=1.6.3
 pkgrel=2
 pkgdesc='Deliver Go binaries as fast and easily as possible'
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/goreleaser/goreleaser"
 license=('MIT')
 
 depends=('go')
 makedepends=('go')
 
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('c5dc5e8fabbb722f586beef813171de14e94ddcef0466aea0d69c072da258664')
 
 build() {

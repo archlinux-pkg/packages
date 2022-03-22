@@ -5,7 +5,7 @@ _auto_update=true
 _auto_update_npm=true
 
 pkgname="$_npm"
-pkgver=11.0.0
+pkgver='11.0.0'
 pkgrel=1
 pkgdesc='Netlify Node.js API client'
 arch=('any')

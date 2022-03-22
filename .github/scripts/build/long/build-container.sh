@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+# install yaml parser
+wget https://github.com/mikefarah/yq/releases/download/v4.23.1/yq_linux_amd64
+chmod +x yq_linux_amd64
+
 echo "::group::Generating source archive..."
 
 ROOT_DIR=$(pwd)
@@ -11,13 +15,11 @@ PACKAGE="$(cat $ROOT_DIR/built_packages.txt)"
 
 pkgdir="$ROOT_DIR/long-build/$PACKAGE"
 
-if [ -f "$pkgdir/git.sh" ]
+if [ ! -f "$pkgdir/PKGBUILD" ]
 then
-  custom_vars=$(
-    . "${pkgdir}/git.sh"
-    echo "git_repo=${_git};"
-    echo "commit=${_commit};"
-  )
+  git_repo=$($ROOT_DIR/yq_linux_amd64 '.aur.name' "$pkgdir/auto-update.yaml")
+  git_repo="https://aur.archlinux.org/$git_repo.git"
+  commit=$($ROOT_DIR/yq_linux_amd64 '.aur.commit' "$pkgdir/auto-update.yaml")
 
   eval "${custom_vars}"
 

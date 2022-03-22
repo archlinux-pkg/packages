@@ -1,17 +1,16 @@
 #!/bin/bash
-#? This file is a modified version of: https://github.com/termux/termux-packages/blob/715ce90c53eb9e44c12a5378df907a94522f7df2/build-package.sh
+# This file is a modified version of: https://github.com/termux/termux-packages/blob/715ce90c53eb9e44c12a5378df907a94522f7df2/build-package.sh
 
-#? variables
+# variables
 SRCDIR='/mnt/src'
 TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 PACKAGES_TO_BUILD_DIR="$TEMPDIR/packages/tobuild"
 
-#? makepkg variables
+# makepkg variables
 MAKEPKGARGS='--rmdeps --clean --skippgpcheck --noconfirm --nocheck'
 export BUILDDIR='/mnt/build'
 export PKGDEST='/mnt/pkgs'
 
-#? set home dir
 export HOME='/mnt/home'
 
 mkdir -p "$PACKAGES_TO_BUILD_DIR"
@@ -20,16 +19,20 @@ sudo chown -R $(id -u) /mnt/*
 
 cd "$SRCDIR"
 
+# install yaml parser
+wget https://github.com/mikefarah/yq/releases/download/v4.23.1/yq_linux_amd64
+chmod +x yq_linux_amd64
+
 echo "==> Creating /etc/buildtime..."
 echo $(date +"%s") | sudo tee /etc/buildtime
 
-#* check the packages to built
+# check the packages to built
 while IFS= read -r name
 do
   touch "$PACKAGES_TO_BUILD_DIR/$name"
 done < "$SRCDIR/built_packages.txt"
 
-#* built packages one by one
+# built packages one by one
 for FILE in $PACKAGES_TO_BUILD_DIR/*
 do
   pkgname="$(basename $FILE)"
@@ -37,13 +40,11 @@ do
 
   echo "::group::==> Building '$pkgname'"
 
-  if [ -f "$pkgdir/git.sh" ]
+  if [ ! -f "$pkgdir/PKGBUILD" ]
   then
-    custom_vars=$(
-      . "$pkgdir/git.sh"
-      echo "git_repo=${_git};"
-      echo "commit=${_commit};"
-    )
+    git_repo=$($SRCDIR/yq_linux_amd64 '.aur.name' "$pkgdir/auto-update.yaml")
+    git_repo="https://aur.archlinux.org/$git_repo.git"
+    commit=$($SRCDIR/yq_linux_amd64 '.aur.commit' "$pkgdir/auto-update.yaml")
 
     eval "$custom_vars"
 

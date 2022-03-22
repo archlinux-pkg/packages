@@ -10,6 +10,7 @@ env.sh
 *.zip
 *.rar
 *.7z
+*.part
 
 # makepkg
 packages/*/src

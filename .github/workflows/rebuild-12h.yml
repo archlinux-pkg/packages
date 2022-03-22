@@ -14,7 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Rebuild packages
+      - name: Setup Auto Update Script
+        run: npm run setup --prefix ./scripts/auto-update
+
+      - name: Auto Update
+        uses: ./scripts/auto-update
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_REBUILD }}
-        run: ./.github/scripts/rebuild-packages.sh 12h
+          token: ${{ secrets.GITHUB_TOKEN }}
+          rebuild: 12h

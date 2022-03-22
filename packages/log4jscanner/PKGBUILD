@@ -1,19 +1,15 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='google/log4jscanner'
-_ver=v0.4.0
-_auto_update=true
-
 pkgname='log4jscanner'
 pkgver=0.4.0
 pkgrel=1
 pkgdesc='log4j vulnerability filesystem scanner for analyzing JAR files'
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/google/log4jscanner"
 license=('Apache')
 
 makedepends=('go')
 
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('89ba6a9a20fd8342c21e224633f6103aa67b35a6f4e59e28861811300a7012b8')
 
 build() {

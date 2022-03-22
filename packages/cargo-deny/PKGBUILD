@@ -1,32 +1,25 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='EmbarkStudios/cargo-deny'
-_ver=0.11.3
-_auto_update=true
-
-_pkgname='cargo-deny'
-pkgname="${_pkgname}"
+pkgname='cargo-deny'
 pkgver=0.11.3
 pkgrel=2
 pkgdesc='Cargo plugin for linting your dependencies'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/EmbarkStudios/cargo-deny"
 license=('Apache' 'MIT')
 
 depends=('cargo' 'gcc-libs' 'zlib')
 
-source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/${_ver}/${_pkgname}-${_ver}.tar.gz")
-sha256sums=('SKIP')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('d9e6adc8342d69b84b4c4e6b1d34eaaf0750b4680a9c675c8c74659a8c27cfc8')
 
 build() {
-  cd "${_pkgname}-${pkgver}"
+  cd "$pkgname-$pkgver"
   cargo build --release --locked
 }
 
 package() {
-  cd "${_pkgname}-${pkgver}"
-
-  install -Dm 755 target/release/${_pkgname} "${pkgdir}/usr/bin/${pkgname}"
-
-  install -Dm 644 LICENSE-APACHE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-APACHE"
-  install -Dm 644 LICENSE-MIT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-MIT"
+  cd "$pkgname-$pkgver"
+  install -Dm 755 target/release/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm 644 LICENSE-APACHE "$pkgdir/usr/share/licenses/$pkgname/LICENSE-APACHE"
+  install -Dm 644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/LICENSE-MIT"
 }

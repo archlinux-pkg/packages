@@ -1,18 +1,13 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='killercup/cargo-edit'
-_ver=v0.8.0
-_auto_update=true
-_auto_update_git=true
-
 pkgname='cargo-edit-git'
 conflicts=('cargo-edit')
 provides=('cargo-edit')
 epoch=2
-pkgver=0.8.0
+pkgver=git
 pkgrel=1
-pkgdesc='Managing cargo dependencies from the command line (master branch from git)'
+pkgdesc='Managing cargo dependencies from the command line'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/killercup/cargo-edit"
 license=('Apache' 'MIT')
 
 depends=('cargo' 'libgit2.so')

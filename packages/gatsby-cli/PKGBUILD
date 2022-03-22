@@ -1,32 +1,28 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_npm='gatsby-cli'
-_ver=v0.14.25
-_auto_update=true
-_auto_update_npm=true
-
-_pkgname="${_npm}"
-pkgname="${_pkgname}"
-pkgver=0.14.25
+pkgname='gatsby-cli'
+pkgver='4.10.1'
 pkgrel=1
 pkgdesc='Gatsby command-line interface for creating new sites and running Gatsby commands'
 arch=('any')
-url="https://www.npmjs.com/package/${_npm}"
+url="https://www.npmjs.com/package/$pkgname"
 license=('MIT')
+
 depends=('nodejs')
 makedepends=('npm')
-_file="${_npm}-${pkgver}.tgz"
-source=("https://registry.npmjs.org/${_npm}/-/${_file}")
-noextract=("${_file}")
-sha256sums=('e3b98b5a94b65c47b7867c6b4fef72350e30c9251f0da606236a5fbb89b08b24')
+
+_file="$pkgname-$pkgver.tgz"
+source=("https://registry.npmjs.org/$pkgname/-/$_file")
+noextract=("$_file")
+sha512sums=('6efd7124401cbf8bd3dc329d3aa4f55bca9ee0bd18bf0e6c6684970d2297f4af58486bbf0a70495cf6b7d6b36bbf7e7b99ce02c807ff55d7e7cefaf4b4d37e89')
 
 package() {
-  npm install -g --prefix "${pkgdir}/usr" "${_file}"
+  npm install -g --prefix "$pkgdir/usr" "$_file"
 
   # Non-deterministic race in npm gives 777 permissions to random directories.
   # See https://github.com/npm/npm/issues/9359 for details.
-  chmod -R u=rwX,go=rX "${pkgdir}"
+  chmod -R u=rwX,go=rX "$pkgdir"
 
   # npm installs package.json owned by build user
   # https://bugs.archlinux.org/task/63396
-  chown -R root:root "${pkgdir}"
+  chown -R root:root "$pkgdir"
 }

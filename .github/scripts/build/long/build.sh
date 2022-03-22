@@ -1,17 +1,16 @@
 #!/bin/bash
-# ? https://github.com/ungoogled-software/ungoogled-chromium-archlinux/blob/6951233c1f35bd2932115cef95a919f0f58152a6/.github/workflows/container/run.sh
+# https://github.com/ungoogled-software/ungoogled-chromium-archlinux/blob/6951233c1f35bd2932115cef95a919f0f58152a6/.github/workflows/container/run.sh
 
 cd /home/build
 
-# ? variables
+# variables
 ROOT_DIR=$(pwd)
 export HOME="/home/build"
 
-# ? makepkg arguments
-#BUILD_ARGUMENTS="--syncdeps --skippgpcheck --noconfirm"
+# makepkg arguments
 BUILD_ARGUMENTS="--skippgpcheck"
 
-# ? unpack compilation files from previous stage
+# unpack compilation files from previous stage
 unpack_stage() {
 	echo "==> Extracting source archive..."
 	sudo tar -xf /mnt/input/progress.tar.zst -C "$ROOT_DIR"
@@ -35,7 +34,7 @@ unpack_stage() {
 	BUILD_ARGUMENTS="$BUILD_ARGUMENTS --noextract --nodeps"
 }
 
-# ? build stage with timeout
+# build stage with timeout
 build_stage() {
 	echo "==> Building package..."
 	echo "==> Using timestamp $(cat /etc/buildtime)"
@@ -63,18 +62,18 @@ build_stage() {
 	sudo du -hd 1
 }
 
-# ? unpack files from previous stage
+# unpack files from previous stage
 if [[ -d "/mnt/input" && -f "/mnt/input/progress.tar.zst" ]]
 then
 	unpack_stage
 fi
 
-# ? fix permissions
+# fix permissions
 sudo chown -R build .
 
 build_stage
 
-# ? if package built, move to /mnt/output
+# if package built, move to /mnt/output
 if compgen -G "*.pkg.tar.xz" > /dev/null
 then
 	echo "==> Successfully built package"
@@ -89,7 +88,7 @@ then
 	fi
 fi
 
-# ? pack the stage files
+# pack the stage files
 if [[ -d "/mnt/progress" ]]; then
 	echo "==> Found progress directory, compressing current build progress"
 

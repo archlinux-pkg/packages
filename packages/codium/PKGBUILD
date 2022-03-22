@@ -1,15 +1,11 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='VSCodium/vscodium'
-_auto_update=true
-_ver=1.65.2
-
 pkgname='codium'
 pkgdesc='Free/Libre Open Source Software Binaries of VSCode'
 pkgver=1.65.2
 pkgrel=1
 arch=('x86_64')
 microsofturl='https://github.com/microsoft/vscode'
-url="https://github.com/${_repo}"
+url="https://github.com/VSCodium/vscodium"
 license=('MIT')
 _electron='electron13'
 
@@ -50,7 +46,7 @@ optdepends=(
 )
 
 source=(
-  "vscodium::git+${url}#tag=${_ver}"
+  "vscodium::git+${url}#tag=${pkgver}"
   "vscode::git+${microsofturl}#tag=${pkgver}"
   "${pkgname}.desktop"
   "${pkgname}-uri-handler.desktop"

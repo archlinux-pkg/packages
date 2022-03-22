@@ -1,24 +1,19 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_npm='nodemon'
-_ver=2.0.15
-_auto_update=true
-_auto_update_npm=true
-
-pkgname="$_npm"
-pkgver=2.0.15
+pkgname='nodemon'
+pkgver='2.0.15'
 pkgrel=1
-replaces=("nodejs-$_npm")
-provides=("nodejs-$_npm")
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgdesc='Monitor for any changes in your node.js application and automatically restart the server - perfect for development'
 arch=('any')
-url="https://www.npmjs.com/package/$_npm"
+url="https://www.npmjs.com/package/$pkgname"
 license=('MIT')
 
 depends=('nodejs')
 makedepends=('npm')
 
-_file="$_npm-$pkgver.tgz"
-source=("https://registry.npmjs.org/$_npm/-/$_file")
+_file="$pkgname-$pkgver.tgz"
+source=("https://registry.npmjs.org/$pkgname/-/$_file")
 noextract=("$_file")
 sha256sums=('7d2a0113b58ae36fa418a4fe517d76e3fe96d2fa644ceea1bba90d9d2838acd8')
 

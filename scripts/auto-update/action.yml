@@ -1,0 +1,19 @@
+name: Auto Update
+description: Automatic packages update
+
+inputs:
+  token:
+    description: GitHub Token
+    required: true
+
+  commit:
+    description: Commit new version (default true)
+    required: false
+
+  push:
+    description: Push new version (default true)
+    required: false
+
+runs:
+  using: node16
+  main: dist/index.js

@@ -1,19 +1,15 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='golangci/golangci-lint'
-_ver=v1.45.0
-_auto_update=true
-
 pkgname='golangci-lint'
 pkgver=1.45.0
 pkgrel=2
 pkgdesc='Linters Runner for Go. 5x faster than gometalinter'
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/golangci/golangci-lint"
 license=('GPL3')
 
 makedepends=('go')
 
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('47e9146ce9e6d1617284ffdab8dccf6d35a6aad9d4ccca8cc763dbb63ede1525')
 
 build() {

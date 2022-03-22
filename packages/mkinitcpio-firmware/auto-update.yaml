@@ -1,0 +1,3 @@
+aur:
+  name: mkinitcpio-firmware
+  commit: 152eed5f6a73a51d8949ba3770ec91bebafb66c7

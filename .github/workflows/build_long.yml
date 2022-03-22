@@ -2,8 +2,8 @@ name: Long Build
 
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
     paths:
       - 'long-build/**'
 

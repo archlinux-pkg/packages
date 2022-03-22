@@ -1,8 +1,4 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='derrod/legendary'
-_ver=0.20.25
-_auto_update=true
-
 pkgname='legendary'
 pkgver=0.20.25
 pkgrel=1
@@ -14,7 +10,7 @@ license=('GPL3')
 depends=('python' 'python-requests' 'python-wheel')
 makedepends=('python-setuptools')
 
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
 sha512sums=('2ba8d3ebcd751201e23dccb3666e849366529c0edcc926fe6fd3216f23683aff9a396eb6e7f2d9e26961bd02cf07578e1ded95a6065460e6977e8d10f0242962')
 
 build() {

@@ -1,19 +1,15 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='89z/googleplay'
-_ver=v1.7.0
-_auto_update=true
-
 pkgname='googleplay'
 pkgver=1.7.0
 pkgrel=2
 pkgdesc='Download APK or send API requests'
 arch=('x86_64')
-url="https://github.com/$_repo"
+url="https://github.com/89z/googleplay"
 license=('OSL3')
 
 makedepends=('go')
 
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$_ver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('2ba89721d0daee1da9ad2adea167e60e1e06bd476847ae8fbec9c7b9f65905b3')
 
 build() {

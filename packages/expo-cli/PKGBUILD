@@ -1,10 +1,5 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_npm='expo-cli'
-_ver=5.3.0
-_auto_update=true
-_auto_update_npm=true
-
-pkgname="$_npm"
+pkgname='expo-cli'
 pkgver=5.3.0
 pkgrel=1
 pkgdesc='Tools for creating, running, and deploying universal Expo and React Native apps'
@@ -15,10 +10,10 @@ license=('MIT')
 depends=('nodejs')
 makedepends=('npm')
 
-_file="$_npm-$pkgver.tgz"
-source=("$_file::https://registry.npmjs.org/$_npm/-/$_file")
+_file="$pkgname-$pkgver.tgz"
+source=("$_file::https://registry.npmjs.org/$pkgname/-/$_file")
 noextract=("$_file")
-sha256sums=('SKIP')
+sha512sums=('3a2e44f82dc0b401cec2a05b2f718bd5e404adf0e7646988a9b3239431a9f16b442cdd1ff9f75f580e1995d08e4a39eab1883b85840582b6578c85db8d8b02f5')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
