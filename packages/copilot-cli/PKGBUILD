@@ -1,46 +1,40 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_repo='aws/copilot-cli'
-_ver=v1.15.0
-_auto_update=true
-
-_pkgname='copilot-cli'
-pkgname="${_pkgname}"
+pkgname='copilot-cli'
 pkgver=1.15.0
 pkgrel=1
 pkgdesc='A tool to help deploy containerized applications on Amazon ECS'
 arch=('x86_64')
-url="https://github.com/${_repo}"
+url="https://github.com/aws/copilot-cli"
 license=('Apache')
 
 makedepends=('go')
 
-source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/${_ver}/${_pkgname}-${_ver}.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
 sha256sums=('SKIP')
 
 build() {
-  cd "${_pkgname}-${pkgver}"
+  cd "$pkgname-$pkgver"
 
   local _flags
   _flags=(
-    -X github.com/aws/copilot-cli/internal/pkg/version.Version=v${pkgver}
+    -X github.com/aws/copilot-cli/internal/pkg/version.Version=v$pkgver
   )
 
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
   export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -modcacherw"
 
   go build \
     -v \
     -ldflags "${_flags[*]}" \
-    -o bin/${_pkgname} \
+    -o bin/$pkgname \
     ./cmd/copilot
 }
 
 package() {
-  cd "${_pkgname}-${pkgver}"
-
-  install -Dm 755 bin/${_pkgname} "${pkgdir}/usr/bin/${_pkgname}"
-  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd "$pkgname-$pkgver"
+  install -Dm 755 bin/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
