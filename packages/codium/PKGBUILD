@@ -9,50 +9,22 @@ url="https://github.com/VSCodium/vscodium"
 license=('MIT')
 _electron='electron13'
 
-depends=(
-  "${_electron}"
-  'fontconfig'
-  'libxtst'
-  'gtk3'
-  'cairo'
-  'alsa-lib'
-  'nss'
-  'libnotify'
-  'libxss'
-  'glibc>=2.28-4'
-  'libxkbfile'
-  'ripgrep'
-)
-makedepends=(
-  'nvm'
-  'gulp'
-  'yarn'
-  'jq'
-  'libxdmcp'
-  'git'
-  'git-lfs'
-  'patch'
-  'python'
-  'pkg-config'
-)
+depends=("${_electron}" 'fontconfig' 'libxtst' 'gtk3' 'cairo' 'alsa-lib' 'nss' 'libnotify' 'libxss' 'glibc>=2.28-4' 'libxkbfile' 'ripgrep')
+makedepends=('nvm' 'gulp' 'yarn' 'jq' 'libxdmcp' 'git' 'git-lfs' 'patch' 'python' 'pkg-config')
 
-optdepends=(
-  'gvfs: For move to trash functionality'
-  'libdbusmenu-glib: For KDE global menu'
-  'x11-ssh-askpass: SSH authentication'
-  'org.freedesktop.secrets: Keyring password store support'
-  'codium-features: Unblock some features in VSCodium'
-  'codium-marketplace: Enable VS-Code marketplace in VSCodium'
-)
+optdepends=('gvfs: For move to trash functionality'
+            'libdbusmenu-glib: For KDE global menu'
+            'x11-ssh-askpass: SSH authentication'
+            'org.freedesktop.secrets: Keyring password store support'
+            'codium-features: Unblock some features in VSCodium'
+            'codium-marketplace: Enable VS-Code marketplace in VSCodium')
 
-source=(
-  "vscodium::git+${url}#tag=${pkgver}"
-  "vscode::git+${microsofturl}#tag=${pkgver}"
-  "${pkgname}.desktop"
-  "${pkgname}-uri-handler.desktop"
-  "${pkgname}.js"
-  "${pkgname}.sh"
-)
+source=("vscodium::git+${url}#tag=${pkgver}"
+        "vscode::git+${microsofturl}#tag=${pkgver}"
+        "$pkgname.desktop"
+        "$pkgname-uri-handler.desktop"
+        "$pkgname.js"
+        "$pkgname.sh")
 sha256sums=('SKIP'
             'SKIP'
             'c1339ef39bb4a3b4d79cedb0b5a9837b95259424677eb6483e38eb02fbf7a485'
@@ -83,8 +55,8 @@ _nodejs='14.19.0'
 
 prepare() {
   # Change electron binary name to the target electron
-  sed -i "s|exec electron |exec ${_electron} |" ${pkgname}.sh
-  sed -i "s|#!/usr/bin/electron|#!/usr/bin/${_electron}|" ${pkgname}.js
+  sed -i "s|exec electron |exec $_electron |" $pkgname.sh
+  sed -i "s|#!/usr/bin/electron|#!/usr/bin/${_electron}|" $pkgname.js
 
   # Move vscode repo
   cd "vscodium"
@@ -100,10 +72,10 @@ build() {
 
   # Export some environment variables that would normally be set by Travis CI.
   export SHOULD_BUILD="yes"
-  export VSCODE_ARCH="${_vscode_arch}"
+  export VSCODE_ARCH="$_vscode_arch"
   export OS_NAME="linux"
   export LATEST_MS_COMMIT=$(git rev-list --tags --max-count=1)
-  export LATEST_MS_TAG=$(git describe --tags "${LATEST_MS_COMMIT}")
+  export LATEST_MS_TAG=$(git describe --tags "$LATEST_MS_COMMIT")
 
   # Disable building rpm, deb, and AppImage packages which are not needed in an AUR build
   export SKIP_LINUX_PACKAGES="True"
@@ -113,7 +85,7 @@ build() {
 
   # Build just like Travis does: install NodeJS and run the build.sh script.
   source /usr/share/nvm/init-nvm.sh
-  nvm install ${_nodejs}
+  nvm install "$_nodejs"
   ./build.sh
 
   # Clean up temp NVM directory
@@ -121,7 +93,7 @@ build() {
 }
 
 package() {
-  cd "vscodium/VSCode-linux-${_vscode_arch}"
+  cd "vscodium/VSCode-linux-$_vscode_arch"
 
   # Install resource files
   install -d "$pkgdir/usr/lib/$pkgname"
@@ -131,19 +103,19 @@ package() {
   ln -sf /usr/bin/rg "$pkgdir/usr/lib/$pkgname/node_modules.asar.unpacked/@vscode/ripgrep/bin/rg"
 
   # Install bash and zsh completions
-  install -Dm 644 "resources/completions/bash/${pkgname}" "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
-  install -Dm 644 "resources/completions/zsh/_${pkgname}" "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  install -Dm 644 "resources/completions/bash/$pkgname" "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -Dm 644 "resources/completions/zsh/_$pkgname" "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
 
-  install -Dm 644 "resources/app/resources/linux/code.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
+  install -Dm 644 "resources/app/resources/linux/code.png" "$pkgdir/usr/share/pixmaps/$pkgname.png"
 
   # Install start scripts
   cd "$srcdir"
 
-  install -Dm 755 "${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
-  install -Dm 755 "${pkgname}.js" "${pkgdir}/usr/lib/${pkgname}/${pkgname}.js"
+  install -Dm 755 "$pkgname.sh" "$pkgdir/usr/bin/$pkgname"
+  install -Dm 755 "$pkgname.js" "$pkgdir/usr/lib/$pkgname/$pkgname.js"
 
   # Install appdata and desktop files
   install -d "$pkgdir/usr/share/{$pkgname,applications,pixmaps}"
-  install -Dm 644 "$pkgname.desktop" "$pkgdir/usr/share/applications/${pkgname}.desktop"
-  install -Dm 644 "${pkgname}-uri-handler.desktop" "$pkgdir/usr/share/applications/${pkgname}-uri-handler.desktop"
+  install -Dm 644 "$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm 644 "$pkgname-uri-handler.desktop" "$pkgdir/usr/share/applications/$pkgname-uri-handler.desktop"
 }
