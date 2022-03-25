@@ -28,7 +28,7 @@ jobs:
         run: sudo pacman -S --noconfirm npm
 
       - name: Setup Auto Update Script
-        run: npm run setup --prefix ./scripts/auto-update
+        run: npm run setup --prefix ./scripts
 
       - name: Auto Update
         uses: ./scripts/auto-update

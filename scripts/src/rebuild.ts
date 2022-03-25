@@ -1,20 +1,17 @@
-import { group } from '@actions/core'
 import { readdirSync } from 'fs'
 
-import autoUpdate from './autoupdate/autoUpdate'
+import triggerRebuild from './rebuild/trigger'
 
 async function main(dir: string) {
   const dirs = readdirSync(dir)
 
   for (const pkg of dirs) {
     try {
-      await group<void>(`Updating package '${pkg}'...`, async () => {
-        try {
-          await autoUpdate(pkg, `${dir}/${pkg}`)
-        } catch (err) {
-          console.error(err)
-        }
-      })
+     try {
+        await triggerRebuild(pkg, `${dir}/${pkg}`)
+      } catch (err) {
+        console.error(err)
+      }
     } catch (err) {
       console.error(err)
       continue

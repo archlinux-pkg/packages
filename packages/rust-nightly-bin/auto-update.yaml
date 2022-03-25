@@ -1,0 +1,6 @@
+aur:
+  name: rust-nightly-bin
+  commit: ccf2c302ae950c3784c24b2ce8c9f492463e3c5a
+
+rebuild:
+  trigger: 12h

@@ -1,5 +1,14 @@
-# .github/scripts/build/long
-node_modules
+# TypeScript Dist files
+dist/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Node
+node_modules/
+
+# Optional npm cache directory
+.npm
 
 env.sh
 

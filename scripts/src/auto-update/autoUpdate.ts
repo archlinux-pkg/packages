@@ -6,7 +6,7 @@ import fetch from "cross-fetch"
 import YAML from "yaml"
 
 import shell from "../shell"
-import inputs from "../inputs"
+import inputs from "./inputs"
 import { YamlConfig } from "../types/yaml"
 
 // create a client for GitHub API

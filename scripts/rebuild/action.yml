@@ -1,0 +1,15 @@
+name: Trigger Rebuild
+description: Automatic trigger rebuild for packages (e.g. -git)
+
+inputs:
+  token:
+    description: GitHub Token
+    required: true
+
+  type:
+    description: Rebuild type e.g '12h'
+    required: true
+
+runs:
+  using: node16
+  main: ../dist/rebuild.js

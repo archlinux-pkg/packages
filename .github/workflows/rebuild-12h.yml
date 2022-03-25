@@ -14,11 +14,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install Dependencies
+        run: sudo pacman -S --noconfirm npm
+
       - name: Setup Auto Update Script
-        run: npm run setup --prefix ./scripts/auto-update
+        run: npm run setup --prefix ./scripts
 
       - name: Auto Update
-        uses: ./scripts/auto-update
+        uses: ./scripts/rebuild
         env:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          rebuild: 12h
+          token: ${{ secrets.GH_TOKEN_REBUILD }}
+          type: 12h
