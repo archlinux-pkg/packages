@@ -24,8 +24,8 @@ async function main(dir: string) {
 
 (async () => {
   // for packages in "packages" folder
-  await main(__dirname + "/../../../packages")
+  await main(__dirname + "/../../../../packages")
 
   // for packages in "long-build" folder
-  await main(__dirname + "/../../../long-build")
+  await main(__dirname + "/../../../../long-build")
 })()
