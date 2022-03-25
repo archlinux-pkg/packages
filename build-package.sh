@@ -19,10 +19,6 @@ sudo chown -R $(id -u) /mnt/*
 
 cd "$SRCDIR"
 
-# install yaml parser
-wget https://github.com/mikefarah/yq/releases/download/v4.23.1/yq_linux_amd64
-chmod +x yq_linux_amd64
-
 echo "==> Creating /etc/buildtime..."
 echo $(date +"%s") | sudo tee /etc/buildtime
 
