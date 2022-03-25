@@ -11,7 +11,7 @@ async function triggerRebuild(pkg: string, pkgdir: string) {
   let config: YamlConfig = YAML.parse(file)
 
   // if trigger rebuild enabled
-  if (config.rebuild?.trigger == inputs.rebuild || config.rebuild?.trigger && inputs.rebuild == "all") {
+  if (config.rebuild?.trigger == inputs.rebuild) {
     await shell("bash", ["-c", `GITHUB_TOKEN=${inputs.github_token} && gh workflow run build.yml -f packages="${pkg}"`])
   }
 }
