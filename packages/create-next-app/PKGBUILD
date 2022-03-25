@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='create-next-app'
-pkgver='12.1.0'
+pkgver='12.1.1'
 pkgrel=1
 pkgdesc='Create Next.js-powered React apps with one command'
 arch=('any')
@@ -13,7 +13,7 @@ makedepends=('npm')
 _file="$pkgname-$pkgver.tgz"
 source=("https://registry.npmjs.org/$pkgname/-/$_file")
 noextract=("$_file")
-sha512sums=('e27dbc691d4afc685eba2e1146c3245b21a34d7482645fbe9fdc400a5ba62262320cac2657eaf3187ce8244927748583a81be2149ed2b6d941e2b6160dae2fa6')
+sha512sums=('be8ab9237e31f5dce4deccdb89aac8e8be54426bf48114c1f21e1f555fceb6517108fd30ccb3bceff7517a9ecb5759ad473696f9d5e5fc3efbc7f56ce563f694')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
