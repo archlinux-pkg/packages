@@ -127,8 +127,8 @@ async function autoUpdate(pkg: string, pkgdir: string) {
     writeFileSync(PKGBUILD, data)
 
     // update package checksum
-    await shell("chown", ["-R", "nobody", pkg_dir])
-    await shell("su", ["-c", `cd ${pkg_dir} && updpkgsums`, "nobody"])
+    await shell("chown", ["-R", inputs.user, pkg_dir])
+    await shell("su", ["-c", `cd ${pkg_dir} && updpkgsums`, inputs.user])
 
     // commit new version
     if (inputs.commit) {

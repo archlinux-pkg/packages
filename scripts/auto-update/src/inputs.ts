@@ -6,6 +6,7 @@ const inputs = {
   commit: getInput("commit") || process.env.COMMIT || true,
   push: getInput("push") || process.env.PUSH || true,
   rebuild: getInput("rebuild") || process.env.REBUILD,
+  user: getInput("user") || process.env.MAKEPKG_USER || 'build',
 }
 
 export default inputs
