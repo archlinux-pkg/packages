@@ -1,3 +1,4 @@
 github:
   author: kornelski
   repo: cargo-deb
+  tag: true
