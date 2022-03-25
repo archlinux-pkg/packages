@@ -1,4 +1,4 @@
-name: Rebuild every 12h
+name: Trigger rebuild every 12h
 
 on:
   schedule:
@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Install Dependencies
-        run: sudo pacman -S --noconfirm npm
 
       - name: Setup Auto Update Script
         run: npm run setup --prefix ./scripts
