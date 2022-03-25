@@ -38,9 +38,9 @@ do
 
   if [ ! -f "$pkgdir/PKGBUILD" ]
   then
-    git_repo=$($SRCDIR/yq_linux_amd64 '.aur.name' "$pkgdir/auto-update.yaml")
+    git_repo=$(yq '.aur.name' "$pkgdir/auto-update.yaml")
     git_repo="https://aur.archlinux.org/$git_repo.git"
-    commit=$($SRCDIR/yq_linux_amd64 '.aur.commit' "$pkgdir/auto-update.yaml")
+    commit=$(yq '.aur.commit' "$pkgdir/auto-update.yaml")
 
     eval "$custom_vars"
 
