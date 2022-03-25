@@ -1,7 +1,7 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _pkgname='wrangler'
 pkgname="cloudflare-$_pkgname"
-pkgver=1.19.9
+pkgver='1.19.11'
 pkgrel=1
 pkgdesc='Command-line tool for working with Cloudflare Workers'
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('Apache' 'MIT')
 makedepends=('cargo')
 
 source=("$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('5320dec5bfd587dab11306511c50c4f7e4a8cadfdf2fba2b360e44e9bc764c90')
+sha256sums=('55fd07190523d03e9a8bc5509e3aee21852979e2833f9d73c4c7f7d9f82d8724')
 
 build() {
   cd "$srcdir/$_pkgname-$pkgver"
