@@ -1,6 +1,16 @@
 name: Package updates
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/**'
+
+  pull_request:
+    paths:
+      - 'scripts/**'
+
   schedule:
     - cron:  '*/30 * * * *'
 
