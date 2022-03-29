@@ -20,6 +20,8 @@ env.sh
 *.rar
 *.7z
 *.part
+*.deb
+*.rpm
 
 # makepkg
 packages/*/src

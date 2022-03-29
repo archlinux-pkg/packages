@@ -38,7 +38,7 @@ async function autoUpdate(pkg: string, pkgdir: string) {
 
       // commit new version
       if (inputs.commit) {
-        await shell("git", ["add", `${pkgdir}`])
+        await shell("git", ["add", `${pkgdir}/auto-update.yaml`])
         await shell("git", ["commit", "-m", `upgpkg: '${pkg}' to AUR commit '${commit_short}' (${pkg_version}-${pkg_rel})`])
 
         // push changes to remote
@@ -132,7 +132,7 @@ async function autoUpdate(pkg: string, pkgdir: string) {
 
     // commit new version
     if (inputs.commit) {
-      await shell("git", ["add", `${pkg_dir}`])
+      await shell("git", ["add", `${pkg_dir}/PKGBUILD`])
       await shell("git", ["commit", "-m", `upgpkg: '${pkg}' to '${version}'`])
 
       // push changes to remote
