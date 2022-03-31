@@ -5,8 +5,6 @@ source "$DIR/connectsftp.sh"
 FAIL_UPLOAD=()
 
 upload() {
-  set -e -u
-
   local file="$1"
   local type="$2"
 
