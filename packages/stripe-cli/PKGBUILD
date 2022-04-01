@@ -1,0 +1,42 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgname='stripe-cli'
+pkgver='1.8.5'
+pkgrel=1
+pkgdesc='Modern and easy to use SQL client for MySQL, Postgres, SQLite, SQL Server, and more'
+arch=('x86_64')
+url='https://stripe.com/docs/stripe-cli'
+license=('GPL3')
+
+depends=('glibc')
+makedepends=('go' 'git')
+
+source=("https://github.com/stripe/stripe-cli/archive/v$pkgver.tar.gz"
+        'reproducible-image-flags.patch')
+sha512sums=('957148f2318e73cf03596c3234ec6ef24bb82bc16834a139a2753ca1b0a088a96e4fbf61e1f45587300c608190e39f101b673b850d8c9cd62648f8fce24d2ab0'
+            '4f5ff8662f5e4bce1ded88a055e652c41dd6492cda5aee74795752abf0e97cc269ec1fef84df2247f62809f0c8cc1a88dd12104e07090cc224bbc5ad46b33f37')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  # Add reproducible image flags
+  patch -Np0 < ../reproducible-image-flags.patch
+
+  make setup
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  make build
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  make test
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 stripe -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  cp -a docs "$pkgdir/usr/share/doc/$pkgname"
+}
