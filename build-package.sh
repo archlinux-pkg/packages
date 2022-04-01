@@ -19,6 +19,9 @@ sudo chown -R $(id -u) /mnt/*
 
 cd "$SRCDIR"
 
+# install yaml parser
+wget https://github.com/mikefarah/yq/releases/download/v4.24.2/yq_linux_amd64 -O /tmp/yq
+
 echo "==> Creating /etc/buildtime..."
 echo $(date +"%s") | sudo tee /etc/buildtime
 
@@ -38,9 +41,9 @@ do
 
   if [ ! -f "$pkgdir/PKGBUILD" ]
   then
-    git_repo=$(yq '.aur.name' "$pkgdir/auto-update.yaml")
+    git_repo=$(/tmp/yq '.aur.name' "$pkgdir/auto-update.yaml")
     git_repo="https://aur.archlinux.org/$git_repo.git"
-    commit=$(yq '.aur.commit' "$pkgdir/auto-update.yaml")
+    commit=$(/tmp/yq '.aur.commit' "$pkgdir/auto-update.yaml")
 
     eval "$custom_vars"
 
