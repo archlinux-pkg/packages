@@ -1,0 +1,31 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgname='pnpm'
+pkgver='6.32.4'
+pkgrel=1
+pkgdesc='Fast, disk space efficient package manager'
+arch=('any')
+url="https://www.npmjs.com/package/$pkgname"
+license=('MIT')
+
+depends=('nodejs')
+makedepends=('npm')
+
+_file="$pkgname-$pkgver.tgz"
+source=("https://registry.npmjs.org/$pkgname/-/$_file")
+noextract=("$_file")
+sha512sums=('ace1be5693b3b3a83f311e4759cf0a4e52c0c77963751242310c128350c4fe1cc06aa17f636cc81c7d2ee9d670fd79d16fdc3553caceb3d3094fd8ccb7b7be43')
+
+package() {
+  npm install -g --prefix "$pkgdir/usr" "$_file"
+
+  # Delete .map files
+  find "$pkgdir"/usr/lib -depth -name '*.map' -delete
+
+  # Non-deterministic race in npm gives 777 permissions to random directories.
+  # See https://github.com/npm/npm/issues/9359 for details.
+  chmod -R u=rwX,go=rX "$pkgdir"
+
+  # npm installs package.json owned by build user
+  # https://bugs.archlinux.org/task/63396
+  chown -R root:root "$pkgdir"
+}
