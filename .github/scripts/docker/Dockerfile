@@ -8,7 +8,6 @@ RUN pacman -Syu --noconfirm \
       wget \
       curl \
       rsync \
-      go-yq \
       linux \
       ccache \
       python \
