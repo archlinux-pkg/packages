@@ -1,5 +1,7 @@
-# Maintainer: MedzikUser <nivua1fn@duck.com>\
+# Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='aws-cdk'
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgver='2.19.0'
 pkgrel=1
 pkgdesc='CDK Toolkit, the command line tool for CDK app'
