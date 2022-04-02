@@ -1,22 +1,19 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
-_npm='netlify'
-_ver=11.0.0
-_auto_update=true
-_auto_update_npm=true
-
-pkgname="$_npm"
+pkgname='netlify'
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgver='11.0.1'
-pkgrel=1
+pkgrel=2
 pkgdesc='Netlify Node.js API client'
 arch=('any')
-url="https://www.npmjs.com/package/$_npm"
+url="https://www.npmjs.com/package/$pkgname"
 license=('MIT')
 
 depends=('nodejs')
 makedepends=('npm')
 
-_file="$_npm-$pkgver.tgz"
-source=("https://registry.npmjs.org/$_npm/-/$_file")
+_file="$pkgname-$pkgver.tgz"
+source=("https://registry.npmjs.org/$pkgname/-/$_file")
 noextract=("$_file")
 sha512sums=('4e456e4ef9a1940b6f01d82a6fe880e7031e8441d2e5070f3ab50b9b5b7cd3d43a2a664885efbb6f4fa3c194ac0ea817dce58afcfdf1824fc053465b4efeee7f')
 
