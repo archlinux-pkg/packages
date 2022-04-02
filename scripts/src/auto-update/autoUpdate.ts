@@ -22,12 +22,28 @@ async function autoUpdate(pkg: string, pkgdir: string) {
   // update AUR package
   if (config.aur) {
     // AUR package commit hash
-    const commit = (await shell("bash", ["-c", `git ls-remote https://aur.archlinux.org/${config.aur.name}.git refs/heads/master | awk '{print $1}'`])).stdout.replace('\n', '')
+    const commit_shell = await shell("bash", ["-c", `git ls-remote https://aur.archlinux.org/${config.aur.name}.git refs/heads/master | awk '{print $1}'`])
+    if (commit_shell.exitCode != 0) {
+      throw new Error(`exited command with code = ${commit_shell.exitCode}`)
+    }
+
+    const commit = commit_shell.stdout.replace('\n', '')
+    if (commit == "") {
+      throw new Error(`commit variable is empty`)
+    }
 
     // check pkgver
-    await shell("wget", [`https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=${config.aur.name}`, "-O", `${TEMP_DIR}/${pkg}_PKGBUILD`])
+    let pkgbuild_shell = await shell("wget", [`https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=${config.aur.name}`, "-O", `${TEMP_DIR}/${pkg}_PKGBUILD`])
+    if (pkgbuild_shell.exitCode != 0) {
+      throw new Error(`exited command with code = ${pkgbuild_shell.exitCode}`)
+    }
+
     let pkg_version = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}_PKGBUILD && printf $pkgver`])).stdout.replace('\n', '')
     let pkg_rel = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}_PKGBUILD && printf $pkgrel`])).stdout.replace('\n', '')
+
+    if (pkg_version == "" || pkg_rel == "") {
+      throw new Error(`pkg_rel or pkg_version is empty`)
+    }
 
     if (config.aur.commit != commit) {
       config.aur.commit = commit
