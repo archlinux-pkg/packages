@@ -1,5 +1,5 @@
 import { Octokit } from "@octokit/core"
-import { mkdtempSync, readFileSync, writeFileSync } from "fs"
+import { cp, mkdtempSync, readFileSync, writeFileSync } from "fs"
 import { tmpdir } from "os"
 
 import fetch from "cross-fetch"
@@ -21,25 +21,23 @@ async function autoUpdate(pkg: string, pkgdir: string) {
 
   // update AUR package
   if (config.aur) {
-    await shell("git", ["clone", `https://aur.archlinux.org/${config.aur.name}.git`, `${TEMP_DIR}/${pkg}`])
-
     // AUR package commit hash
-    const commit_long = (await shell("bash", ["-c", `cd ${TEMP_DIR}/${pkg} && git log -n 1 --pretty=format:"%H"`])).stdout.replace('\n', '')
-    const commit_short = (await shell("bash", ["-c", `cd ${TEMP_DIR}/${pkg} && git log -n 1 --pretty=format:"%h"`])).stdout.replace('\n', '')
+    const commit = (await shell("bash", ["-c", `git ls-remote https://aur.archlinux.org/${config.aur.name}.git refs/heads/master | awk '{print $1}'`])).stdout.replace('\n', '')
 
-    // check pkgver from the `PKGBUILD` file
-    let pkg_version = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}/PKGBUILD && printf $pkgver`])).stdout.replace('\n', '')
-    let pkg_rel = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}/PKGBUILD && printf $pkgrel`])).stdout.replace('\n', '')
+    // check pkgver
+    await shell("wget", [`https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=${config.aur.name}`, "-O", `${TEMP_DIR}/${pkg}_PKGBUILD`])
+    let pkg_version = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}_PKGBUILD && printf $pkgver`])).stdout.replace('\n', '')
+    let pkg_rel = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}_PKGBUILD && printf $pkgrel`])).stdout.replace('\n', '')
 
-    if (config.aur.commit != commit_long) {
-      config.aur.commit = commit_long
+    if (config.aur.commit != commit) {
+      config.aur.commit = commit
 
       writeFileSync(`${pkgdir}/auto-update.yaml`, YAML.stringify(config))
 
       // commit new version
       if (inputs.commit) {
         await shell("git", ["add", `${pkgdir}/auto-update.yaml`])
-        await shell("git", ["commit", "-m", `upgpkg: '${pkg}' to AUR commit '${commit_short}' (${pkg_version}-${pkg_rel})`])
+        await shell("git", ["commit", "-m", `upgpkg: '${pkg}' to '${pkg_version}-${pkg_rel}'`])
 
         // push changes to remote
         if (inputs.push) {
