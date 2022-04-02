@@ -1,7 +1,9 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='gatsby-cli'
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgver='4.11.1'
-pkgrel=1
+pkgrel=2
 pkgdesc='Gatsby command-line interface for creating new sites and running Gatsby commands'
 arch=('any')
 url="https://www.npmjs.com/package/$pkgname"
