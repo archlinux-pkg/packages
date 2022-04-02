@@ -1,7 +1,9 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='expo-cli'
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgver=5.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools for creating, running, and deploying universal Expo and React Native apps'
 arch=('any')
 url="https://expo.io"
