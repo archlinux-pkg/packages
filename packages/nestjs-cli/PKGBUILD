@@ -1,8 +1,10 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _pkgname='@nestjs/cli'
 pkgname='nestjs-cli'
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgver='8.2.4'
-pkgrel=1
+pkgrel=2
 replaces=("nodejs-$pkgname")
 provides=("nodejs-$pkgname")
 pkgdesc='CLI tool for Nest applications'
