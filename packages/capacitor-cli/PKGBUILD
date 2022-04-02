@@ -1,8 +1,10 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _pkgname='@capacitor/cli'
 pkgname='capacitor-cli'
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgver='3.4.3'
-pkgrel=1
+pkgrel=2
 pkgdesc='Build cross-platform Native Progressive Web Apps for iOS, Android, and the Web'
 arch=('any')
 url="https://www.npmjs.com/package/$_pkgname"

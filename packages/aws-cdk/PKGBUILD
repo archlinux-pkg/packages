@@ -1,7 +1,9 @@
-# Maintainer: MedzikUser <nivua1fn@duck.com>\
+# Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='aws-cdk'
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgver='2.19.0'
-pkgrel=1
+pkgrel=2
 pkgdesc='CDK Toolkit, the command line tool for CDK app'
 arch=('any')
 url='https://github.com/awslabs/aws-cdk'

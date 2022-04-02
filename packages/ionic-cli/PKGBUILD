@@ -1,8 +1,10 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _pkgname='@ionic/cli'
 pkgname='ionic-cli'
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgver='6.19.0'
-pkgrel=1
+pkgrel=2
 pkgdesc='A tool for creating and developing Ionic Framework mobile apps'
 arch=('any')
 url="https://www.npmjs.com/package/$_pkgname"

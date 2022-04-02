@@ -1,8 +1,10 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _pkgname='@angular/cli'
 pkgname='angular-cli'
+replaces=("nodejs-$pkgname")
+provides=("nodejs-$pkgname")
 pkgver='13.3.1'
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI tool for Angular'
 arch=('any')
 url="https://www.npmjs.com/package/$_pkgname"
