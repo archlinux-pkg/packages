@@ -1,9 +1,9 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='nodemon'
-pkgver='2.0.15'
-pkgrel=1
 replaces=("nodejs-$pkgname")
 provides=("nodejs-$pkgname")
+pkgver='2.0.15'
+pkgrel=1
 pkgdesc='Monitor for any changes in your node.js application and automatically restart the server - perfect for development'
 arch=('any')
 url="https://www.npmjs.com/package/$pkgname"
