@@ -47,7 +47,6 @@ jobs:
           fi
 
       - name: Disk size before build
-        if: always()
         run: df -h
 
       - name: Build
@@ -62,6 +61,7 @@ jobs:
           fi
 
       - name: Disk size after build
+        if: always()
         run: df -h
 
       - name: Packages
