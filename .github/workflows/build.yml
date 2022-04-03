@@ -90,6 +90,7 @@ jobs:
           done
 
       - name: Upload artifact
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: packages
