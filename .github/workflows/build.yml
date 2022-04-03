@@ -46,6 +46,9 @@ jobs:
             cat --number deleted_packages.txt
           fi
 
+      - name: Disk size before build
+        run: df -h
+
       - name: Build
         if: always()
         env:
@@ -56,6 +59,9 @@ jobs:
           then
             ./.github/scripts/build/build.sh
           fi
+
+      - name: Disk size after build
+        run: df -h
 
       - name: Packages
         if: always()
