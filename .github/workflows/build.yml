@@ -47,6 +47,7 @@ jobs:
           fi
 
       - name: Disk size before build
+        if: always()
         run: df -h
 
       - name: Build
