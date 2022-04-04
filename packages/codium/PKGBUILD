@@ -2,12 +2,12 @@
 pkgname='codium'
 pkgdesc='Free/Libre Open Source Software Binaries of VSCode'
 pkgver='1.66.0'
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 microsofturl='https://github.com/microsoft/vscode'
 url="https://github.com/VSCodium/vscodium"
 license=('MIT')
-_electron='electron'
+_electron='electron17'
 
 depends=("$_electron" 'fontconfig' 'libxtst' 'gtk3' 'cairo' 'alsa-lib' 'nss' 'libnotify' 'libxss' 'glibc>=2.28-4' 'libxkbfile' 'ripgrep')
 makedepends=('nvm' 'gulp' 'yarn' 'jq' 'libxdmcp' 'git' 'git-lfs' 'patch' 'python' 'pkg-config')
