@@ -27,14 +27,14 @@ build() {
   export GOROOT_FINAL=/usr/lib/go
   export GOROOT_BOOTSTRAP=/usr/lib/go
 
-  cd "$srcdir/go"
+  cd "$srcdir/go/src"
   ./make.bash -v
 }
 
 check() {
   export GO_TEST_TIMEOUT_SCALE=3
 
-  cd "$srcdir/go"
+  cd "$srcdir/go/src"
   ./run.bash --no-rebuild -v -v -v -k
 }
 
