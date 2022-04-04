@@ -1,0 +1,29 @@
+name: Package updates
+
+on:
+  schedule:
+    - cron:  '0 0 */1 * *'
+
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    if: github.repository == 'archlinux-pkg/packages'
+    runs-on: ubuntu-latest
+    container: ghcr.io/archlinux-pkg/packages:latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: sudo pacman -S --noconfirm npm
+
+      - name: Setup Auto Update Script
+        run: npm run setup --prefix ./scripts
+
+      - name: Auto Update
+        uses: ./scripts/auto-update
+        with:
+          token: ${{ secrets.GH_PUSH_TOKEN }}
+          rebuild: 1d

@@ -46,8 +46,6 @@ do
     git_repo="https://aur.archlinux.org/$git_repo.git"
     commit=$(/tmp/yq '.aur.commit' "$pkgdir/auto-update.yaml")
 
-    eval "$custom_vars"
-
     mv "$pkgdir" "$pkgdir.old"
 
     git clone "$git_repo" "$pkgdir"

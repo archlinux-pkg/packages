@@ -1,5 +1,5 @@
 import { Octokit } from "@octokit/core"
-import { cp, mkdtempSync, readFileSync, writeFileSync } from "fs"
+import { mkdtempSync, readFileSync, writeFileSync } from "fs"
 import { tmpdir } from "os"
 
 import fetch from "cross-fetch"
@@ -18,6 +18,23 @@ async function autoUpdate(pkg: string, pkgdir: string) {
   const file = readFileSync(`${pkgdir}/auto-update.yaml`, 'utf8')
 
   let config: YamlConfig = YAML.parse(file)
+
+  // rebuild packages
+  if (inputs.rebuild && inputs.rebuild != "") {
+    if (config.every && config.every == inputs.rebuild) {
+      const response = await octokit.request("POST /repos/{author}/{repo}/actions/workflows/{workflow_id}/dispatches", {
+        workflow_id: 'build.yml',
+        ref: 'main',
+        inputs: {
+          packages: pkg
+        }
+      })
+
+      console.log(response.data[0])
+    }
+
+    return
+  }
 
   // update AUR package
   if (config.aur) {

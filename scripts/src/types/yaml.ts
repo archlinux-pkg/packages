@@ -1,8 +1,8 @@
 type YamlConfig = {
-  aur: YamlConfigAur
-  github: YamlConfigGitHub
-  npm: YamlConfigNPM
-  rebuild: YamlConfigRebuild
+  aur?: YamlConfigAur
+  github?: YamlConfigGitHub
+  npm?: YamlConfigNPM
+  every?: string
 }
 
 type YamlConfigAur = {
@@ -18,10 +18,6 @@ type YamlConfigGitHub = {
 
 type YamlConfigNPM = {
   name: string
-}
-
-type YamlConfigRebuild = {
-  trigger: string
 }
 
 export { YamlConfig }
