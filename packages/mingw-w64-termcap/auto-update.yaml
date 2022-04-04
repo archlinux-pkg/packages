@@ -1,2 +1,3 @@
 aur:
   name: mingw-w64-termcap
+  commit: cb1640278a068508ac925e30f1e3b0e596d22f65
