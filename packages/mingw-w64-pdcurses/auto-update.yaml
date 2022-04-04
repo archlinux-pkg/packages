@@ -1,2 +1,3 @@
 aur:
   name: mingw-w64-pdcurses
+  commit: fda1e8127331820d214ed147de1dd1c0ea9f6494
