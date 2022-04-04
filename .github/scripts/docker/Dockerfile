@@ -7,6 +7,7 @@ RUN pacman -Syu --noconfirm \
       git \
       wget \
       curl \
+      perl \
       rsync \
       linux \
       ccache \
@@ -16,3 +17,6 @@ RUN pacman -Syu --noconfirm \
       multilib-devel \
       pacman-contrib \
  && yes | pacman -Scc
+
+# fix: pod2man: command not found
+RUN ln -s /usr/bin/core_perl/pod2man "/usr/bin/pod2man"
