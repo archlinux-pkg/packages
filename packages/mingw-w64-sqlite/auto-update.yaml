@@ -1,2 +1,3 @@
 aur:
   name: mingw-w64-sqlite
+  commit: 6a66d0f8a26494e4d7e5302670cb5ba232f100bf
