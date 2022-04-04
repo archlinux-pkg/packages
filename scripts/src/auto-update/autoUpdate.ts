@@ -22,7 +22,7 @@ async function autoUpdate(pkg: string, pkgdir: string) {
   // rebuild packages
   if (inputs.rebuild && inputs.rebuild != "") {
     if (config.every && config.every == inputs.rebuild) {
-      const response = await octokit.request("POST /repos/{author}/{repo}/actions/workflows/{workflow_id}/dispatches", {
+      const response = await octokit.request("POST /repos/archlinux-pkg/packages/actions/workflows/{workflow_id}/dispatches", {
         workflow_id: 'build.yml',
         ref: 'main',
         inputs: {

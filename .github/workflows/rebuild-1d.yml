@@ -1,4 +1,4 @@
-name: Package updates
+name: Trigger rebuild (1d)
 
 on:
   schedule:
