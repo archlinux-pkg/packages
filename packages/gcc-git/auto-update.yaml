@@ -1,0 +1,5 @@
+every: 1d
+
+aur:
+  name: gcc-git
+  commit: 8ec0e4951249f7a1e27b45fdbf0d11516c229e25
