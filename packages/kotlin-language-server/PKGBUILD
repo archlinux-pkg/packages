@@ -1,0 +1,29 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgname='kotlin-language-server'
+pkgver='1.3.0'
+pkgrel=1
+pkgdesc="Smart code completion, diagnostics and more for Kotlin using the Language Server Protocol"
+arch=('any')
+url="https://github.com/fwcd/KotlinLanguageServer"
+license=('MIT')
+
+depends=('java-runtime>=11')
+makedepends=('java-environment>=11')
+
+source=("$url/archive/$pkgver.tar.gz")
+sha512sums=('9f4e1ff60220c31bcc5127b5c519e5e3a85e324cd1f16dccd5e75cf022ed0dae941b48ebc29fe920ba590f148bb27f27e0cc27612515816c59196379449db331')
+
+build() {
+  jdk="$(find /usr/lib/jvm -maxdepth 1 -name "*1*" | head -1)" && test -n "$jdk" && export JAVA_HOME="$jdk"
+
+  cd "$srcdir/$pkgname-$pkgver"
+  ./gradlew server:installDist
+}
+
+package() {
+  mkdir -p "$pkgdir/usr/share/kotlin" "$pkgdir/usr/bin"
+
+  cp -r "$srcdir/$pkgname-$pkgver/server/build/install/server/" "$pkgdir/usr/share/kotlin/kotlin-language-server"
+
+  ln -srf "$pkgdir/usr/share/kotlin/kotlin-language-server/bin/kotlin-language-server" "$pkgdir/usr/bin/kotlin-language-server"
+}
