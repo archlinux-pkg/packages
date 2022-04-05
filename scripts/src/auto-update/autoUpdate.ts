@@ -153,6 +153,7 @@ async function autoUpdate(pkg: string, pkgdir: string) {
 
     // replace `pkgver` to new version
     data = data.replace(/pkgver=.*/, `pkgver='${version}'`)
+    data = data.replace(/pkgrel=.*/, `pkgrel=1`)
 
     // write changes
     writeFileSync(PKGBUILD, data)
