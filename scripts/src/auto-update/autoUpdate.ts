@@ -1,6 +1,5 @@
 import { Octokit } from "@octokit/core"
-import { mkdtempSync, readFileSync, writeFileSync } from "fs"
-import { tmpdir } from "os"
+import { existsSync, readFileSync, writeFileSync } from "fs"
 
 import fetch from "cross-fetch"
 import YAML from "yaml"
@@ -12,25 +11,26 @@ import { YamlConfig } from "../types/yaml"
 // create a client for GitHub API
 const octokit = new Octokit({ auth: inputs.github_token })
 
-const TEMP_DIR = mkdtempSync(`${tmpdir()}/medzik-`)
-
 async function autoUpdate(pkg: string, pkgdir: string) {
-  const file = readFileSync(`${pkgdir}/auto-update.yaml`, 'utf8')
+  // if file 'auto-update.yaml' does not exist, skip the package
+  if (!existsSync(`${pkgdir}/auto-update.yaml`)) {
+    return
+  }
 
+  // parse auto-update config file
+  const file = readFileSync(`${pkgdir}/auto-update.yaml`, 'utf8')
   let config: YamlConfig = YAML.parse(file)
 
-  // rebuild packages
+  // trigger rebuild packages
   if (inputs.rebuild && inputs.rebuild != "") {
     if (config.every && config.every == inputs.rebuild) {
-      const response = await octokit.request("POST /repos/archlinux-pkg/packages/actions/workflows/{workflow_id}/dispatches", {
+      await octokit.request("POST /repos/archlinux-pkg/packages/actions/workflows/{workflow_id}/dispatches", {
         workflow_id: 'build.yml',
         ref: 'main',
         inputs: {
           packages: pkg
         }
       })
-
-      console.log(response.data[0])
     }
 
     return
@@ -46,22 +46,18 @@ async function autoUpdate(pkg: string, pkgdir: string) {
 
     const commit = commit_shell.stdout.replace('\n', '')
     if (commit == "") {
-      throw new Error(`commit variable is empty`)
+      throw new Error(`'commit' variable is empty`)
     }
 
-    // check pkgver
-    let pkgbuild_shell = await shell("wget", [`https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=${config.aur.name}`, "-O", `${TEMP_DIR}/${pkg}_PKGBUILD`])
-    if (pkgbuild_shell.exitCode != 0) {
-      throw new Error(`exited command with code = ${pkgbuild_shell.exitCode}`)
+    // check package version
+    let res = await fetch(`https://aur.archlinux.org/rpc/?v=5&type=info&arg=${config.aur.name}`)
+    let data = await res.json()
+    let version = data.results[0].Version
+    if (version == "") {
+      throw new Error(`'version' variable is empty`)
     }
 
-    let pkg_version = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}_PKGBUILD && printf $pkgver`])).stdout.replace('\n', '')
-    let pkg_rel = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}_PKGBUILD && printf $pkgrel`])).stdout.replace('\n', '')
-
-    if (pkg_version == "" || pkg_rel == "") {
-      throw new Error(`pkg_rel or pkg_version is empty`)
-    }
-
+    // if the commit is different than the one in the file
     if (config.aur.commit != commit) {
       config.aur.commit = commit
 
@@ -70,7 +66,7 @@ async function autoUpdate(pkg: string, pkgdir: string) {
       // commit new version
       if (inputs.commit) {
         await shell("git", ["add", `${pkgdir}/auto-update.yaml`])
-        await shell("git", ["commit", "-m", `upgpkg: '${pkg}' to '${pkg_version}-${pkg_rel}'`])
+        await shell("git", ["commit", "-m", `upgpkg: '${pkg}' to '${version}'`])
 
         // push changes to remote
         if (inputs.push) {
@@ -78,6 +74,8 @@ async function autoUpdate(pkg: string, pkgdir: string) {
         }
       }
     }
+
+    console.log(`Latest Version -> ${version}`)
   }
 
   // update PKGBUILD
@@ -136,7 +134,7 @@ async function autoUpdate(pkg: string, pkgdir: string) {
     return
   }
 
-  // check pkgver from the `PKGBUILD` file
+  // check pkgver from the 'PKGBUILD' file
   let pkg_version = (await shell("bash", ["-c", `. ${pkgdir}/PKGBUILD && printf $pkgver`])).stdout.replace('\n', '')
 
   // compare versions
@@ -151,8 +149,9 @@ async function autoUpdate(pkg: string, pkgdir: string) {
 
     let data = readFileSync(PKGBUILD, 'utf8')
 
-    // replace `pkgver` to new version
+    // replace 'pkgver' to new version
     data = data.replace(/pkgver=.*/, `pkgver='${version}'`)
+    // replace 'pkgrel' to 1
     data = data.replace(/pkgrel=.*/, `pkgrel=1`)
 
     // write changes
