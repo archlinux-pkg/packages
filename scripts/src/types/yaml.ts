@@ -20,4 +20,5 @@ type YamlConfigNPM = {
   name: string
 }
 
+export default YamlConfig
 export { YamlConfig }

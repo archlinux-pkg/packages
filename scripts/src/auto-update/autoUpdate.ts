@@ -5,9 +5,9 @@ import { tmpdir } from "os"
 import fetch from "cross-fetch"
 import YAML from "yaml"
 
-import shell from "../shell"
+import shell from "../utils/shell"
 import inputs from "./inputs"
-import { YamlConfig } from "../types/yaml"
+import YamlConfig from "../types/yaml"
 
 // create a temporary directory
 const TEMP_DIR = mkdtempSync(`${tmpdir()}/medzik-`)
