@@ -3,10 +3,14 @@ import { readdirSync } from 'fs'
 
 import autoUpdate from './auto-update/autoUpdate'
 
+const timer = (ms: number) => new Promise(res => setTimeout(res, ms))
+
 async function main(dir: string) {
   const dirs = readdirSync(dir)
 
   for (const pkg of dirs) {
+    await timer(1 * 1000)
+
     try {
       await group<void>(`Updating package '${pkg}'...`, async () => {
         try {
