@@ -1,5 +1,6 @@
 import { Octokit } from "@octokit/core"
-import { existsSync, readFileSync, writeFileSync } from "fs"
+import { existsSync, mkdtempSync, readFileSync, writeFileSync } from "fs"
+import { tmpdir } from "os"
 
 import fetch from "cross-fetch"
 import YAML from "yaml"
@@ -7,6 +8,9 @@ import YAML from "yaml"
 import shell from "../shell"
 import inputs from "./inputs"
 import { YamlConfig } from "../types/yaml"
+
+// create a temporary directory
+const TEMP_DIR = mkdtempSync(`${tmpdir()}/medzik-`)
 
 // create a client for GitHub API
 const octokit = new Octokit({ auth: inputs.github_token })
@@ -50,11 +54,16 @@ async function autoUpdate(pkg: string, pkgdir: string) {
     }
 
     // check package version
-    let res = await fetch(`https://aur.archlinux.org/rpc/?v=5&type=info&arg=${config.aur.name}`)
-    let data = await res.json()
-    let version = data.results[0].Version
-    if (version == "") {
-      throw new Error(`'version' variable is empty`)
+    let pkgbuild_shell = await shell("wget", [`https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=${config.aur.name}`, "-O", `${TEMP_DIR}/${pkg}_PKGBUILD`])
+    if (pkgbuild_shell.exitCode != 0) {
+      throw new Error(`exited command with code = ${pkgbuild_shell.exitCode}`)
+    }
+
+    let pkg_version = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}_PKGBUILD && printf $pkgver`])).stdout.replace('\n', '')
+    let pkg_rel = (await shell("bash", ["-c", `. ${TEMP_DIR}/${pkg}_PKGBUILD && printf $pkgrel`])).stdout.replace('\n', '')
+
+    if (pkg_version == "" || pkg_rel == "") {
+      throw new Error(`pkg_rel or pkg_version is empty`)
     }
 
     // if the commit is different than the one in the file
@@ -66,7 +75,7 @@ async function autoUpdate(pkg: string, pkgdir: string) {
       // commit new version
       if (inputs.commit) {
         await shell("git", ["add", `${pkgdir}/auto-update.yaml`])
-        await shell("git", ["commit", "-m", `upgpkg: '${pkg}' to '${version}'`])
+        await shell("git", ["commit", "-m", `upgpkg: '${pkg}' to '${pkg_version}-${pkg_rel}'`])
 
         // push changes to remote
         if (inputs.push) {
@@ -75,7 +84,7 @@ async function autoUpdate(pkg: string, pkgdir: string) {
       }
     }
 
-    console.log(`Latest Version -> ${version}`)
+    console.log(`Latest Version -> ${pkg_version}-${pkg_rel}`)
   }
 
   // update PKGBUILD
@@ -89,15 +98,15 @@ async function autoUpdate(pkg: string, pkgdir: string) {
     })
 
     version = response.data[0].name
-      // replace "_" into ".": some packages use underscores to seperate
+      // replace '_' into '.': some packages use underscores to seperate
       // version numbers, but we require them to be separated by dot
       .replace(/_/g, '.')
 
-      // remove leading "v" or "r"
+      // remove leading 'v' or 'r'
       .replace(/^v|^r/, '')
 
-      // replace "-" into "."
-      // pacman does not support "-" in pkgver
+      // replace '-' into '.'
+      // pacman does not support '-' in pkgver
       .replace(/-/g, '.')
   }
 
@@ -109,15 +118,15 @@ async function autoUpdate(pkg: string, pkgdir: string) {
     })
 
     version = response.data.tag_name
-      // replace "_" into ".": some packages use underscores to seperate
+      // replace '_' into '.': some packages use underscores to seperate
       // version numbers, but we require them to be separated by dot
       .replace(/_/g, '.')
 
-      // remove leading "v" or "r"
+      // remove leading 'v' or 'r'
       .replace(/^v|^r/, '')
 
-      // replace "-" into "."
-      // pacman does not support "-" in pkgver
+      // replace '-' into '.'
+      // pacman does not support '-' in pkgver
       .replace(/-/g, '.')
   }
 
