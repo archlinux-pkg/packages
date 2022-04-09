@@ -25,7 +25,7 @@ jobs:
           git config --global user.email "rm99iv9s@duck.com"
 
       - name: Install Dependencies
-        run: sudo pacman -S --noconfirm npm
+        run: sudo pacman -Sy --noconfirm npm
 
       - name: Setup Auto Update Script
         run: npm run setup --prefix ./scripts
