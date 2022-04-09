@@ -1,5 +1,4 @@
 every: 1d
-
 aur:
   name: jcef-jetbrains-git
-  commit: 5891797193365c5321e3c74afba0692337c21027
+  commit: f5b413bd4f03c747090fac7b5699d27c2fdcbc15
