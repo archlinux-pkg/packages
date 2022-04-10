@@ -1,0 +1,29 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_npm='serve'
+pkgname='nodejs-serve'
+pkgver='13.0.2'
+pkgrel=1
+pkgdesc='Static file serving and directory listing '
+arch=('any')
+url="https://github.com/vercel/serve"
+license=('MIT')
+
+depends=('nodejs')
+makedepends=('npm')
+
+_file="$_npm-$pkgver.tgz"
+source=("https://registry.npmjs.org/$_npm/-/$_file")
+noextract=("$_file")
+sha512sums=('ef547a7cabcd80aaea01101a83a95824d9f10f3a47ec308daccbaf3d8e4f2d5682d8f0e126c1938ffdf8a38a38b4f5a14ee2e0117aaf8270166c04d0f731994d')
+
+package() {
+  npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
+
+  # Non-deterministic race in npm gives 777 permissions to random directories.
+  # See https://github.com/npm/npm/issues/9359 for details.
+  chmod -R u=rwX,go=rX "$pkgdir"
+
+  # npm installs package.json owned by build user
+  # https://bugs.archlinux.org/task/63396
+  chown -R root:root "$pkgdir"
+}
