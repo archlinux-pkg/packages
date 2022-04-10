@@ -66,7 +66,7 @@ jobs:
         id: stage
         uses: ./.github/scripts/build/long
         with:
-          package: "update-grub"
+          package: "package"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -91,7 +91,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: stage-1
-          package: "update-grub"
+          package: "package"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -116,7 +116,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: stage-2
-          package: "update-grub"
+          package: "package"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -141,7 +141,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: stage-3
-          package: "update-grub"
+          package: "package"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -166,7 +166,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: stage-4
-          package: "update-grub"
+          package: "package"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -191,7 +191,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           progress-name: stage-5
-          package: "update-grub"
+          package: "package"
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
