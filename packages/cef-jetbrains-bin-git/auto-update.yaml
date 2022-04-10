@@ -1,0 +1,4 @@
+every: 1d
+aur:
+  name: cef-jetbrains-bin-git
+  commit: 06f833f76f4b9393b3932b8963c2381048b25835
