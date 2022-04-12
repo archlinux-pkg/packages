@@ -2,8 +2,8 @@
 pkgname='create-react-app'
 replaces=("nodejs-$pkgname")
 provides=("nodejs-$pkgname")
-pkgver='5.0.0'
-pkgrel=2
+pkgver='5.0.1'
+pkgrel=1
 pkgdesc='Create React apps with no build configuration'
 arch=('any')
 url="https://www.npmjs.com/package/$pkgname"
@@ -15,7 +15,7 @@ makedepends=('npm')
 _file="$pkgname-$pkgver.tgz"
 source=("https://registry.npmjs.org/$pkgname/-/$_file")
 noextract=("$_file")
-sha512sums=('af5849ca6936f25f4788635ab4dabddadc5db9ae69ab9cf88c7b18446e20d81304edc0ed45c0a2b94b19cd3d6d3ea8daa521d3d19c29c27a7481d4daa8fcf204')
+sha512sums=('524c5328af08f47b99647aa436afc990a5c381d2de89119cf9b2f9f0869eda0fbb5b01689808f8c29a67e897ea95933620a611959b602e5995af9a197dd775c6')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
