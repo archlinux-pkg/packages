@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='esbuild'
-pkgver='0.14.34'
+pkgver='0.14.35'
 pkgrel=1
 pkgdesc='An extremely fast JavaScript and CSS bundler and minifier'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 makedepends=('go')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('39c3a1b6e83d32b0f339c1ad26ae637f524ae57656936de3867b03538d196453')
+sha256sums=('baefdab51a0bdf19d992104881f87d92964a89281cd712b59f852568cd3ef60b')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
