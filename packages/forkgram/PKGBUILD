@@ -1,7 +1,7 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='forkgram'
 _pkgname=frk
-pkgver=3.6.1
+pkgver='3.6.3'
 pkgrel=1
 provides=("telegram-desktop")
 conflicts=("telegram-desktop" "tdesktop-x64")
@@ -21,7 +21,7 @@ optdepends=('gtk3: GTK environment integration'
             'xdg-desktop-portal: desktop integration')
 
 source=("https://github.com/Forkgram/tdesktop/releases/download/v$pkgver/$_pkgname-v$pkgver-full.tar.gz")
-sha512sums=('edd299332e941384ff82c58a7c978f5b6e43dc24f8272a03a0efc0650868d26c3309d388abc7f4b8a06157ab5f81fc79a4d76c7d6e18394277900839392a98b8')
+sha512sums=('ae077ea5a23b045cede8b31835b9b489b53e8a550a605447c46d30440142530016fafdb381964c678735bdc704b536124fd9bdbf0dacde8100d8140c6897f4cb')
 
 build() {
   cd "$_pkgname-v$pkgver-full"
