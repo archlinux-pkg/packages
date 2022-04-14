@@ -1,0 +1,3 @@
+aur:
+  name: python-gevent-eventemitter
+  commit: 3c4931fb7d0854b5b380ff2bd17371a856bc0b39
