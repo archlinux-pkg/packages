@@ -23,6 +23,9 @@ jobs:
         with:
           fetch-depth: 1000
 
+      - name: work around permission issue
+        run: git config --global --add safe.directory /__w/packages/packages
+
       - name: Install dependencies
         run: pacman -Syu --needed --noconfirm docker
 
