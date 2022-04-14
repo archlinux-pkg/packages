@@ -7,7 +7,7 @@ TEMPDIR="$(mktemp -d -t medzik-aur-XXXXXXXXXX)"
 PACKAGES_TO_BUILD_DIR="$TEMPDIR/packages/tobuild"
 
 # makepkg variables
-MAKEPKGARGS='--rmdeps --clean --skippgpcheck --noconfirm --nocheck'
+MAKEPKGARGS='--rmdeps --clean --skippgpcheck --noconfirm --nocheck --nodeps'
 export BUILDDIR='/mnt/build'
 export PKGDEST='/mnt/pkgs'
 
