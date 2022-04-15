@@ -27,14 +27,14 @@ prepare() {
 build() {
   # xmrig
   echo '==> Building xmrig...'
-  cd "$pkgbase-$pkgver/build-xmrig"
+  cd "$srcdir/$pkgbase-$pkgver/build-xmrig"
   cmake -DCMAKE_BUILD_TYPE=Release ..
   cmake --build .
 
   # xmrig-donateless
   echo '==> Building xmrig-donateless...'
   # donateless
-  cd "$pkgbase-$pkgver"
+  cd "$srcdir/$pkgbase-$pkgver"
   sed -i 's/constexpr const int kDefaultDonateLevel = 1;/constexpr const int kDefaultDonateLevel = 0;/g' src/donate.h
   sed -i 's/constexpr const int kMinimumDonateLevel = 1;/constexpr const int kMinimumDonateLevel = 0;/g' src/donate.h
   # build
