@@ -1,0 +1,4 @@
+every: 1d
+aur:
+  name: powercord-electron-git
+  commit: ac1340dab1808a2a604cc3cf7a7edeae68ffd828
