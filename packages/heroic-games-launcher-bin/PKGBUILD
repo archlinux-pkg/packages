@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='heroic-games-launcher-bin'
-pkgdesc='A Native GUI Epic Games Launcher and GOG for Linux, Windows and Mac'
+pkgdesc='A Native GUI Epic Games Launcher and GOG for Linux'
 pkgver='2.2.6'
 pkgrel=1
 arch=('x86_64')
