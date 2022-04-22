@@ -3,8 +3,8 @@ _pkgname='@capacitor/cli'
 pkgname='capacitor-cli'
 replaces=("nodejs-$pkgname")
 provides=("nodejs-$pkgname")
-pkgver='3.4.3'
-pkgrel=2
+pkgver='3.5.0'
+pkgrel=1
 pkgdesc='Build cross-platform Native Progressive Web Apps for iOS, Android, and the Web'
 arch=('any')
 url="https://www.npmjs.com/package/$_pkgname"
@@ -16,7 +16,7 @@ makedepends=('npm')
 _file="cli-$pkgver.tgz"
 source=("$_file::https://registry.npmjs.org/$_pkgname/-/$_file")
 noextract=("$_file")
-sha256sums=('SKIP')
+sha256sums=('a9ff5c75b40d685849421dba175fa0f9ad7327819a1410eea3ae605bd4202e6e')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
