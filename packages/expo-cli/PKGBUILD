@@ -2,7 +2,7 @@
 pkgname='expo-cli'
 replaces=("nodejs-$pkgname")
 provides=("nodejs-$pkgname")
-pkgver='5.4.1'
+pkgver='5.4.2'
 pkgrel=1
 pkgdesc='Tools for creating, running, and deploying universal Expo and React Native apps'
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('npm')
 _file="$pkgname-$pkgver.tgz"
 source=("$_file::https://registry.npmjs.org/$pkgname/-/$_file")
 noextract=("$_file")
-sha512sums=('daa33e056c1b97c09f87ceb421ff87b9664e5c9eed8a43088eec9c47241689f905c017c0986c1df9c45148055bc7b61840fc0427f32e5f8e4debd94a5a3e8f3a')
+sha512sums=('5450fb8d459639cd33afd7f746a5db6f92739420dae0175ecbbbba757cec3f012a301fc2b99b04b2f03588634f097f05c9cac7736884b84f25ced4f0586e679a')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
