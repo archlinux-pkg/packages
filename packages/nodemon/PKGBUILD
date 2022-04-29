@@ -2,7 +2,7 @@
 pkgname='nodemon'
 replaces=("nodejs-$pkgname")
 provides=("nodejs-$pkgname")
-pkgver='2.0.15'
+pkgver='2.0.16'
 pkgrel=1
 pkgdesc='Monitor for any changes in your node.js application and automatically restart the server - perfect for development'
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('npm')
 _file="$pkgname-$pkgver.tgz"
 source=("https://registry.npmjs.org/$pkgname/-/$_file")
 noextract=("$_file")
-sha256sums=('7d2a0113b58ae36fa418a4fe517d76e3fe96d2fa644ceea1bba90d9d2838acd8')
+sha256sums=('f2f02a4152dbf220e3b814f02b150e1fedf558ef622a14c1e918c74ebc24ca77')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
