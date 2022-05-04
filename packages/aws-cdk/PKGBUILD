@@ -2,7 +2,7 @@
 pkgname='aws-cdk'
 replaces=("nodejs-$pkgname")
 provides=("nodejs-$pkgname")
-pkgver='2.22.0'
+pkgver='2.23.0'
 pkgrel=1
 pkgdesc='CDK Toolkit, the command line tool for CDK app'
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('npm')
 _file="$pkgname-$pkgver.tgz"
 source=("$_file::https://registry.npmjs.org/$pkgname/-/$_file")
 noextract=("$_file")
-sha512sums=('a05dd50affebb6e2e4f1e2dbe820445af1286da6c6f2ad397abb1ac06132f4206129b28d8df635143cfa81cdecb24b13c1f709ab2266b3697f05094b3018ee83')
+sha512sums=('b1f56b14898ffa645576a083b0970ceb78a7029f7f5d29a6784da1960f01ab07fb5946e54668f6db1883e7755b2f676473595ae94374e5391f3430064f4b24a3')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$srcdir/$_file"
