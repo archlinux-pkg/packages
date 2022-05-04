@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='stripe-cli'
-pkgver='1.8.10'
+pkgver='1.8.11'
 pkgrel=1
 pkgdesc='Modern and easy to use SQL client for MySQL, Postgres, SQLite, SQL Server, and more'
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('go' 'git')
 
 source=("https://github.com/stripe/stripe-cli/archive/v$pkgver.tar.gz"
         'reproducible-image-flags.patch')
-sha512sums=('c58f336da693f1e02c776574cf327bc60a383a4774ef5022cfa8f4b8ce52198a7fff3ae4763666020fd685df3845bf196feba4d86b58d3abc83eb6a6d2f9dc8e'
+sha512sums=('6c05ed82b4a405674ee5eda512f2cdd39750206f904d77eea5a3743612cee71a10b923d0c2e4631897c3f235ef57ce7ff962babc8b051e378c68b78cb8568cf7'
             '4f5ff8662f5e4bce1ded88a055e652c41dd6492cda5aee74795752abf0e97cc269ec1fef84df2247f62809f0c8cc1a88dd12104e07090cc224bbc5ad46b33f37')
 
 prepare() {
