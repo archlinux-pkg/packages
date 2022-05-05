@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='sshs'
-pkgver='3.1.0'
+pkgver='3.2.0'
 pkgrel=1
 pkgdesc='Terminal user interface for SSH'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('glibc' 'openssh')
 makedepends=('git' 'go')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('8e54b9a1934be9fbddf9057415650232330c82562b02a2199dfab19dd9aae81d7e217097cf0ca2d3a4df7217c4451d53231f29e99f6fa6f8cebc10b9cc80f4d2')
+sha512sums=('c9da31ecbdba42b6b13ca3b28418710108201b6143f7c68943e5da5469705e27b6bee5014a7ce9a14231f37cd56021ee07f946324d1ed9a35ae27866a2e8b17a')
 
 build() {
   cd "$pkgname-$pkgver"
