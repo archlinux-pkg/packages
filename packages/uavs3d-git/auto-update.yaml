@@ -1,0 +1,4 @@
+every: 1w
+aur:
+  name: uavs3d-git
+  commit: 577c5db744ad787f73a015919b7b5d7cf2648859

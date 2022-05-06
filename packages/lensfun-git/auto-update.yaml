@@ -1,0 +1,4 @@
+every: 1d
+aur:
+  name: lensfun-git
+  commit: ea96d48c3c52cf55b7d789e83e8f5b357e38ef28

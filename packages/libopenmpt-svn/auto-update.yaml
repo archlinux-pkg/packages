@@ -1,0 +1,4 @@
+every: 1d
+aur:
+  name: libopenmpt-svn
+  commit: 3ddcce04402e9395f3b4ba8797cabcc6b3af8241

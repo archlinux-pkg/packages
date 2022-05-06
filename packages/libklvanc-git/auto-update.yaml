@@ -1,0 +1,4 @@
+every: 1w
+aur:
+  name: libklvanc-git
+  commit: 988a8a46e9b60ad775f04a5cf0e4a35a56db769d
