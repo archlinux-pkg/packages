@@ -1,0 +1,44 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgbase='keepassxc-browser'
+pkgname=('chromium-extension-keepassxc-browser' 'firefox-extension-keepassxc-browser' 'librewolf-extension-keepassxc-browser')
+pkgver='1.7.12'
+pkgrel=1
+pkgdesc='KeePassXC Browser Extension for Chromium'
+arch=('any')
+url="https://github.com/keepassxreboot/keepassxc-browser"
+license=('GPL3')
+
+makedepends=('unzip')
+optdepends=("keepassxc: cross-platform community-driven port of the Windows application 'Keepass Password Safe'")
+
+_filename_chromium="keepassxc-browser_${pkgver}_chromium.zip"
+_filename_firefox="keepassxc-browser_${pkgver}_firefox.zip"
+source=("$_filename_chromium::$url/releases/download/$pkgver/$_filename_chromium"
+        "$_filename_firefox::$url/releases/download/$pkgver/$_filename_firefox")
+noextract=("$_filename_chromium"
+           "$_filename_firefox")
+sha256sums=('c6915187c9277e5b4709f707276f761e2ac39c72d9caa1c1ad555812ee90996a'
+            '5b7367116a624b966f03e6d8e25bcfd5d6077aba8637c04ca1bc7b1b2c10c4d4')
+
+prepare() {
+  unzip -o "$_filename_chromium" -d "$srcdir/chromium-$pkgbase-$pkgver"
+}
+
+package_chromium-extension-keepassxc-browser() {
+  cd "$srcdir/chromium-$pkgbase-$pkgver"
+
+  install -d "$pkgdir/usr/share/chromium-$pkgname"
+  cp -r -- * "$pkgdir/usr/share/chromium-$pkgname"
+
+  echo "{ \"external_crx\": \"/usr/share/chromium-$pkgname/$pkgname.crx\", \"external_version\": \"$pkgver\" }" > oboonakemofpalcgghocfoadofidjkkk.json
+}
+
+package_firefox-extension-keepassxc-browser() {
+  groups=('firefox-addons')
+  install -Dm 644 "$_filename_firefox" "$pkgdir/usr/lib/firefox/browser/extensions/keepassxc-browser@keepassxc.org.xpi"
+}
+
+package_librewolf-extension-keepassxc-browser() {
+  groups=('librewolf-addons')
+  install -Dm 644 "$_filename_firefox" "$pkgdir/usr/lib/librewolf/browser/extensions/keepassxc-browser@keepassxc.org.xpi"
+}
