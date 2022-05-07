@@ -4,13 +4,13 @@ pkgver='2.15.1'
 pkgrel=1
 pkgdesc='A simple deb and rpm packager written in Go'
 arch=('x86_64')
-url="https://github.com/goreleaser/goreleaser"
+url="https://github.com/goreleaser/nfpm"
 license=('MIT')
 
 makedepends=('go')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('02e5146f180389e03045ec0ad65670971358915d3fd4bc52d7b053d82676ac85a7cbbd683916485b83f0d53aada18d107fbf6c2b73f12302958ce28f8c8d9332')
+sha512sums=('SKIP')
 
 build() {
   cd "$pkgname-$pkgver"
