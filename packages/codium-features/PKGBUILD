@@ -1,9 +1,8 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='codium-features'
-conflicts=('vscodium')
 pkgdesc="Unblock some features in VSCodium"
 pkgver=1
-pkgrel=2
+pkgrel=3
 arch=('any')
 url="https://github.com/microsoft/vscode"
 license=('unknown')

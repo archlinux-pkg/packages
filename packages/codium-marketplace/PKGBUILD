@@ -1,8 +1,7 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='codium-marketplace'
-conflicts=('vscodium')
 pkgver=1
-pkgrel=3
+pkgrel=4
 pkgdesc="Enable VSCode marketplace in VSCodium"
 arch=('any')
 url="https://marketplace.visualstudio.com/vscode"
