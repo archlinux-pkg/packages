@@ -3,8 +3,8 @@ _pkgname='@ionic/cli'
 pkgname='ionic-cli'
 replaces=("nodejs-$pkgname")
 provides=("nodejs-$pkgname")
-pkgver='6.19.0'
-pkgrel=2
+pkgver='6.19.1'
+pkgrel=1
 pkgdesc='A tool for creating and developing Ionic Framework mobile apps'
 arch=('any')
 url="https://www.npmjs.com/package/$_pkgname"
@@ -16,7 +16,7 @@ makedepends=('npm')
 _file="cli-$pkgver.tgz"
 source=("https://registry.npmjs.org/$_pkgname/-/$_file")
 noextract=("$_file")
-sha512sums=('241b1e5c115183abe8093838ec70cb76b2424057e5aab95bbf57f5e4c30f7b51edac7358feaf14d1041d627c16c2200c05460ca3ac2b09bc97928b28e1475229')
+sha512sums=('e7009e024572bf3898955cb5bf01cb6c005cb2a7daa30c0b16002438ab65e165d87163af155f95535668c6cdf75c7203c6688192a55c0bf26138b12b966662f6')
 
 package() {
   npm install -g --prefix "$pkgdir/usr" "$_file"
