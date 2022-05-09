@@ -79,6 +79,7 @@ build() {
 
   # Set a temporary NVM directory to make sure the nvm in this script does not clash with a system-wide nvm install
   export NVM_DIR="$srcdir/.nvm"
+  source /usr/share/nvm/init-nvm.sh || [[ $? != 1 ]]
 
   # TODO: Remove this when VSCodium adds the .nvmrc file
   if [ ! -f .nvmrc ]
