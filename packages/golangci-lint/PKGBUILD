@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='golangci-lint'
-pkgver='1.46.1'
+pkgver='1.46.2'
 pkgrel=1
 pkgdesc='Linters Runner for Go. 5x faster than gometalinter'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL3')
 makedepends=('go')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('c9f6a8cdef93b63b3d8a7b43c274a5961191de559037d28bf2152ca0e23883e5')
+sha256sums=('2f4b6592161565fdd0ee5fea7719dbd6ef593f7ad0e1975fd82e4fb745d487a8')
 
 build() {
   cd "$pkgname-$pkgver"
