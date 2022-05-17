@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='cargo-deny'
-pkgver='0.11.4'
+pkgver='0.12.0'
 pkgrel=1
 pkgdesc='Cargo plugin for linting your dependencies'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('Apache' 'MIT')
 depends=('cargo' 'gcc-libs' 'zlib')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('73d0de1ac33f491b588ee71e276840df6cfc07fbb8c311b120abf24b8eda3afa')
+sha256sums=('0c0e78f5807171439ac6c8b256bdc7b7fdfa88acecd03f1e2861ab44fa89f0a0')
 
 build() {
   cd "$pkgname-$pkgver"
