@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname="goreleaser"
-pkgver='1.8.3'
+pkgver='1.9.0'
 pkgrel=1
 pkgdesc='Deliver Go binaries as fast and easily as possible'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('go')
 makedepends=('go')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('3ac091dacf81357a83b5c8bf17bbcb325371111b88bc59fa79c8354be2273145')
+sha256sums=('c6ecf0a721561777aac2a9e15bf88a57fc867c5055d3f9d399d14574f4be73b5')
 
 build() {
   cd "$pkgname-$pkgver"
