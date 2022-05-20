@@ -19,4 +19,4 @@ SigLevel = DatabaseOptional
 Include = /etc/pacman.d/mirrorlist-medzikuser' | sudo tee --append /etc/pacman.conf
 ```
 
-[Build-AUR](https://github.com/built-aur/packages)
+[Built-AUR](https://github.com/built-aur/packages)
