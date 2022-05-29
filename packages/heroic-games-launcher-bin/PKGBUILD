@@ -1,7 +1,7 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='heroic-games-launcher-bin'
 pkgdesc='A Native GUI Epic Games Launcher and GOG for Linux'
-pkgver='2.3.3'
+pkgver='2.3.4'
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
@@ -12,7 +12,7 @@ optdepends=('legendary')
 
 _file="heroic-$pkgver.pacman"
 source=("$_file::$url/releases/download/v$pkgver/$_file")
-sha256sums=('076e788b988b35e575a9dc825b8cc65e90bdb0879e8132472dfdb3c2f932693b')
+sha256sums=('1f62bf5bbda07bdf477a619895f0f8df63149b0f2413baaae81ed44118ea226d')
 options=(!strip)
 
 package() {
