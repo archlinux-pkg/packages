@@ -1,4 +1,4 @@
 every: 1d
 aur:
   name: linux-next-git
-  commit: f362e18e3eaed3a6557eb578242634cbbbf98993
+  commit: 146f1633b114d9cd5e3dc86a7cf62ed5c0a9f67d
