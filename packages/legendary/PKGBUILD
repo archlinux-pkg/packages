@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='legendary'
-pkgver=0.20.25
+pkgver='0.20.26'
 pkgrel=1
 pkgdesc='Legendary - A free and open-source replacement for the Epic Games Launcher'
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python' 'python-requests' 'python-wheel')
 makedepends=('python-setuptools')
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('2ba8d3ebcd751201e23dccb3666e849366529c0edcc926fe6fd3216f23683aff9a396eb6e7f2d9e26961bd02cf07578e1ded95a6065460e6977e8d10f0242962')
+sha512sums=('d1b3244437bf2f2c7efb3fd181cc6a83d197c32256bb31d9f9b0c1b8a4712814a8ad5e6f227d953cd0bc5e31dffb816f456f33d14ebbd68355f5b4d78f4e5ea0')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
