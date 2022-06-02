@@ -1,4 +1,4 @@
 every: 1d
 aur:
   name: gcc-git
-  commit: 238ed4642a8c587946357ccd603d89c6f294f6fc
+  commit: 5df73195127c47eea63a8253e956588332a8e337
