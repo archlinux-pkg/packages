@@ -3,7 +3,7 @@
     "setup": "npm install && tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@actions/artifact": "1.0.0",
+    "@actions/artifact": "1.1.0",
     "@actions/core": "1.6.0",
     "@actions/exec": "1.1.1",
     "@actions/github": "5.0.1",
